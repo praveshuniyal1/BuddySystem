@@ -1,0 +1,3 @@
+dependencies: \
+  /Users/dmarez/Desktop/BuddySystem/FrameWork/JSQMessagesViewController/JSQMessagesViewController/Layout/JSQMessagesCollectionViewFlowLayoutInvalidationContext.m \
+  /Users/dmarez/Desktop/BuddySystem/FrameWork/JSQMessagesViewController/JSQMessagesViewController/Layout/JSQMessagesCollectionViewFlowLayoutInvalidationContext.h

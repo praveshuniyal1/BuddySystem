@@ -1,0 +1,27 @@
+dependencies: \
+  /Users/dmarez/Desktop/BuddySystem/FrameWork/JSQMessagesViewController/JSQMessagesViewController/Controllers/JSQMessagesViewController.m \
+  /Users/dmarez/Desktop/BuddySystem/FrameWork/JSQMessagesViewController/JSQMessagesViewController/Controllers/JSQMessagesViewController.h \
+  /Users/dmarez/Desktop/BuddySystem/FrameWork/JSQMessagesViewController/JSQMessagesViewController/Views/JSQMessagesCollectionView.h \
+  /Users/dmarez/Desktop/BuddySystem/FrameWork/JSQMessagesViewController/JSQMessagesViewController/Layout/JSQMessagesCollectionViewFlowLayout.h \
+  /Users/dmarez/Desktop/BuddySystem/FrameWork/JSQMessagesViewController/JSQMessagesViewController/Model/JSQMessagesCollectionViewDelegateFlowLayout.h \
+  /Users/dmarez/Desktop/BuddySystem/FrameWork/JSQMessagesViewController/JSQMessagesViewController/Model/JSQMessagesCollectionViewDataSource.h \
+  /Users/dmarez/Desktop/BuddySystem/FrameWork/JSQMessagesViewController/JSQMessagesViewController/Views/JSQMessagesCollectionViewCell.h \
+  /Users/dmarez/Desktop/BuddySystem/FrameWork/JSQMessagesViewController/JSQMessagesViewController/Views/JSQMessagesLabel.h \
+  /Users/dmarez/Desktop/BuddySystem/FrameWork/JSQMessagesViewController/JSQMessagesViewController/Views/JSQMessagesCellTextView.h \
+  /Users/dmarez/Desktop/BuddySystem/FrameWork/JSQMessagesViewController/JSQMessagesViewController/Views/JSQMessagesInputToolbar.h \
+  /Users/dmarez/Desktop/BuddySystem/FrameWork/JSQMessagesViewController/JSQMessagesViewController/Views/JSQMessagesToolbarContentView.h \
+  /Users/dmarez/Desktop/BuddySystem/FrameWork/JSQMessagesViewController/JSQMessagesViewController/Views/JSQMessagesComposerTextView.h \
+  /Users/dmarez/Desktop/BuddySystem/FrameWork/JSQMessagesViewController/JSQMessagesViewController/Controllers/JSQMessagesKeyboardController.h \
+  /Users/dmarez/Desktop/BuddySystem/FrameWork/JSQMessagesViewController/JSQMessagesViewController/Layout/JSQMessagesCollectionViewFlowLayoutInvalidationContext.h \
+  /Users/dmarez/Desktop/BuddySystem/FrameWork/JSQMessagesViewController/JSQMessagesViewController/Model/JSQMessageData.h \
+  /Users/dmarez/Desktop/BuddySystem/FrameWork/JSQMessagesViewController/JSQMessagesViewController/Model/JSQMessageMediaData.h \
+  /Users/dmarez/Desktop/BuddySystem/FrameWork/JSQMessagesViewController/JSQMessagesViewController/Model/JSQMessageBubbleImageDataSource.h \
+  /Users/dmarez/Desktop/BuddySystem/FrameWork/JSQMessagesViewController/JSQMessagesViewController/Model/JSQMessageAvatarImageDataSource.h \
+  /Users/dmarez/Desktop/BuddySystem/FrameWork/JSQMessagesViewController/JSQMessagesViewController/Views/JSQMessagesCollectionViewCellIncoming.h \
+  /Users/dmarez/Desktop/BuddySystem/FrameWork/JSQMessagesViewController/JSQMessagesViewController/Views/JSQMessagesCollectionViewCellOutgoing.h \
+  /Users/dmarez/Desktop/BuddySystem/FrameWork/JSQMessagesViewController/JSQMessagesViewController/Views/JSQMessagesTypingIndicatorFooterView.h \
+  /Users/dmarez/Desktop/BuddySystem/FrameWork/JSQMessagesViewController/JSQMessagesViewController/Views/JSQMessagesLoadEarlierHeaderView.h \
+  /Users/dmarez/Desktop/BuddySystem/FrameWork/JSQMessagesViewController/JSQMessagesViewController/Factories/JSQMessagesTimestampFormatter.h \
+  /Users/dmarez/Desktop/BuddySystem/FrameWork/JSQMessagesViewController/JSQMessagesViewController/Categories/NSString+JSQMessages.h \
+  /Users/dmarez/Desktop/BuddySystem/FrameWork/JSQMessagesViewController/JSQMessagesViewController/Categories/UIColor+JSQMessages.h \
+  /Users/dmarez/Desktop/BuddySystem/FrameWork/JSQMessagesViewController/JSQMessagesViewController/Categories/UIDevice+JSQMessages.h
