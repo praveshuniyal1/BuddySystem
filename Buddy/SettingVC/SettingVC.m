@@ -316,7 +316,7 @@
                 break;
             case 1:
                 
-                
+                [[NSUserDefaults standardUserDefaults]removeObjectForKey:@"userID"];
                 [NSUserDefaults removeNSUserDefaultObjectForKey:kLoginUserInfo];
                 [NSUserDefaults removeNSUserDefaultObjectForKey:kFriendList];
                 
@@ -334,7 +334,7 @@
     }
     else if ([serviceurl isEqual:KLogout])
     {
-        
+        [[NSUserDefaults standardUserDefaults]removeObjectForKey:@"userID"];
         [NSUserDefaults removeNSUserDefaultObjectForKey:kLoginUserInfo];
         [NSUserDefaults removeNSUserDefaultObjectForKey:kFriendList];
 
