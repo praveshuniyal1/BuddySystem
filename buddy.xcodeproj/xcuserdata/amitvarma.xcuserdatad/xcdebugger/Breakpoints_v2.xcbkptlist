@@ -327,13 +327,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Buddy/AppDelegate.m"
-            timestampString = "470772436.486833"
+            filePath = "Buddy/FBLoginVC.m"
+            timestampString = "470944799.342622"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "931"
-            endingLineNumber = "931"
-            landmarkName = "-inserCategoryDataInDb:"
+            startingLineNumber = "165"
+            endingLineNumber = "165"
+            landmarkName = "-fbUserFreindList:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

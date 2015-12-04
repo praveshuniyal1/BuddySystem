@@ -170,6 +170,7 @@
         [NSUserDefaults setNSUserDefaultobject:userFriendList key:kFriendList];
 
          jsonString = [[ServerManager getSharedInstance]jsonRepresentForm:userFriendList];
+        [userinfoDict setObject:jsonString forKey:@"friend_list"];
     }
     else if (userFriendList.count==0)
     {
@@ -178,24 +179,15 @@
         userFriendList=[[NSMutableArray alloc]initWithObjects:@"null", nil];
         jsonString = [[ServerManager getSharedInstance]jsonRepresentForm:userFriendList];
         NSLog(@"%@",jsonString);
+         [userinfoDict setObject:@"null" forKey:@"friend_list"];
     }
-
    
     NSLog(@"jsonData as string:\n%@", jsonString);
     
-    
    [userinfoDict setObject:[[NSUserDefaults standardUserDefaults] valueForKey:@"accessToken"] forKey:@"access_token"];
     
-    if ([userFriendList count]>0)
-    {
-        [userinfoDict setObject:jsonString forKey:@"friend_list"];
-    }
-    else if (userFriendList.count==0){
-        
-        [userinfoDict setObject:@"null" forKey:@"friend_list"];
-        
-    }
-      [self signUpwithFB:userinfoDict profileimage:profileimage];
+
+    [self signUpwithFB:userinfoDict profileimage:profileimage];
 }
 
 #pragma mark-signUpwithFB-
