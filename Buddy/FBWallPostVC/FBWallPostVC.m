@@ -43,6 +43,11 @@ int idx=0;
     
     userinfoDict=[NSDictionary dictionaryWithDictionary:[NSUserDefaults getNSUserDefaultValueForKey:kLoginUserInfo]] ;
     friendlist=(NSMutableArray*)[NSUserDefaults getNSUserDefaultObjectForKey:kFriendList];
+    if (friendlist.count>=10) {
+         friendlist = [friendlist subarrayWithRange:NSMakeRange(0, 10)];
+    }
+    
+   
     
     if((friendlist==[NSNull class])||([friendlist isEqual:@"null"])||([friendlist isEqual:@"(null)"])||([friendlist isEqual:@"<null>"])||([friendlist isEqual:@"nil"])||([friendlist isEqual:@""])||([friendlist isEqual:@"<nil>"]))
     {
@@ -686,8 +691,8 @@ int idx=0;
     else if ([[SelectCatDict valueForKey:@"CatTime"]isEqualToString:@"Other"])
     {
         NSString *dayDate=[[NSUserDefaults standardUserDefaults]valueForKey:@"OtherDate"];
-        mes=[NSString stringWithFormat:@"Anyone in %@ up for some other on %@ ? %@ my buddy %@ for the details ",address,dayDate,@"Message",[[NSUserDefaults standardUserDefaults]valueForKey:@"UserName"]];
-        myWall=[NSString stringWithFormat:@"Anyone in %@ up for some on %@ ?",address,dayDate];
+        mes=[NSString stringWithFormat:@"Anyone in %@ up for some %@ on %@ ? %@ my buddy %@ for the details ",address,catTitletext.text,dayDate,@"Message",[[NSUserDefaults standardUserDefaults]valueForKey:@"UserName"]];
+        myWall=[NSString stringWithFormat:@"Anyone in %@ up for some %@ on %@ ?",address,catTitletext.text,dayDate];
     }
     
     else
@@ -745,7 +750,7 @@ int idx=0;
                 {
                     if([[[responseDict valueForKey:@"data"] objectAtIndex:i] valueForKey:@"access_token"] != [NSNull null])
                     {
-                    [contactList addObject:[[responseDict valueForKey:@"data"] objectAtIndex:i]];
+                     [contactList addObject:[[responseDict valueForKey:@"data"] objectAtIndex:i]];
                     }
                 }
                 

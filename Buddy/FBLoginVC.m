@@ -134,6 +134,9 @@
                genderType=0;
            }
            
+           [[NSUserDefaults standardUserDefaults]setBool:NO forKey:@"isUpdate"];
+           [[NSUserDefaults standardUserDefaults]synchronize];
+           
            CLLocationCoordinate2D  loctCoord = [[LocationManager locationInstance]getcurrentLocation];
            
           
@@ -170,7 +173,14 @@
         [NSUserDefaults setNSUserDefaultobject:userFriendList key:kFriendList];
 
          jsonString = [[ServerManager getSharedInstance]jsonRepresentForm:userFriendList];
-        [userinfoDict setObject:jsonString forKey:@"friend_list"];
+        if (userFriendList.count>=10) {
+            userFriendList = [userFriendList subarrayWithRange:NSMakeRange(0, 10)];
+            [userinfoDict setObject:jsonString forKey:@"friend_list"];
+        }
+        else{
+            [userinfoDict setObject:jsonString forKey:@"friend_list"];
+        }
+        
     }
     else if (userFriendList.count==0)
     {

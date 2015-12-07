@@ -83,10 +83,7 @@
     if (is_net==YES)
     {
         [[ServerManager getSharedInstance]showactivityHub:@"Loading.." addWithView:self.view];
-               // NSString * poststr=[NSString stringWithFormat:@"usr_id=%@&usr_name=%@",usrId,name];
-       // CLLocationCoordinate2D  loctCoord = [[LocationManager locationInstance]getcurrentLocation];
-        
-        
+     
         [ServerManager getSharedInstance].Delegate=self;
        // NSDictionary * postDict=[NSDictionary dictionaryWithObjectsAndKeys:usrId,@"usr_id",[NSString stringWithFormat:@"%f",loctCoord.latitude],@"lattitude",[NSString stringWithFormat:@"%f",loctCoord.longitude],@"longitude", nil];
         NSDictionary * postDict=[NSDictionary dictionaryWithObjectsAndKeys:usrId,@"user_id", nil];//688312051269645//10153324067673651

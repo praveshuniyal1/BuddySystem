@@ -59,6 +59,9 @@
 {
     
     NSString * filename=[shareDict valueForKey:@"videoFile"];
+    filename = [filename stringByReplacingOccurrencesOfString:@"http://dev414.trigma.us/Buddy/files/activities/video/"
+                                                   withString:@""];
+    
     NSString * videoPath=[[DBManager getSharedInstance]getFilePath:filename];
     if (![videoPath isEqual:@"No found"])
     {

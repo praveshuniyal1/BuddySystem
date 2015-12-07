@@ -26,6 +26,13 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    NSMutableArray *arr=[[NSMutableArray alloc]init];
+    for (int i=0; i<=12; i++)
+    {
+        [arr addObject:@"a"];
+    }
+    
+   
     
     for(UIVisualEffectView * effectview in visibleEffectView)
     {
@@ -48,6 +55,7 @@
 
 -(void)viewWillAppear:(BOOL)animated
 {
+    [[LocationManager locationInstance]getcurrentLocation];
     [super viewWillAppear:animated];
     [self bgplayer];
 }

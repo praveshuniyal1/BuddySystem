@@ -11,7 +11,9 @@
 
 @implementation LocationManager
 
+
 static LocationManager *sharedInstance = nil;
+typedef void(^addressCompletion)(NSString *);
 
 +(LocationManager*)locationInstance
 {
@@ -51,8 +53,9 @@ static LocationManager *sharedInstance = nil;
         
    [locationManager startUpdatingLocation];
     
-//    [locationManager performSelector:@selector(stopUpdatingLocation) withObject:nil afterDelay:10.0];
+    //[locationManager performSelector:@selector(stopUpdatingLocation) withObject:nil afterDelay:600.0];
     
+   
     
     CLLocation *location = [locationManager location];
     CLLocationCoordinate2D coordinate = [location coordinate];
@@ -93,27 +96,93 @@ static LocationManager *sharedInstance = nil;
      CLLocation * currentLoc = (CLLocation *)[locations lastObject];
     if (currentLoc != nil)
     {
-        longitudeLabel = [NSString stringWithFormat:@"%.8f", currentLoc.coordinate.longitude];
-        latitudeLabel = [NSString stringWithFormat:@"%.8f", currentLoc.coordinate.latitude];
+        longitudeLabel = [NSString stringWithFormat:@"%.4f", currentLoc.coordinate.longitude];
+        latitudeLabel = [NSString stringWithFormat:@"%.4f", currentLoc.coordinate.latitude];
         
         [[NSUserDefaults standardUserDefaults] setObject:longitudeLabel forKey:@"LongitudeAs"];
         [[NSUserDefaults standardUserDefaults] setObject:latitudeLabel forKey:@"LatitudeAs"];
         
-        if ([[NSUserDefaults standardUserDefaults]valueForKey:@"userID"])
-        {
-            NSMutableDictionary *postdict=[NSMutableDictionary dictionaryWithObjectsAndKeys:[[NSUserDefaults standardUserDefaults]valueForKey:@"userID"],@"user_id",latitudeLabel,@"latitude",longitudeLabel,@"longitude",nil];
-            
-            if ([[ServerManager getSharedInstance]checkNetwork]==YES)
+        
+        
+        CLLocation* eventLocation = [[CLLocation alloc] initWithLatitude:currentLoc.coordinate.latitude longitude:currentLoc.coordinate.longitude];
+        
+        [self getAddressFromLocation:eventLocation complationBlock:^(NSString * address) {
+            if(address)
             {
-                [ServerManager getSharedInstance].Delegate=self;
-                [[ServerManager getSharedInstance]postDataOnserver:postdict withrequesturl:KUpdateUserLocation];
+               NSString* getaddress = address;
+                
+                if ([[NSUserDefaults standardUserDefaults]boolForKey:@"isUpdated"]==NO)
+                {
+                    [[NSUserDefaults standardUserDefaults]setObject:getaddress forKey:@"getAddress"];
+                    [[NSUserDefaults standardUserDefaults]setBool:YES forKey:@"isUpdated"];
+                    
+                    if ([[NSUserDefaults standardUserDefaults]valueForKey:@"userID"])
+                    {
+                        NSMutableDictionary *postdict=[NSMutableDictionary dictionaryWithObjectsAndKeys:[[NSUserDefaults standardUserDefaults]valueForKey:@"userID"],@"user_id",latitudeLabel,@"latitude",longitudeLabel,@"longitude",nil];
+                        
+                        if ([[ServerManager getSharedInstance]checkNetwork]==YES)
+                        {
+                            [ServerManager getSharedInstance].Delegate=self;
+                            [[ServerManager getSharedInstance]postDataOnserverLocation:postdict withrequesturl:KUpdateUserLocation];
+                           
+                            
+                        }
+                    }
+                }
+                else
+                {
+                    if ([getaddress isEqualToString:[[NSUserDefaults standardUserDefaults]valueForKey:@"getAddress"]])
+                    {
+                        
+                    }
+                    else
+                    {
+                        if ([[NSUserDefaults standardUserDefaults]valueForKey:@"userID"])
+                        {
+                            NSMutableDictionary *postdict=[NSMutableDictionary dictionaryWithObjectsAndKeys:[[NSUserDefaults standardUserDefaults]valueForKey:@"userID"],@"user_id",latitudeLabel,@"latitude",longitudeLabel,@"longitude",nil];
+                            
+                            if ([[ServerManager getSharedInstance]checkNetwork]==YES)
+                            {
+                                [ServerManager getSharedInstance].Delegate=self;
+                                [[ServerManager getSharedInstance]postDataOnserverLocation:postdict withrequesturl:KUpdateUserLocation];
+                                [[NSUserDefaults standardUserDefaults]setBool:NO forKey:@"isUpdated"];
+                                
+                            }
+                        }
+                        
+                    }
+                    
+                }
+                
+                
             }
-        }
+        }];
+        
+        
         
         
     }
 
 }
+
+-(void)getAddressFromLocation:(CLLocation *)location complationBlock:(addressCompletion)completionBlock
+{
+    __block CLPlacemark* placemark;
+    __block NSString *address = nil;
+    
+    CLGeocoder* geocoder = [CLGeocoder new];
+    [geocoder reverseGeocodeLocation:location completionHandler:^(NSArray *placemarks, NSError *error)
+     {
+         if (error == nil && [placemarks count] > 0)
+         {
+             placemark = [placemarks lastObject];
+             address = [NSString stringWithFormat:@"%@, %@ %@", placemark.name, placemark.postalCode, placemark.locality];
+             completionBlock(address);
+         }
+     }];
+}
+
+
 -(void)serverReponse:(NSDictionary *)responseDict withrequestName:(NSString *)serviceurl
 {
     NSLog(@"Response tripathi -->> %@ and serviceURL------->>> %@",responseDict,serviceurl);
@@ -124,7 +193,7 @@ static LocationManager *sharedInstance = nil;
         {
             [KappDelgate showHomeView];
         }
-        
+        [locationManager stopUpdatingLocation];
     }
 
 }
