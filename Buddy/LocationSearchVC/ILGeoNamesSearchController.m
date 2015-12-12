@@ -179,26 +179,7 @@
         cell.textLabel.text=[NSString stringWithFormat:@"%@ ",strCity];
 
     }
-//		cell.textLabel.text = [self.searchResults[indexPath.row] valueForKey:@"name"] ;
-//		NSString	*subString = [geoname objectForKey:kILGeoNamesCountryNameKey];
-//		if(subString && ![subString isEqualToString:@""]) {
-//			NSString	*admin1 = [geoname objectForKey:kILGeoNamesAdminName1Key];
-//			if(admin1 && ![admin1 isEqualToString:@""]) {
-//				subString = [admin1 stringByAppendingFormat:@", %@", subString];
-//				NSString *admin2 = [geoname objectForKey:kILGeoNamesAdminName2Key];
-//				if(admin2 && ![admin2 isEqualToString:@""]) {
-//					subString = [admin2 stringByAppendingFormat:@", %@", subString];
-//				}
-////			}
-//		}
-//		else
-//        {
-//			subString = [geoname objectForKey:kILGeoNamesFeatureClassNameKey];
-//		}
-//		cell.detailTextLabel.text = subString;
-//		cell.isAccessibilityElement = YES;
-//		cell.accessibilityLabel = [NSString stringWithFormat:@"%@, %@", name, subString];
-//	}
+
 	
 	return cell;
 }
