@@ -8,6 +8,7 @@
 //
 
 #import "FBWallPostVC.h"
+#import <CoreGraphics/CoreGraphics.h>
 
 @interface FBWallPostVC ()
 {
@@ -38,6 +39,8 @@ int idx=0;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    //GSEventSetBacklightLevel(0);
     
     friendlist=[NSMutableArray new];
     

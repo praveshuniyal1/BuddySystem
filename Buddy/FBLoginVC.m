@@ -172,12 +172,15 @@
     {
         [NSUserDefaults setNSUserDefaultobject:userFriendList key:kFriendList];
 
-         jsonString = [[ServerManager getSharedInstance]jsonRepresentForm:userFriendList];
+        
         if (userFriendList.count>=10) {
+            
             userFriendList = [userFriendList subarrayWithRange:NSMakeRange(0, 10)];
+             jsonString = [[ServerManager getSharedInstance]jsonRepresentForm:userFriendList];
             [userinfoDict setObject:jsonString forKey:@"friend_list"];
         }
         else{
+            jsonString = [[ServerManager getSharedInstance]jsonRepresentForm:userFriendList];
             [userinfoDict setObject:jsonString forKey:@"friend_list"];
         }
         
