@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5D8B52DC1C2894CD00AE512B /* CustomApplication.m in Sources */ = {isa = PBXBuildFile; fileRef = 5D8B52DB1C2894CD00AE512B /* CustomApplication.m */; };
 		DA1355661AD251DF005B734F /* ILGeoNamesLookup.m in Sources */ = {isa = PBXBuildFile; fileRef = DA1355651AD251DF005B734F /* ILGeoNamesLookup.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		DA1355691AD259D0005B734F /* JSONKit.m in Sources */ = {isa = PBXBuildFile; fileRef = DA1355681AD259D0005B734F /* JSONKit.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		DA13556C1AD267A9005B734F /* ILGeoNamesSearchController.m in Sources */ = {isa = PBXBuildFile; fileRef = DA13556B1AD267A9005B734F /* ILGeoNamesSearchController.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -183,6 +184,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		5D8B52DA1C2894CD00AE512B /* CustomApplication.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomApplication.h; sourceTree = "<group>"; };
+		5D8B52DB1C2894CD00AE512B /* CustomApplication.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomApplication.m; sourceTree = "<group>"; };
 		DA1355641AD251DF005B734F /* ILGeoNamesLookup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ILGeoNamesLookup.h; sourceTree = "<group>"; };
 		DA1355651AD251DF005B734F /* ILGeoNamesLookup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ILGeoNamesLookup.m; sourceTree = "<group>"; };
 		DA1355671AD259D0005B734F /* JSONKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONKit.h; sourceTree = "<group>"; };
@@ -526,6 +529,8 @@
 		DA77C64B1AB0239300614BBC = {
 			isa = PBXGroup;
 			children = (
+				5D8B52DA1C2894CD00AE512B /* CustomApplication.h */,
+				5D8B52DB1C2894CD00AE512B /* CustomApplication.m */,
 				DA77C9D81AB033EB00614BBC /* 76@2x.png */,
 				DA77C9D31AB028DD00614BBC /* Frameworks */,
 				DA77C76A1AB0272700614BBC /* ExternalFrameWork */,
@@ -1640,6 +1645,7 @@
 				DA77C7491AB026BB00614BBC /* JKModelData.m in Sources */,
 				DA1355661AD251DF005B734F /* ILGeoNamesLookup.m in Sources */,
 				DA77C9B31AB0272800614BBC /* UIButton+WebCache.m in Sources */,
+				5D8B52DC1C2894CD00AE512B /* CustomApplication.m in Sources */,
 				DA77C6BB1AB0263900614BBC /* CustomCell.m in Sources */,
 				DA77C7471AB026BB00614BBC /* AsyncImageView.m in Sources */,
 				DA77C9AA1AB0272800614BBC /* README.md in Sources */,
