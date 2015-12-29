@@ -402,13 +402,18 @@ int idx=0;
     {
 
         
-            if(idx<[contactList count])
+            if(idx<[friendlist count])
             {
                 
                 strPostId=[stringResponse valueForKey:@"id"];
+                NSString * frd_id=[[friendlist objectAtIndex:idx] valueForKey:@"id"];
+                [[NSUserDefaults standardUserDefaults] setObject:[friendlist[idx] valueForKey:@"id"] forKey:@"friend_id"];
                 
-                NSString * frd_id=[[contactList objectAtIndex:idx] valueForKey:@"fb_id"];
-                [[NSUserDefaults standardUserDefaults] setObject:[contactList[idx] valueForKey:@"fb_id"] forKey:@"friend_id"];
+                
+                //amit changes
+//                strPostId=[stringResponse valueForKey:@"id"];
+//                NSString * frd_id=[[contactList objectAtIndex:idx] valueForKey:@"fb_id"];
+//                [[NSUserDefaults standardUserDefaults] setObject:[contactList[idx] valueForKey:@"fb_id"] forKey:@"friend_id"];
                 
                 idx++;
                 

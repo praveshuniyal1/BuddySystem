@@ -8,12 +8,14 @@
 //
 
 #import "AppDelegate.h"
+#import <QuartzCore/QuartzCore.h>
 
 @implementation AppDelegate
 {
     BOOL isDownloadBG;
     NSTimer *idleTimer;
     NSTimeInterval *maxIdleTime;
+    UIImageView *imgView;
     
 }
 @synthesize reciveDict,navigation,remoteNotifdict,menupopview,playerview,contentFileUrl,fromView,loginnavigation,downloadIndx,categoryidArr;
@@ -629,6 +631,43 @@
     }];
     
 
+}
+
+#pragma stopBackGroundVideo
+-(void)stopBackGroundVideo
+{
+    [playerview stopCurrentVideo];
+}
+-(void)playBackGroundVideo
+{
+    [playerview playCurrentVideo];
+}
+-(void)getScreenShoots
+{
+
+//    imgView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, self.window.bounds.size.width, self.window.bounds.size.height)];
+//    imgView.image=[self screenshot];
+//    [self.window addSubview:imgView];
+
+}
+-(void)removeScreenShoots
+{
+//    [imgView removeFromSuperview];
+    
+}
+
+- (UIImage *) screenshot {
+    
+    CGSize size = CGSizeMake(320, 568);
+    
+    UIGraphicsBeginImageContextWithOptions(size, NO, [UIScreen mainScreen].scale);
+    
+    CGRect rec = CGRectMake(0, 0,320, 568);
+    [self.window drawViewHierarchyInRect:rec afterScreenUpdates:YES];
+    
+    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    return image;
 }
 
 #pragma mark- pushViewControllerNibIdentifier -

@@ -43,6 +43,10 @@
 -(void)showHomeView;
 -(void)loginView;
 - (UIControl *) findBarButtonItem:(UIBarButtonItem *)barButtonItem;
+-(void)stopBackGroundVideo;
+-(void)playBackGroundVideo;
+-(void)getScreenShoots;
+-(void)removeScreenShoots;
 // Other method-
 
 
