@@ -10,6 +10,7 @@
 #import "FBWallPostVC.h"
 #import <CoreGraphics/CoreGraphics.h>
 
+
 @interface FBWallPostVC ()
 {
     BOOL isfirst;
@@ -61,6 +62,19 @@ int idx=0;
         friendCollectionView.dataSource=self;
         [friendCollectionView reloadData];
     }
+    
+    
+    BOOL is_net=[[ServerManager getSharedInstance]checkNetwork];
+    if (is_net==YES)
+    {
+        if ([[FBSession activeSession] isOpen])
+        {
+            [FBManager sharedInstance].Delegate=self;
+            [[FBManager sharedInstance]getForMyFriendsList];
+        }
+    }
+
+    
    
     [timeCatbtn setTintColor:[UIColor whiteColor]];
     [timeCatbtn setTitle:[SelectCatDict valueForKey:@"CatTime"] forState:UIControlStateNormal];
@@ -176,14 +190,16 @@ int idx=0;
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-    return [friendlist count];
+    //return [friendlist count];
+    return [contactList count];
 }
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
     static NSString *identifier = @"Cell";
     
     
     CategoryCell *playingCardCell = [collectionView dequeueReusableCellWithReuseIdentifier:identifier forIndexPath:indexPath];
-    [playingCardCell loadFBWallPostCellData:[friendlist objectAtIndex:indexPath.row]];
+    //[playingCardCell loadFBWallPostCellData:[friendlist objectAtIndex:indexPath.row]];
+    [playingCardCell loadFBWallPostCellData:[contactList objectAtIndex:indexPath.row]];
     return playingCardCell;
     
 }
@@ -402,18 +418,19 @@ int idx=0;
     {
 
         
-            if(idx<[friendlist count])
+            //if(idx<[friendlist count])
+            if(idx<[contactList count])
             {
                 
-                strPostId=[stringResponse valueForKey:@"id"];
-                NSString * frd_id=[[friendlist objectAtIndex:idx] valueForKey:@"id"];
-                [[NSUserDefaults standardUserDefaults] setObject:[friendlist[idx] valueForKey:@"id"] forKey:@"friend_id"];
+//                strPostId=[stringResponse valueForKey:@"id"];
+//                NSString * frd_id=[[friendlist objectAtIndex:idx] valueForKey:@"id"];
+//                [[NSUserDefaults standardUserDefaults] setObject:[friendlist[idx] valueForKey:@"id"] forKey:@"friend_id"];
                 
                 
                 //amit changes
-//                strPostId=[stringResponse valueForKey:@"id"];
-//                NSString * frd_id=[[contactList objectAtIndex:idx] valueForKey:@"fb_id"];
-//                [[NSUserDefaults standardUserDefaults] setObject:[contactList[idx] valueForKey:@"fb_id"] forKey:@"friend_id"];
+                strPostId=[stringResponse valueForKey:@"id"];
+                NSString * frd_id=[[contactList objectAtIndex:idx] valueForKey:@"fb_id"];
+                [[NSUserDefaults standardUserDefaults] setObject:[contactList[idx] valueForKey:@"fb_id"] forKey:@"friend_id"];
                 
                 idx++;
                 
@@ -761,6 +778,9 @@ int idx=0;
                      [contactList addObject:[[responseDict valueForKey:@"data"] objectAtIndex:i]];
                     }
                 }
+                friendCollectionView.delegate=self;
+                friendCollectionView.dataSource=self;
+                [friendCollectionView reloadData];
                 
 //                [self postWallOnFriends];
             }

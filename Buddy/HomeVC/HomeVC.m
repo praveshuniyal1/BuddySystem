@@ -39,8 +39,97 @@
         [[ServerManager getSharedInstance]UIVisualEffect:effectview];
     }    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeImage:) name:@"NewMessage" object:nil];
+    
+    [self getMineAppSFriends];
 }
 
+-(void) getMineAppSFriends
+{
+    [FBRequestConnection startWithGraphPath:@"me/friends"
+                                 parameters:nil
+                                 HTTPMethod:@"GET"
+                          completionHandler:^(
+                                              FBRequestConnection *connection,
+                                              id result,
+                                              NSError *error
+                                              ) {
+                              NSMutableDictionary *userinfoDict=[[NSMutableDictionary alloc]init];
+                              
+                              NSArray *friendList = [result objectForKey:@"data"];
+                              NSLog(@"%@",friendList);
+                              
+                              
+                                  NSString *jsonString;
+                                  if (friendList.count>0)
+                                  {
+                                      [NSUserDefaults setNSUserDefaultobject:friendList key:kFriendList];
+                                      
+                                      
+                                      if (friendList.count>=10) {
+                                          
+                                          // userFriendList = [userFriendList subarrayWithRange:NSMakeRange(0, 10)];
+                                          jsonString = [[ServerManager getSharedInstance]jsonRepresentForm:friendList];
+                                          [userinfoDict setObject:jsonString forKey:@"friend_list"];
+                                      }
+                                      else{
+                                          jsonString = [[ServerManager getSharedInstance]jsonRepresentForm:friendList];
+                                          [userinfoDict setObject:jsonString forKey:@"friend_list"];
+                                      }
+                                      
+                                  }
+                                  else if (friendList.count==0)
+                                  {
+                                      
+                                      [NSUserDefaults setNSUserDefaultobject:@"null" key:kFriendList];
+                                      friendList=[[NSMutableArray alloc]initWithObjects:@"null", nil];
+                                      jsonString = [[ServerManager getSharedInstance]jsonRepresentForm:friendList];
+                                      NSLog(@"%@",jsonString);
+                                      [userinfoDict setObject:@"null" forKey:@"friend_list"];
+                                  }
+                                  
+                                  NSLog(@"jsonData as string:\n%@", jsonString);
+                                  
+                                  [userinfoDict setObject:[[NSUserDefaults standardUserDefaults] valueForKey:@"userID"] forKey:@"user_id"];
+                                [userinfoDict setObject:[[NSUserDefaults standardUserDefaults] valueForKey:@"accessToken"] forKey:@"access_token"];
+                              
+                                  [self signUpwithFB:userinfoDict];
+                           
+                              
+                          }];
+}
+
+
+
+#pragma mark-signUpwithFB-
+-(void)signUpwithFB:(NSDictionary*)userinfo
+{
+    BOOL is_net=[[ServerManager getSharedInstance]checkNetwork];
+    if (is_net==YES)
+    {
+        [ServerManager getSharedInstance].Delegate=self;
+        [[ServerManager getSharedInstance]postDataOnserver:userinfo withrequesturl:KupdateFrindList];
+        
+    }
+}
+
+#pragma mark- delegate Method's of ServerManager-
+-(void)serverReponse:(NSDictionary *)responseDict withrequestName:(NSString *)serviceurl
+{
+    NSLog(@"Response tripathi -->> %@ and serviceURL------->>> %@",responseDict,serviceurl);
+    
+    if ([serviceurl isEqual:KSaveUsrActivity])
+    {
+        int success=[[responseDict valueForKey:@"success"]intValue];
+    }
+}
+-(void)failureRsponseError:(NSError *)failureError
+    {
+        [[ServerManager getSharedInstance]hideHud];
+        [ServerManager showAlertView:@"Error!!" withmessage:failureError.localizedDescription];
+    }
+
+
+#pragma other work
 -(void)changeImage:(NSNotification *)notif
 {
 

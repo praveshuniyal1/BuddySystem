@@ -645,14 +645,14 @@
 -(void)getScreenShoots
 {
 
-//    imgView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, self.window.bounds.size.width, self.window.bounds.size.height)];
-//    imgView.image=[self screenshot];
-//    [self.window addSubview:imgView];
+    imgView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, self.window.bounds.size.width, self.window.bounds.size.height)];
+    imgView.image=[self screenshot];
+    [self.window addSubview:imgView];
 
 }
 -(void)removeScreenShoots
 {
-//    [imgView removeFromSuperview];
+    [imgView removeFromSuperview];
     
 }
 

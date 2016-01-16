@@ -322,6 +322,17 @@
                 
                 [[DBManager getSharedInstance]deleteQuery:@"DELETE * FROM Messages"];
                 
+                if([FBSession activeSession])
+                {
+                    [[FBSession activeSession] closeAndClearTokenInformation];
+                    [FBSession.activeSession close];
+                    [FBSession setActiveSession:nil];
+                    
+                }
+                
+               
+                
+                
                 [KappDelgate loginView];
                 
                 break;
@@ -337,7 +348,31 @@
         [[NSUserDefaults standardUserDefaults]removeObjectForKey:@"userID"];
         [NSUserDefaults removeNSUserDefaultObjectForKey:kLoginUserInfo];
         [NSUserDefaults removeNSUserDefaultObjectForKey:kFriendList];
+        
+        
+        if([FBSession activeSession])
+        {
+            [[FBSession activeSession] closeAndClearTokenInformation];
+            
+        }
 
+        
+        NSHTTPCookieStorage* cookies = [NSHTTPCookieStorage sharedHTTPCookieStorage];
+        NSArray* facebookCookies = [cookies cookiesForURL:
+                                    [NSURL URLWithString:@"http://login.facebook.com"]];//https://facebook.com/
+        for (NSHTTPCookie* cookie in facebookCookies)
+        {
+            [cookies deleteCookie:cookie];
+            [FBSession.activeSession close];
+            [FBSession setActiveSession:nil];
+        }
+
+        
+        
+        [[NSUserDefaults standardUserDefaults] synchronize];
+        
+        
+        
         [KappDelgate loginView];
     }
     

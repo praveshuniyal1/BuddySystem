@@ -62,10 +62,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-		
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
-	//[self view].isAccessibilityElement = NO;
     
     [objSearch becomeFirstResponder];
 }
@@ -78,19 +74,21 @@
     [self.geoNamesSearch cancel];
     [self.geoNamesSearch findNearbyToponymsForLatitude:loctCoord.latitude longitude:loctCoord.longitude maxRows:20 radius:10];
 
-
-  //  [self.geoNamesSearch findNearbyPlaceNameForLatitude:loctCoord.latitude longitude:loctCoord.longitude];
     
 }
 
-- (void)viewWillAppear:(BOOL)animated {
+- (void)viewWillAppear:(BOOL)animated
+{
     [super viewWillAppear:animated];
 	
     [self instantiateGeonamesSearch];
     [geoNamesSearch search:@"Yes"
                    maxRows:20
                   startRow:0
-                  language:nil];//    self.searchDisplayController.searchBar.prompt = NSLocalizedStringFromTable(@"ILGEONAMES_SEARCH_PROMPT", @"ILGeoNames", @"");
+                  language:nil];
+    
+    
+    //    self.searchDisplayController.searchBar.prompt = NSLocalizedStringFromTable(@"ILGEONAMES_SEARCH_PROMPT", @"ILGeoNames", @"");
 //	[self.searchDisplayController setActive:YES animated:NO];
 //	[self.searchDisplayController.searchBar becomeFirstResponder];
 }

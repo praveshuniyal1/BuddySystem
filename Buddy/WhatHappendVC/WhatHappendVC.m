@@ -29,7 +29,6 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-//     eventVideoList=[[NSMutableArray alloc]initWithObjects:@"basketball",@"coffee",@"moment",@"photography",@"roadtrip",@"basketball",@"coffee",@"moment",@"coffee", nil];
     KappDelgate.downloadIndx=0;
     eventVideoList=[NSMutableArray new];
     eventVideoList=[KappDelgate readAllCategory];

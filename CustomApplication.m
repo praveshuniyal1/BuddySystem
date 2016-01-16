@@ -50,13 +50,14 @@
         
     }
     
-    idleTimer = [NSTimer scheduledTimerWithTimeInterval:65 target:self selector:@selector(idleTimerExceeded) userInfo:nil repeats:NO] ;
+    idleTimer = [NSTimer scheduledTimerWithTimeInterval:120 target:self selector:@selector(idleTimerExceeded) userInfo:nil repeats:NO] ;
 }
 
 - (void)idleTimerExceeded
 {
     isexceedTime=YES;
     [[UIScreen mainScreen] setBrightness: 0.05];
+    [KappDelgate getScreenShoots];
     [KappDelgate stopBackGroundVideo];
     
    // [KappDelgate getScreenShoots];

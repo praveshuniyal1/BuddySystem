@@ -207,15 +207,31 @@
 {
     if (FBSession.activeSession.isOpen){
         [FBSession.activeSession closeAndClearTokenInformation];
+        [FBSession.activeSession close];
         [FBSession setActiveSession:nil];
-    }
         
-    NSHTTPCookieStorage* cookies = [NSHTTPCookieStorage sharedHTTPCookieStorage];
-    NSArray* facebookCookies = [cookies cookiesForURL:[NSURL URLWithString:@"https://facebook.com/"]];
-    
-    for (NSHTTPCookie* cookie in facebookCookies) {
-        [cookies deleteCookie:cookie];
+        
     }
+    
+    NSHTTPCookieStorage* cookies = [NSHTTPCookieStorage sharedHTTPCookieStorage];
+    
+    NSArray *allCookies = [cookies cookies];
+    
+    for(NSHTTPCookie *cookie in allCookies) {
+        if([[cookie domain] rangeOfString:@"facebook.com"].location != NSNotFound)
+        {
+            [cookies deleteCookie:cookie];
+        }
+    }
+    
+   
+//    NSHTTPCookieStorage* cookies = [NSHTTPCookieStorage sharedHTTPCookieStorage];
+//    NSArray* facebookCookies = [cookies cookiesForURL:[NSURL URLWithString:@"https://m.facebook.com/"]];
+//    
+//    for (NSHTTPCookie* cookie in facebookCookies) {
+//        [cookies deleteCookie:cookie];
+//    }
+    
     
     callBack(YES, @"Logout successfully");
 }

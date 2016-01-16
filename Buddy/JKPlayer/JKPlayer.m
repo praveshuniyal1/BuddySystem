@@ -96,6 +96,7 @@
     if (contenturl!=nil)
     {
         [moviewplayer stop];
+        //[moviewplayer pause];
         
        
     }

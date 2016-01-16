@@ -383,7 +383,7 @@
 }
 -(void)serverReponse:(NSDictionary *)responseDict withrequestName:(NSString *)serviceurl
 {
-    
+    NSLog(@"responceURL=%@",serviceurl);
     [[ServerManager getSharedInstance]hideHud];
     int success=[[responseDict valueForKey:@"status"]intValue];
     KappDelgate.categoryidArr=[KappDelgate getAllCategoryId];

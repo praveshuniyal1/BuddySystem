@@ -25,7 +25,8 @@
     [fbfriendimage.layer setBorderWidth:1];
     [fbfriendimage.layer setBorderColor:[UIColor whiteColor].CGColor];
     [fbfriendimage.layer setMasksToBounds:YES];
-    NSURL * fileurl=[[ServerManager getSharedInstance]Fb_profileImageFile:[dict valueForKey:@"id"]];
+   // NSURL * fileurl=[[ServerManager getSharedInstance]Fb_profileImageFile:[dict valueForKey:@"id"]];
+     NSURL * fileurl=[[ServerManager getSharedInstance]Fb_profileImageFile:[dict valueForKey:@"fb_id"]];
     
     fbfriendimage.imageURL=fileurl;
     

@@ -179,7 +179,7 @@ NSString *const kILGeoNamesErrorDomain = @"org.geonames";
     if([escQuery isEqualToString:@"Yes"])
     {
         isSearch=NO;
-        urlString = [NSString stringWithFormat:@"https://api.foursquare.com/v2/venues/search?client_id=AJYEDMWZKIUULUZB0LTC1D1CZQM11IHIBIGPTS5FBRMPXSF4&client_secret=WDIDMXXOGM2N2ZYAV4DI5B0PDLGAQYH13M1ZEDGZBOJUXWMI&v=20130815&ll=%f,%f&llAcc=5000&categoryId=530e33ccbcbc57f1066bbff3&limit=50&radius=500000",loctCoord.latitude,loctCoord.longitude];
+        urlString = [NSString stringWithFormat:@"https://api.foursquare.com/v2/venues/search?client_id=AJYEDMWZKIUULUZB0LTC1D1CZQM11IHIBIGPTS5FBRMPXSF4&client_secret=WDIDMXXOGM2N2ZYAV4DI5B0PDLGAQYH13M1ZEDGZBOJUXWMI&v=20130815&ll=%f,%f&llAcc=5000&categoryId=530e33ccbcbc57f1066bbff3&limit=50&radius=20000",loctCoord.latitude,loctCoord.longitude];
     }
     else
     {

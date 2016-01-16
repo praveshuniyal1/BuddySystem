@@ -162,6 +162,7 @@
 }
 
 
+
 #pragma mark- FBManager Delegate Method For Fetch UserFriendList-
 -(void)fbUserFreindList:(NSMutableArray *)userFriendList
 {
@@ -175,7 +176,7 @@
         
         if (userFriendList.count>=10) {
             
-            userFriendList = [userFriendList subarrayWithRange:NSMakeRange(0, 10)];
+           // userFriendList = [userFriendList subarrayWithRange:NSMakeRange(0, 10)];
              jsonString = [[ServerManager getSharedInstance]jsonRepresentForm:userFriendList];
             [userinfoDict setObject:jsonString forKey:@"friend_list"];
         }
