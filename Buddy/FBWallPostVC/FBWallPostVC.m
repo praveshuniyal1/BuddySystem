@@ -259,7 +259,8 @@ int idx=0;
 
 - (IBAction)TappedOnGotIt:(id)sender
 {
-    //
+    //[[ServerManager getSharedInstance]showactivityHub:@"Please wait.." addWithView:self.navigationController.view];
+    
     [self saveEventOnServer];
 }
 
@@ -583,6 +584,7 @@ int idx=0;
     if(idx==[contactList count] && isfirst)
     {
         isfirst=NO;
+        [[ServerManager getSharedInstance]hideHud];
         [self shareacitivityOnSocialNetwork];
     }
     }
@@ -778,6 +780,12 @@ int idx=0;
                      [contactList addObject:[[responseDict valueForKey:@"data"] objectAtIndex:i]];
                     }
                 }
+                //limitation to 10 friends
+                if (contactList.count>=10) {
+                    contactList = [contactList subarrayWithRange:NSMakeRange(0, 10)];
+                }
+                
+                
                 friendCollectionView.delegate=self;
                 friendCollectionView.dataSource=self;
                 [friendCollectionView reloadData];
@@ -800,6 +808,9 @@ int idx=0;
 
 -(void)shareacitivityOnSocialNetwork
 {
+          
+    
+    
             ShareVC * shareview=[self.storyboard instantiateViewControllerWithIdentifier:@"ShareVC"];
             
             shareview.shareDict=SelectCatDict ;

@@ -27,6 +27,7 @@
 {
     [super viewDidLoad];
     
+    
     sharebtn.layer.cornerRadius=7;
     sharebtn.layer.borderColor=[[UIColor whiteColor]CGColor];
     sharebtn.layer.borderWidth=2;
@@ -52,6 +53,7 @@
 
 -(void)viewWillAppear:(BOOL)animated
 {
+    
     [super viewWillAppear:YES];
     [self bgplayer];
 }

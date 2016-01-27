@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "JKClassManager.h"
-@interface ShareVC : UIViewController
+@interface ShareVC : UIViewController<ServerManagerDelegate>
 {
     IBOutlet UIButton *timeCatbtn;
     
