@@ -40,6 +40,7 @@ int idx=0;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    activityView.hidden=YES;
     
     //GSEventSetBacklightLevel(0);
     
@@ -247,7 +248,7 @@ int idx=0;
     if ([[ServerManager getSharedInstance]checkNetwork]==YES)
     {
         [ServerManager getSharedInstance].Delegate=self;
-        [[ServerManager getSharedInstance]showactivityHub:@"Updating.." addWithView:self.navigationController.view];
+        //[[ServerManager getSharedInstance]showactivityHub:@"Updating.." addWithView:self.navigationController.view];
         [[ServerManager getSharedInstance]postDataOnserver:postdict withrequesturl:KSaveUsrActivity];
     }
 }
@@ -260,6 +261,8 @@ int idx=0;
 - (IBAction)TappedOnGotIt:(id)sender
 {
     //[[ServerManager getSharedInstance]showactivityHub:@"Please wait.." addWithView:self.navigationController.view];
+    
+    activityView.hidden=NO;
     
     [self saveEventOnServer];
 }
@@ -338,6 +341,7 @@ int idx=0;
     }
     else
     {
+        activityView.hidden=NO;
         [self postWallOnFriends];
     }
 }
@@ -345,6 +349,7 @@ int idx=0;
 #pragma mark-postWallOnFriends-
 -(void)postWallOnFriends
 {
+   
     
     idx=0;
     NSLog(@"user device token >>%@",[[NSUserDefaults standardUserDefaults] valueForKey:@"accessToken"]);
@@ -407,6 +412,7 @@ int idx=0;
 
 -(void)connectionDidFinishLoading:(NSURLConnection *)connection
 {
+    
    stringResponse= [NSJSONSerialization JSONObjectWithData:webData options:NSJSONReadingMutableContainers error:nil];
     NSLog(@"facebook   %@",[stringResponse valueForKey:@"id"]);
     
@@ -422,6 +428,7 @@ int idx=0;
             //if(idx<[friendlist count])
             if(idx<[contactList count])
             {
+                
                 
 //                strPostId=[stringResponse valueForKey:@"id"];
 //                NSString * frd_id=[[friendlist objectAtIndex:idx] valueForKey:@"id"];
@@ -809,7 +816,9 @@ int idx=0;
 -(void)shareacitivityOnSocialNetwork
 {
           
+            [[ServerManager getSharedInstance]hideHud];
     
+             activityView.hidden=YES;
     
             ShareVC * shareview=[self.storyboard instantiateViewControllerWithIdentifier:@"ShareVC"];
             

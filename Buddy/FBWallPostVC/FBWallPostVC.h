@@ -31,6 +31,9 @@
     NSString * myWall;
     BOOL FirstTime;
     NSMutableArray *stringResponse;
+    
+    
+    IBOutlet UIView *activityView;
 }
 @property (nonatomic,strong)FBRequestConnection *requestConnection;
 @property(strong,nonatomic)NSString * address;

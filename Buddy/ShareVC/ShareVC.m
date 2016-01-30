@@ -53,6 +53,8 @@
 
 -(void)viewWillAppear:(BOOL)animated
 {
+    [[ServerManager getSharedInstance]hideHud];
+    
     
     [super viewWillAppear:YES];
     [self bgplayer];
