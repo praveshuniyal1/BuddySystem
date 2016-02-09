@@ -98,8 +98,7 @@
     {
         [FBSession openActiveSessionWithReadPermissions:self.permissions allowLoginUI:YES completionHandler:^(FBSession *session, FBSessionState status, NSError *error)
          {
-             
-             
+
              if (error)
              {
                  //        //NSLog(@"Error");

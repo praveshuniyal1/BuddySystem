@@ -345,33 +345,31 @@
     }
     else if ([serviceurl isEqual:KLogout])
     {
-        [[NSUserDefaults standardUserDefaults]removeObjectForKey:@"userID"];
-        [NSUserDefaults removeNSUserDefaultObjectForKey:kLoginUserInfo];
-        [NSUserDefaults removeNSUserDefaultObjectForKey:kFriendList];
         
+       
+        NSHTTPCookieStorage* cookies = [NSHTTPCookieStorage sharedHTTPCookieStorage];
+        NSArray* facebookCookies = [cookies cookiesForURL:
+                                    [NSURL URLWithString:@"https://m.facebook.com"]];//https://facebook.com/
+        for (NSHTTPCookie* cookie in facebookCookies)
+        {
+            [cookies deleteCookie:cookie];
+           
+        }
         
         if([FBSession activeSession])
         {
             [[FBSession activeSession] closeAndClearTokenInformation];
             
         }
-
-        
-        NSHTTPCookieStorage* cookies = [NSHTTPCookieStorage sharedHTTPCookieStorage];
-        NSArray* facebookCookies = [cookies cookiesForURL:
-                                    [NSURL URLWithString:@"http://login.facebook.com"]];//https://facebook.com/
-        for (NSHTTPCookie* cookie in facebookCookies)
-        {
-            [cookies deleteCookie:cookie];
-            [FBSession.activeSession close];
-            [FBSession setActiveSession:nil];
-        }
-
+        [[NSUserDefaults standardUserDefaults]removeObjectForKey:@"userID"];
+        [NSUserDefaults removeNSUserDefaultObjectForKey:kLoginUserInfo];
+        [NSUserDefaults removeNSUserDefaultObjectForKey:kFriendList];
         
         
         [[NSUserDefaults standardUserDefaults] synchronize];
         
-        
+        [FBSession.activeSession close];
+        [FBSession setActiveSession:nil];
         
         [KappDelgate loginView];
     }

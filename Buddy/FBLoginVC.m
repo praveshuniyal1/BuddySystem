@@ -281,6 +281,10 @@
 {
     
     
+    
+
+   
+
     [SCFacebook loginCallBack:^(BOOL success, id result)
      {
          BOOL isActivelogin=[SCFacebook isSessionValid];
@@ -310,6 +314,7 @@
              [[ServerManager getSharedInstance]hideHud];
          }
      }];
+    
 }
 
 @end

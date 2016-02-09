@@ -54,6 +54,20 @@
         NSMutableArray * profile_pic=[NSMutableArray new];
         profile_pic=[dict valueForKey:@"profile_image"];
         
+        if (profile_pic.count>2)
+        {
+             profile_pic=[NSMutableArray new];
+            for (int i=0; i<2; i++)
+            {
+                [profile_pic addObject:[[dict valueForKey:@"profile_image"] objectAtIndex:i]];
+            }
+        }
+        else{
+            
+        }
+        
+        
+        
         int x=2;
         int contenx=0;
         for (int ind=0;ind<[profile_pic count];ind++)
@@ -115,6 +129,7 @@
                 break;
             case 2:
             {
+                /*
                 NSString *myDateString = [dict valueForKey:@"date_time"];
                 NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
                 [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
@@ -125,6 +140,9 @@
                 NSInteger weekday = [components weekday];
                 NSString *weekdayName = [dateFormatter weekdaySymbols][weekday - 1];
                 strTime=weekdayName;
+                 */
+                
+                strTime=@"this weekend";
 
                 
             }
@@ -136,7 +154,18 @@
                 break;
             case 4:
             {
-                strTime=@"Other";
+                NSString *myDateString = [dict valueForKey:@"date_time"];
+                NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+                [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+                
+                NSDate *date = [dateFormatter dateFromString:myDateString];
+                NSDateComponents *components = [[NSCalendar currentCalendar] components:NSWeekdayCalendarUnit fromDate:date];
+                
+                NSInteger weekday = [components weekday];
+                NSString *weekdayName = [dateFormatter weekdaySymbols][weekday - 1];
+                strTime=weekdayName;
+                
+                //strTime=@"Other";
             }
                 break;
         }
@@ -148,12 +177,26 @@
             NSString* name=[usr_name componentsJoinedByString:@","];
             if (usr_name.count==1)
             {
+                NSString *isExpire = [dict valueForKey:@"expire_post"];
                 if ([strTime isEqualToString:@"Now"])
                 {
-                     paragraph=[NSString stringWithFormat:@"%@ is looking for %@ buddies. right Now",name,activity];
+                    if ([isExpire isEqualToString:@"1"])
+                    {
+                        paragraph=[NSString stringWithFormat:@"%@ is looking for %@ buddies right Now .",name,activity];
+                    }else{
+                        paragraph=[NSString stringWithFormat:@"%@ is looking for %@ buddies.",name,activity];
+                    }
+                    
                 }
                 else{
-                    paragraph=[NSString stringWithFormat:@"%@ is looking for %@ buddies. on %@",name,activity,strTime];
+                    if ([isExpire isEqualToString:@"1"])
+                    {
+                        paragraph=[NSString stringWithFormat:@"%@ is looking for %@ buddies on %@.",name,activity,strTime];
+                    }
+                    else{
+                        paragraph=[NSString stringWithFormat:@"%@ is looking for %@ buddies.",name,activity];
+                    }
+                    
                 }
                 
             }
@@ -162,13 +205,31 @@
                 
                 NSString* name=[NSString stringWithFormat:@"%@,%@",[usr_name objectAtIndex:0],[usr_name objectAtIndex:1]];
                 
+                 NSString *isExpire = [dict valueForKey:@"expire_post"];
                 if ([strTime isEqualToString:@"Now"])
                 {
-                    paragraph=[NSString stringWithFormat:@"%@ are now %@ buddies. right Now",name,activity];
+                    if ([isExpire isEqualToString:@"1"])
+                    {
+                        //changes according to client requirement.
+                        //paragraph=[NSString stringWithFormat:@"%@ are now %@ buddies right Now.",name,activity];
+                         paragraph=[NSString stringWithFormat:@"%@ are now %@ buddies.",name,activity];
+                    }
+                    else{
+                         paragraph=[NSString stringWithFormat:@"%@ are now %@ buddies.",name,activity];
+                    }
+                   
                 }
                 else
                 {
-                    paragraph=[NSString stringWithFormat:@"%@ are now %@ buddies. on %@",name,activity,strTime];
+                    if ([isExpire isEqualToString:@"1"])
+                    {
+                        //paragraph=[NSString stringWithFormat:@"%@ are now %@ buddies. on %@",name,activity,strTime];
+                        paragraph=[NSString stringWithFormat:@"%@ are now %@ buddies.",name,activity];
+                    }
+                    else{
+                        paragraph=[NSString stringWithFormat:@"%@ are now %@ buddies.",name,activity];
+                    }
+                    
                 }
                 
             }

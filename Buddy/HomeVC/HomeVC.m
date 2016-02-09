@@ -150,12 +150,37 @@
 }
 - (IBAction)TappedOnTime:(UIButton*)timebtn
 {
+//    NSDate *now = [NSDate date];
+//    NSDate *startOfToday = nil;
+//    NSDate *startOfThisWeek = nil;
+//    NSDate *startOfThisMonth = nil;
+//    NSDate *startOfThisYear = nil;
+//    [[NSCalendar currentCalendar] rangeOfUnit:NSCalendarUnitDay startDate:&startOfToday interval:NULL forDate:now];
+//    [[NSCalendar currentCalendar] rangeOfUnit:NSCalendarUnitWeekday startDate:&startOfThisWeek interval:NULL forDate:now];
+//    [[NSCalendar currentCalendar] rangeOfUnit:NSCalendarUnitMonth startDate:&startOfThisMonth interval:NULL forDate:now];
+//    [[NSCalendar currentCalendar] rangeOfUnit:NSCalendarUnitYear startDate:&startOfThisYear interval:NULL forDate:now];
+//    
+//    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+//    [formatter setDateStyle:NSDateFormatterFullStyle];
+//    [formatter setTimeStyle:NSDateFormatterFullStyle];
+    
+//    NSLog(@"%@", now);
+//    NSLog(@"%@", [formatter stringFromDate:now]);
+    
+    NSString *dateString=[self getPastDateFromString:[NSDate date]];
+    
+    NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
+    [dateFormat setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+    [dateFormat setTimeZone:[NSTimeZone timeZoneForSecondsFromGMT:0]];
+    NSDate *date = [dateFormat dateFromString:dateString];
+    
     switch (timebtn.tag)
     {
         case 100:
         {
             // now
             NSString * time=  [[ServerManager getSharedInstance]setCustomeDateFormateWithUTCTimeZone:yyyymmddHHmmSS withtime:[NSDate date]];
+            //NSString * time=  [[ServerManager getSharedInstance]setCustomeDateFormateWithUTCTimeZone:yyyymmddHHmmSS withtime:date];
             [[NSUserDefaults standardUserDefaults] setObject:@"0" forKey:@"expiry_param"];
             [self selectEventTimeTitle:@"Now" SelectEventTime:time expiry_param:0];
         }
@@ -164,6 +189,7 @@
         {
             // today
             NSString * time=  [[ServerManager getSharedInstance]setCustomeDateFormateWithUTCTimeZone:yyyymmddHHmmSS withtime:[NSDate date]];
+            //NSString * time=  [[ServerManager getSharedInstance]setCustomeDateFormateWithUTCTimeZone:yyyymmddHHmmSS withtime:date];
                         [[NSUserDefaults standardUserDefaults] setObject:@"1" forKey:@"expiry_param"];
             [self selectEventTimeTitle:@"Today" SelectEventTime:time expiry_param:1];
         }
@@ -172,6 +198,7 @@
         {
             // this weekend
             NSString * time=  [[ServerManager getSharedInstance]setCustomeDateFormateWithUTCTimeZone:yyyymmddHHmmSS withtime:[NSDate date]];
+             //NSString * time=  [[ServerManager getSharedInstance]setCustomeDateFormateWithUTCTimeZone:yyyymmddHHmmSS withtime:date];
                         [[NSUserDefaults standardUserDefaults] setObject:@"2" forKey:@"expiry_param"];
             [self selectEventTimeTitle:@"This Weekend" SelectEventTime:time expiry_param:2];
         }
@@ -180,6 +207,7 @@
         {
             // anytime
             NSString * time=  [[ServerManager getSharedInstance]setCustomeDateFormateWithUTCTimeZone:yyyymmddHHmmSS withtime:[NSDate date]];
+            // NSString * time=  [[ServerManager getSharedInstance]setCustomeDateFormateWithUTCTimeZone:yyyymmddHHmmSS withtime:date];
                                     [[NSUserDefaults standardUserDefaults] setObject:@"3" forKey:@"expiry_param"];
             [self selectEventTimeTitle:@"Any Time" SelectEventTime:time expiry_param:3];
         }
@@ -212,7 +240,15 @@
    
 }
 
-
+-(NSString *)getPastDateFromString:(NSDate *)string
+{
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+    NSString *stringFromDate = [formatter stringFromDate:string];
+    
+    NSLog(@"%@", stringFromDate);
+    return stringFromDate;
+}
 
 
 #pragma mark- selectEventTimeTitle -
