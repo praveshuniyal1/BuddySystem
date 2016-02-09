@@ -185,6 +185,8 @@
                     }else{
                         paragraph=[NSString stringWithFormat:@"%@ is looking for %@ buddies.",name,activity];
                     }
+                  
+                    
                     
                 }
                 else{
