@@ -329,23 +329,26 @@ static ServerManager *sharedInstance = nil;
 {
     NSMutableDictionary * dict=[NSMutableDictionary dictionaryWithDictionary:postDict];
     
-    AFHTTPRequestOperationManager *manager = [[AFHTTPRequestOperationManager alloc]initWithBaseURL:[NSURL URLWithString:KBaseUrl]];
-    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
-    // manager.responseSerializer = [AFJSONResponseSerializer serializer];
-    [manager POST:postUrl parameters:postDict success:^(AFHTTPRequestOperation *operation, id responseObject)
-     {
-         NSLog(@"JSON: %@", responseObject);
-         //        NSLog(@"Response: %@", [[NSString alloc] initWithData:responseObject encoding:NSUTF8StringEncoding]);
-         NSDictionary *response = (NSDictionary*)[NSJSONSerialization JSONObjectWithData:operation.responseData options:kNilOptions error:nil];
-         NSLog(@"JSON response: %@", response);
-         [Delegate serverReponse:response withrequestName:postUrl];
-         
-     } failure:^(AFHTTPRequestOperation *operation, NSError *error)
-     {
-         NSLog(@"Error: %@", error);
-         [Delegate failureRsponseError:error];
-     }];
+        AFHTTPRequestOperationManager *manager = [[AFHTTPRequestOperationManager alloc]initWithBaseURL:[NSURL URLWithString:KBaseUrl]];
+        
+        manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+        // manager.responseSerializer = [AFJSONResponseSerializer serializer];
+        [manager POST:postUrl parameters:postDict success:^(AFHTTPRequestOperation *operation, id responseObject)
+         {
+             NSLog(@"JSON: %@", responseObject);
+             //        NSLog(@"Response: %@", [[NSString alloc] initWithData:responseObject encoding:NSUTF8StringEncoding]);
+             NSDictionary *response = (NSDictionary*)[NSJSONSerialization JSONObjectWithData:operation.responseData options:kNilOptions error:nil];
+             NSLog(@"JSON response: %@", response);
+             [Delegate serverReponse:response withrequestName:postUrl];
+             
+         } failure:^(AFHTTPRequestOperation *operation, NSError *error)
+         {
+             NSLog(@"Error: %@", error);
+             [Delegate failureRsponseError:error];
+         }];
 
+    
+   
 }
 
 #pragma mark- postDatawithMediaFile-

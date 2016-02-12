@@ -14,6 +14,22 @@
 #define SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(v)  ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] != NSOrderedAscending)
 
 
+#define IS_IPAD (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
+#define IS_IPHONE (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
+#define IS_RETINA ([[UIScreen mainScreen] scale] >= 2.0)
+
+#define SCREEN_WIDTH ([[UIScreen mainScreen] bounds].size.width)
+#define SCREEN_HEIGHT ([[UIScreen mainScreen] bounds].size.height)
+#define SCREEN_MAX_LENGTH (MAX(SCREEN_WIDTH, SCREEN_HEIGHT))
+#define SCREEN_MIN_LENGTH (MIN(SCREEN_WIDTH, SCREEN_HEIGHT))
+
+#define IS_IPHONE_4_OR_LESS (IS_IPHONE && SCREEN_MAX_LENGTH < 568.0)
+#define IS_IPHONE_5 (IS_IPHONE && SCREEN_MAX_LENGTH == 568.0)
+#define IS_IPHONE_6 (IS_IPHONE && SCREEN_MAX_LENGTH == 667.0)
+#define IS_IPHONE_6P (IS_IPHONE && SCREEN_MAX_LENGTH == 736.0)
+#define iPadPro ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad && [UIScreen mainScreen].bounds.size.height == 1366)
+
+
 
 //expiry_param= Now=0 , Today=1 , This weakend=3 ,Anytime=4 ,Other=5
 typedef enum : NSUInteger
@@ -54,7 +70,10 @@ typedef enum : NSUInteger
 
 
 #define KRecivemsg               @"get_message.php?"
-#define KsendMessage             @"message.php?"
+//#define KsendMessage             @"message.php?"
+
+//#define KRecivemsg               @"chatting?"
+#define KsendMessage             @"chatting?"
 
 // WHAT happning
 
@@ -75,7 +94,7 @@ typedef enum : NSUInteger
 
 #define KSearch                  @"activitysearch.php?"
 
-#define KfriendProfile           @"usr_timeline.php?"
+#define KfriendProfile           @"friend_profile?"
 //My Activity
 
 #define kMyActivity              @"my_activity"

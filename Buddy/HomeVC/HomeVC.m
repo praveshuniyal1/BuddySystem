@@ -144,7 +144,12 @@
 
 -(void)viewWillAppear:(BOOL)animated
 {
-    [[LocationManager locationInstance]getcurrentLocation];
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        //code in background
+        [[LocationManager locationInstance]getcurrentLocation];
+    });
+    
+    
     [super viewWillAppear:animated];
     [self bgplayer];
 }
@@ -335,7 +340,8 @@
         NSDate *date = [dateFormatter dateFromString:dateString];
         
         // Convert date object into desired format
-        [dateFormatter setDateFormat:@"E MMM dd"];
+       // [dateFormatter setDateFormat:@"E MMM dd"];
+        [dateFormatter setDateFormat:@"EEEE"];
         NSString *newDateString = [dateFormatter stringFromDate:date];
         
         [[NSUserDefaults standardUserDefaults]setObject:newDateString forKey:@"OtherDate"];

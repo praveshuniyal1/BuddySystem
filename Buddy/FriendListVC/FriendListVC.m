@@ -366,31 +366,32 @@
     [[ServerManager getSharedInstance]hideHud];
     if ([serviceurl isEqual:KUserFriendlist])
     {
-        int success=[[responseDict valueForKey:@"success"] intValue];
-        switch (success) {
-            case 1:
-            {
-                contactList=[responseDict valueForKey:@"data"];
+//        int success=[[responseDict valueForKey:@"success"] intValue];
+//        switch (success) {
+//            case 1:
+//            {
+               // contactList=[responseDict valueForKey:@"data"];
+            contactList=responseDict ;
                 if (contactList.count>0)
                 {
                     
                     [contactTable reloadData];
                                         
                 }
-            }
-            case 0:{
-             
-                [ServerManager showAlertView:@"Message" withmessage:[responseDict valueForKey:@"msg"]];
-  
-                
-                
-                
-            }
-                break;
-                
-            default:
-                break;
-        }
+//            }
+//            case 0:{
+//             
+//                [ServerManager showAlertView:@"Message" withmessage:[responseDict valueForKey:@"msg"]];
+//  
+//                
+//                
+//                
+//            }
+//                break;
+//                
+//            default:
+//                break;
+//        }
         
     }
     else if ([serviceurl isEqual:KSearch])

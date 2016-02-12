@@ -34,7 +34,7 @@
     [ServerManager getSharedInstance].Delegate=self;
     self.collectionView.delegate=self;
     self.collectionView.dataSource=self;
-    timerRecive=[NSTimer scheduledTimerWithTimeInterval:3.0 target:self selector:@selector(TappedOnReceiveConversesion) userInfo:nil repeats:YES];
+    timerRecive=[NSTimer scheduledTimerWithTimeInterval:3.0 target:self selector:@selector(TappedOnReceiveConversesion) userInfo:nil repeats:NO];
 //    [self TappedOnReceiveConversesion];
     
     
@@ -365,6 +365,7 @@
 //        [self TappedOnReceiveConversesion];
 //         [self insertnewMsg:[[responseDict valueForKey:@"aps"] valueForKey:@"alert"]];
         [self TappedOnReceiveConversesion];
+        [self insertnewMsg:responseDict];
     }
     else if ([serviceurl isEqual:KRecivemsg])
     {
@@ -466,7 +467,9 @@
         NSString * strDate=[[ServerManager getSharedInstance]setCustomeDateFormateWithUTCTimeZone:yyyymmddHHmmSS withtime:[NSDate date]];
         NSDate * selectedDate=[[ServerManager getSharedInstance]setCustomeDateFormateWithUTCTimeZone:yyyymmddHHmmSS withtime:strDate];
 
-        NSDictionary * params=[NSDictionary dictionaryWithObjectsAndKeys:senderid,@"from_usrid",message,@"msg",reciverid,@"to_usrid",selectedDate,@"date",[NSNumber numberWithInt:0],@"content_type", nil];
+        //NSDictionary * params=[NSDictionary dictionaryWithObjectsAndKeys:senderid,@"from_usrid",message,@"msg",reciverid,@"to_usrid",selectedDate,@"date",[NSNumber numberWithInt:0],@"content_type", nil];
+        
+         NSDictionary * params=[NSDictionary dictionaryWithObjectsAndKeys:senderid,@"from_usrid",message,@"msg",reciverid,@"to_usrid",[NSNumber numberWithInt:0],@"content_type", nil];
         NSLog(@"%@",params);
         [ServerManager getSharedInstance].Delegate=self;
         

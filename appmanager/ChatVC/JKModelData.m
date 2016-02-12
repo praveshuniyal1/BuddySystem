@@ -315,6 +315,7 @@ static JKModelData *sharedInstance = nil;
 #pragma mark- insert new message Query-
 -(void)insertChatConversesion:(NSDictionary*)chatDict
 {
+    
      NSString *dateString=[[ServerManager getSharedInstance]getUTCFormateDate:[NSDate date]];
     
     

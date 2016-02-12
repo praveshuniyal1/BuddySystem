@@ -32,14 +32,22 @@
     // Configure the view for the selected state
 }
 
--(void)loadEventCellData:(NSDictionary *)dict
+-(void)loadEventCellData:(NSDictionary *)dict andHeight:(float)height
 {
     
 
     NSLog(@"%@",dict);
     NSString * activity=[dict valueForKey:@"category"];//category
     
-
+    if (IS_IPHONE_6) {
+        self.videoThumbView.frame=CGRectMake(self.superview.frame.origin.x, self.superview.frame.origin.y+41, self.superview.frame.size.width, height-38);
+    }
+    else if (IS_IPHONE_6P)
+    {
+       self.videoThumbView.frame=CGRectMake(self.superview.frame.origin.x, self.superview.frame.origin.y+41, self.superview.frame.size.width, height-70);
+    }
+   
+    
     NSURL *youtube_tumbnails=[NSURL URLWithString:[dict valueForKey:@"youtube_thumbnails"]];//youtube_thumbnails
     
     [self.videoThumbView sd_setImageWithURL:youtube_tumbnails];
@@ -124,7 +132,7 @@
                 break;
             case 1:
             {
-                strTime=@"Today";
+                strTime=@"today";
             }
                 break;
             case 2:
@@ -149,7 +157,7 @@
                 break;
             case 3:
             {
-                strTime=@"Anytime";
+                strTime=@"anytime";
             }
                 break;
             case 4:
@@ -181,7 +189,7 @@
                 {
                     if ([isExpire isEqualToString:@"1"])
                     {
-                        paragraph=[NSString stringWithFormat:@"%@ is looking for %@ buddies right Now .",name,activity];
+                        paragraph=[NSString stringWithFormat:@"%@ is looking for %@ buddies right now .",name,activity];
                     }else{
                         paragraph=[NSString stringWithFormat:@"%@ is looking for %@ buddies.",name,activity];
                     }

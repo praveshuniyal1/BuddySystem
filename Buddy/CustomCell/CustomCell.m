@@ -28,7 +28,7 @@
     btnUserimage. layer.borderColor = [UIColor whiteColor].CGColor;
     NSURL * imageurl=[NSURL URLWithString:[dict valueForKey:@"profile_pic"]];
     [btnUserimage sd_setImageWithURL:imageurl forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"user"]];
-    int usermode=[[dict valueForKey:@"online"] intValue];
+    int usermode=[[dict valueForKey:@"online_status"] intValue];
     switch (usermode)
     {
             

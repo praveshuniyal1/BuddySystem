@@ -183,7 +183,8 @@
     // Configure the cell...
     
     cell .selectionStyle=UITableViewCellSelectionStyleNone;
-    [cell loadEventCellData:[eventList objectAtIndex:indexPath.row]];
+    [cell loadEventCellData:[eventList objectAtIndex:indexPath.row] andHeight:cell.frame.size.height];
+    
    
     
     
@@ -495,7 +496,20 @@
 {
     [player stop];
 
-    player.view.frame=cell.jkplayerView.bounds;
+    
+    
+    if (IS_IPHONE_6)
+    {
+        player.view.frame=CGRectMake(0, cell.jkplayerView.frame.origin.y, cell.jkplayerView.frame.size.width, cell.jkplayerView.frame.size.height+41);
+    }
+    else if (IS_IPHONE_6P)
+    {
+         player.view.frame=CGRectMake(0, cell.jkplayerView.frame.origin.y, cell.jkplayerView.frame.size.width, cell.jkplayerView.frame.size.height+41);
+    }
+    else{
+        player.view.frame=cell.jkplayerView.frame;
+    }
+    
    
     //[cell insertSubview:player.view belowSubview:superview];
     [cell.jkplayerView addSubview:player.view];

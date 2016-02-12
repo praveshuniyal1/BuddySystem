@@ -155,7 +155,8 @@
               [[ServerManager getSharedInstance]showactivityHub:@"Loading.." addWithView:self.view];
         // NSString * poststr=[NSString stringWithFormat:@"usr_id=%@&usr_name=%@",usrId,name];
         [ServerManager getSharedInstance].Delegate=self;
-        NSDictionary * postDict=[NSDictionary dictionaryWithObjectsAndKeys:usrId,@"usr_id", to_userId,@"to_usrid", nil];
+        //NSDictionary * postDict=[NSDictionary dictionaryWithObjectsAndKeys:usrId,@"usr_id", to_userId,@"to_usrid", nil];
+        NSDictionary * postDict=[NSDictionary dictionaryWithObjectsAndKeys:to_userId,@"to_usrid",usrId,@"usr_id",  nil];
         [[ServerManager getSharedInstance]postDataOnserver:postDict withrequesturl:KfriendProfile];
         
         
@@ -389,19 +390,19 @@
     [[ServerManager getSharedInstance]hideHud];
     if ([serviceurl isEqual:KfriendProfile])
     {
-        int success=[[responseDict valueForKey:@"success"] intValue];
-        switch (success) {
-            case 1:
-            {
-               NSDictionary *contactdict=[NSDictionary dictionaryWithDictionary:[responseDict valueForKey:@"data"]];
-                
+//        int success=[[responseDict valueForKey:@"success"] intValue];
+//        switch (success) {
+//            case 1:
+//            {
+              // NSDictionary *contactdict=[NSDictionary dictionaryWithDictionary:[responseDict valueForKey:@"data"]];
+              NSDictionary *contactdict=responseDict;
                 [self showProfile:contactdict];
-            }
-                break;
-                
-            default:
-                break;
-        }
+//            }
+//                break;
+//                
+//            default:
+//                break;
+ //       }
         
     }
     else  if ([serviceurl isEqual:KaddActivity])
