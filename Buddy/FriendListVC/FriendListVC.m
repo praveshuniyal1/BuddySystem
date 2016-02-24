@@ -371,6 +371,7 @@
             case 1:
             {
                 contactList=[responseDict valueForKey:@"data"];
+            //contactList=responseDict ;
                 if (contactList.count>0)
                 {
                     

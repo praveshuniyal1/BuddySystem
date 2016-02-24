@@ -344,8 +344,9 @@ static void * kJSQMessagesKeyValueObservingContext = &kJSQMessagesKeyValueObserv
     [self finishReceivingMessageAnimated:YES];
 }
 
-- (void)finishReceivingMessageAnimated:(BOOL)animated {
-    
+- (void)finishReceivingMessageAnimated:(BOOL)animated
+{
+     
     self.showTypingIndicator = NO;
     
     [self.collectionView.collectionViewLayout invalidateLayoutWithContext:[JSQMessagesCollectionViewFlowLayoutInvalidationContext context]];
@@ -449,7 +450,7 @@ static void * kJSQMessagesKeyValueObservingContext = &kJSQMessagesKeyValueObserv
     NSParameterAssert(messageItem != nil);
     
     NSString *messageSenderId = [[(NSDictionary *)messageItem valueForKey:@"jsqmessage"] valueForKey:@"senderId"];
-    NSLog(@"%@",messageSenderId);
+    NSLog(@"messageSenderId%@",messageSenderId);
    // NSParameterAssert(messageSenderId != nil);
     
     BOOL isOutgoingMessage = [messageSenderId isEqualToString:self.senderId];
@@ -477,8 +478,11 @@ static void * kJSQMessagesKeyValueObservingContext = &kJSQMessagesKeyValueObserv
             cell.messageBubbleImageView.highlightedImage = [bubbleImageDataSource messageBubbleHighlightedImage];
         }
     }
-    else {
-        id<JSQMessageMediaData> messageMedia = [messageItem media];
+    else
+    {
+        NSLog(@"%@",messageItem);
+        //id<JSQMessageMediaData> messageMedia = [messageItem media];
+        id<JSQMessageMediaData> messageMedia = [[(NSDictionary *)messageItem valueForKey:@"jsqmessage"] media];
         cell.mediaView = [messageMedia mediaView] ?: [messageMedia mediaPlaceholderView];
         NSParameterAssert(cell.mediaView != nil);
     }

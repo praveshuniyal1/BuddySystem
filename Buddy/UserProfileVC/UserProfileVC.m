@@ -152,10 +152,10 @@
        NSString* usrId=[NSString stringWithFormat:@"%@",[userinfoDict objectForKey:@"id"]];
         NSString * to_userId=[NSString stringWithFormat:@"%@",[userinfodict objectForKey:@"usr_id"]];
 
-              [[ServerManager getSharedInstance]showactivityHub:@"Loading.." addWithView:self.view];
-        // NSString * poststr=[NSString stringWithFormat:@"usr_id=%@&usr_name=%@",usrId,name];
+        [[ServerManager getSharedInstance]showactivityHub:@"Loading.." addWithView:self.view];
         [ServerManager getSharedInstance].Delegate=self;
-        NSDictionary * postDict=[NSDictionary dictionaryWithObjectsAndKeys:usrId,@"usr_id", to_userId,@"to_usrid", nil];
+        //NSDictionary * postDict=[NSDictionary dictionaryWithObjectsAndKeys:usrId,@"usr_id", to_userId,@"to_usrid", nil];
+        NSDictionary * postDict=[NSDictionary dictionaryWithObjectsAndKeys:to_userId,@"to_usrid",to_userId,@"usr_id",  nil];
         [[ServerManager getSharedInstance]postDataOnserver:postDict withrequesturl:KfriendProfile];
         
         
@@ -200,6 +200,7 @@
            NSString * strDate=[[ServerManager getSharedInstance]setCustomeDateFormateWithUTCTimeZone:yyyymmddHHmmSS withtime:[NSDate date]];
             NSDate * selectedDate=[[ServerManager getSharedInstance]setCustomeDateFormateWithUTCTimeZone:yyyymmddHHmmSS withtime:strDate];
             NSDictionary * postDict =[NSDictionary dictionaryWithObjectsAndKeys:from_usrId,@"from_usrid",to_userId,@"to_usrid",searchWordProtection,@"msg",selectedDate,@"date",[NSNumber numberWithInt:0],@"content_type",nil];
+            
             
             [ServerManager getSharedInstance].Delegate=self;
             [[ServerManager getSharedInstance]postDataOnserver:postDict withrequesturl:KsendMessage];
@@ -389,19 +390,19 @@
     [[ServerManager getSharedInstance]hideHud];
     if ([serviceurl isEqual:KfriendProfile])
     {
-        int success=[[responseDict valueForKey:@"success"] intValue];
-        switch (success) {
-            case 1:
-            {
-               NSDictionary *contactdict=[NSDictionary dictionaryWithDictionary:[responseDict valueForKey:@"data"]];
-                
+//        int success=[[responseDict valueForKey:@"success"] intValue];
+//        switch (success) {
+//            case 1:
+//            {
+              // NSDictionary *contactdict=[NSDictionary dictionaryWithDictionary:[responseDict valueForKey:@"data"]];
+              NSDictionary *contactdict=responseDict;
                 [self showProfile:contactdict];
-            }
-                break;
-                
-            default:
-                break;
-        }
+//            }
+//                break;
+//                
+//            default:
+//                break;
+ //       }
         
     }
     else  if ([serviceurl isEqual:KaddActivity])
@@ -447,7 +448,7 @@
 -(void)showProfile:(NSDictionary*)contactdict
 {
     friendId=[contactdict valueForKey:@"usr_id"];
-    username.text=[contactdict valueForKey:@"usr_name"];
+    username.text=[contactdict valueForKey:@"name"];
     
     if (![[contactdict valueForKey:@"common_activity"] isKindOfClass:[NSNull class]])
     {

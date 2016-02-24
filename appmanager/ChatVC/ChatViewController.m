@@ -29,17 +29,16 @@
     
     
     self.collectionView.backgroundColor=[UIColor clearColor];
-   // self.view.backgroundColor=[UIColor redColor];
-    
-    [ServerManager getSharedInstance].Delegate=self;
     self.collectionView.delegate=self;
     self.collectionView.dataSource=self;
-    timerRecive=[NSTimer scheduledTimerWithTimeInterval:3.0 target:self selector:@selector(TappedOnReceiveConversesion) userInfo:nil repeats:YES];
-//    [self TappedOnReceiveConversesion];
     
+    [ServerManager getSharedInstance].Delegate=self;
     
-
     [self initilizeInputview];
+    
+    [self TappedOnReceiveConversesion];
+    timerRecive=[NSTimer scheduledTimerWithTimeInterval:5.0 target:self selector:@selector(TappedOnReceiveConversesion) userInfo:nil repeats:YES];
+    
 
 }
 - (void)viewDidAppear:(BOOL)animated
@@ -116,6 +115,8 @@
 
 - (id<JSQMessageData>)collectionView:(JSQMessagesCollectionView *)collectionView messageDataForItemAtIndexPath:(NSIndexPath *)indexPath
 {
+//    NSLog(@"data=%@",[JKModelData getSharedInstance].messages);
+//    NSLog(@"indexPath=%ld",(long)indexPath.item);
     return [[JKModelData getSharedInstance].messages objectAtIndex:indexPath.item];
 }
 
@@ -202,21 +203,25 @@
     /**
      *  iOS7-style sender name labels
      */
-    if ([message.senderId isEqualToString:self.senderId]) {
-        return nil;
-    }
     
-    if (indexPath.item - 1 > 0) {
-        JSQMessage *previousMessage = [[[JKModelData getSharedInstance].messages objectAtIndex:indexPath.item - 1] valueForKey:@"jsqmessage"];
-        if ([[previousMessage senderId] isEqualToString:message.senderId]) {
+        
+        if ([message.senderId isEqualToString:self.senderId]) {
             return nil;
         }
-    }
     
-    /**
-     *  Don't specify attributes to use the defaults.
-     */
-    return [[NSAttributedString alloc] initWithString:message.senderDisplayName];
+        
+        if (indexPath.item - 1 > 0) {
+            JSQMessage *previousMessage = [[[JKModelData getSharedInstance].messages objectAtIndex:indexPath.item - 1] valueForKey:@"jsqmessage"];
+            if ([[previousMessage senderId] isEqualToString:message.senderId]) {
+                return nil;
+            }
+        }
+        
+        /**
+         *  Don't specify attributes to use the defaults.
+         */
+        return [[NSAttributedString alloc] initWithString:message.senderDisplayName];
+      
 }
 
 - (NSAttributedString *)collectionView:(JSQMessagesCollectionView *)collectionView attributedTextForCellBottomLabelAtIndexPath:(NSIndexPath *)indexPath
@@ -228,6 +233,7 @@
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
+    NSLog(@"%ld",[[JKModelData getSharedInstance].messages count]);
     return [[JKModelData getSharedInstance].messages count];
 }
 
@@ -253,7 +259,8 @@
      */
     
     JSQMessage *msg = [[[JKModelData getSharedInstance].messages objectAtIndex:indexPath.item] valueForKey:@"jsqmessage"];
-    NSLog(@"MSEESGE%@",msg);
+    
+    //NSLog(@"MSEESGE%@",msg);
     
     if (!msg.isMediaMessage) {
         
@@ -362,24 +369,26 @@
     messageids=  [[JKModelData getSharedInstance] fetchMsgIds];
     if ([serviceurl isEqual:KsendMessage])
     {
-//        [self TappedOnReceiveConversesion];
-//         [self insertnewMsg:[[responseDict valueForKey:@"aps"] valueForKey:@"alert"]];
+
         [self TappedOnReceiveConversesion];
+        [self insertnewMsg:responseDict];
     }
     else if ([serviceurl isEqual:KRecivemsg])
     {
-        int success=[[responseDict valueForKey:@"success"] intValue];
+        int success=[[responseDict valueForKey:@"status"] intValue];
         
         switch (success)
         {
             case 0:
             {
-                
+               [[NSUserDefaults standardUserDefaults]setBool:NO forKey:@"wantReload"];
+                 [self.collectionView reloadData];
             }
                 break;
             case 1:
             {
-                chatResponseArr= [responseDict valueForKey:@"data"] ;
+                chatResponseArr= [responseDict valueForKey:@"Chat"] ;
+             // chatResponseArr= responseDict ;
                 for (int msgindx=0; msgindx<[chatResponseArr count]; msgindx++)
                 {
                     NSString * msgid=[[chatResponseArr objectAtIndex:msgindx] valueForKey:@"msg_id"];
@@ -388,16 +397,15 @@
                         if (![messageids containsObject:msgid])
                         {
                             [self insertnewMsg:[chatResponseArr objectAtIndex:msgindx]];
-                            
                         }
                     }
                     else
                     {
                         [self insertnewMsg:[chatResponseArr objectAtIndex:msgindx]];
- 
                     }
- 
                 }
+                
+                [[NSUserDefaults standardUserDefaults]setBool:YES forKey:@"wantReload"];
                 [self reloadChatMessg];
 
             }
@@ -466,9 +474,15 @@
         NSString * strDate=[[ServerManager getSharedInstance]setCustomeDateFormateWithUTCTimeZone:yyyymmddHHmmSS withtime:[NSDate date]];
         NSDate * selectedDate=[[ServerManager getSharedInstance]setCustomeDateFormateWithUTCTimeZone:yyyymmddHHmmSS withtime:strDate];
 
-        NSDictionary * params=[NSDictionary dictionaryWithObjectsAndKeys:senderid,@"from_usrid",message,@"msg",reciverid,@"to_usrid",selectedDate,@"date",[NSNumber numberWithInt:0],@"content_type", nil];
-        NSLog(@"%@",params);
+        //NSDictionary * params=[NSDictionary dictionaryWithObjectsAndKeys:senderid,@"from_usrid",message,@"msg",reciverid,@"to_usrid",selectedDate,@"date",[NSNumber numberWithInt:0],@"content_type", nil];
+        
+         NSString * poststr=[NSString stringWithFormat:@"from_usrid=%@&to_usrid=%@&msg=%@&content_type=%@&date=%@",[JKModelData getSharedInstance].kJSQSenderId,[JKModelData getSharedInstance].kJSQReciverId,message,[NSNumber numberWithInt:0],strDate];
+        
+         NSDictionary * params=[NSDictionary dictionaryWithObjectsAndKeys:senderid,@"from_usrid",message,@"msg",reciverid,@"to_usrid",[NSNumber numberWithInt:0],@"content_type",selectedDate,@"date",nil];
+        NSLog(@"Params=%@",params);
+        
         [ServerManager getSharedInstance].Delegate=self;
+       // [[ServerManager getSharedInstance]postDataOnserverWithAppend:poststr withrequesturl:KsendMessage withPostDic:params];
         
         [[ServerManager getSharedInstance]postDataOnserver:params withrequesturl:KsendMessage];
         
@@ -502,11 +516,11 @@
     
     if (is_net==YES)
     {
-        
+        NSString *msg=@"aa";
         NSString * strDate=[[ServerManager getSharedInstance]setCustomeDateFormateWithUTCTimeZone:yyyymmddHHmmSS withtime:[NSDate date]];
         NSDate * selectedDate=[[ServerManager getSharedInstance]setCustomeDateFormateWithUTCTimeZone:yyyymmddHHmmSS withtime:strDate];
         NSString* friendid= [JKModelData getSharedInstance].kJSQReciverId ;
-        NSDictionary * params=[NSDictionary dictionaryWithObjectsAndKeys:self.senderId,@"from_usrid",friendid,@"to_usrid",selectedDate,@"date",lati,@"latitude",longi,@"longitude",[NSNumber numberWithInt:1],@"content_type", nil];
+        NSDictionary * params=[NSDictionary dictionaryWithObjectsAndKeys:self.senderId,@"from_usrid",friendid,@"to_usrid",selectedDate,@"date",lati,@"latitude",longi,@"longitude",[NSNumber numberWithInt:1],@"content_type",msg,@"msg" ,nil];
         [ServerManager getSharedInstance].Delegate=self;
         [[ServerManager getSharedInstance]postDataOnserver:params withrequesturl:KsendMessage];
          [JSQSystemSoundPlayer jsq_playMessageSentSound];
@@ -537,13 +551,15 @@
 
             lastmessageid=[[messageids lastObject] intValue];
             
-            NSString * poststr=[NSString stringWithFormat:@"usr_id=%@&msg_id=%d",[JKModelData getSharedInstance].kJSQReciverId,lastmessageid];
+           // NSString * poststr=[NSString stringWithFormat:@"usr_id=%@&msg_id=%d",[JKModelData getSharedInstance].kJSQReciverId,lastmessageid];
+            NSString * poststr=[NSString stringWithFormat:@"to_usrid=%@&from_usrid=%@&msg_id=%d",[JKModelData getSharedInstance].kJSQSenderId,[JKModelData getSharedInstance].kJSQReciverId,lastmessageid];
             [[ServerManager getSharedInstance]FetchDatafromServer:KRecivemsg withAppendString:poststr];
         }
         
         else
         {
-             NSString * poststr=[NSString stringWithFormat:@"usr_id=%@",[JKModelData getSharedInstance].kJSQReciverId];
+             //NSString * poststr=[NSString stringWithFormat:@"usr_id=%@",[JKModelData getSharedInstance].kJSQReciverId];
+            NSString * poststr=[NSString stringWithFormat:@"to_usrid=%@&from_usrid=%@&msg_id=%d",[JKModelData getSharedInstance].kJSQReciverId,[JKModelData getSharedInstance].kJSQSenderId,0];
             NSLog(@"Post str%@",poststr);
               [[ServerManager getSharedInstance]FetchDatafromServer:KRecivemsg withAppendString:poststr];
         }
@@ -585,24 +601,27 @@
          */
         
         [[JKModelData getSharedInstance] readAllChatMessage];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(cacheUpdated:) name:@"LoadLocation" object:nil];
     
-    NSLog(@"%@",[JKModelData getSharedInstance].messages);
+    NSLog(@"message=%@",[JKModelData getSharedInstance].messages);
         [JSQSystemSoundPlayer jsq_playMessageReceivedSound];
         [self finishReceivingMessage];
        
        [self.collectionView reloadData];
 }
 
+- (void)cacheUpdated:(NSNotification *)notification
+{
+    [self.collectionView reloadData];
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+
+
 -(void)insertnewMsg:(NSDictionary*)newmsgDict
 {
-   
-        
-        
-        [[JKModelData getSharedInstance] insertChatConversesion:newmsgDict];
-        
-         
-         
     
+        [[JKModelData getSharedInstance] insertChatConversesion:newmsgDict];
     
 }
 

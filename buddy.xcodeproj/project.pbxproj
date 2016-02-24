@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		55E185D11C7C25CC00C459D8 /* JSQMessagesBubblesSizeCalculator.m in Sources */ = {isa = PBXBuildFile; fileRef = 55E185D01C7C25CC00C459D8 /* JSQMessagesBubblesSizeCalculator.m */; };
 		5D8B52DC1C2894CD00AE512B /* CustomApplication.m in Sources */ = {isa = PBXBuildFile; fileRef = 5D8B52DB1C2894CD00AE512B /* CustomApplication.m */; };
 		DA1355661AD251DF005B734F /* ILGeoNamesLookup.m in Sources */ = {isa = PBXBuildFile; fileRef = DA1355651AD251DF005B734F /* ILGeoNamesLookup.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		DA1355691AD259D0005B734F /* JSONKit.m in Sources */ = {isa = PBXBuildFile; fileRef = DA1355681AD259D0005B734F /* JSONKit.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -184,6 +185,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		55E185CE1C7C25CC00C459D8 /* JSQMessagesBubbleSizeCalculating.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSQMessagesBubbleSizeCalculating.h; sourceTree = "<group>"; };
+		55E185CF1C7C25CC00C459D8 /* JSQMessagesBubblesSizeCalculator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSQMessagesBubblesSizeCalculator.h; sourceTree = "<group>"; };
+		55E185D01C7C25CC00C459D8 /* JSQMessagesBubblesSizeCalculator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSQMessagesBubblesSizeCalculator.m; sourceTree = "<group>"; };
 		5D8B52DA1C2894CD00AE512B /* CustomApplication.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomApplication.h; sourceTree = "<group>"; };
 		5D8B52DB1C2894CD00AE512B /* CustomApplication.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomApplication.m; sourceTree = "<group>"; };
 		DA1355641AD251DF005B734F /* ILGeoNamesLookup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ILGeoNamesLookup.h; sourceTree = "<group>"; };
@@ -515,6 +519,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		55E185CD1C7C25A600C459D8 /* JSQMessageBubbleCalculator */ = {
+			isa = PBXGroup;
+			children = (
+				55E185CE1C7C25CC00C459D8 /* JSQMessagesBubbleSizeCalculating.h */,
+				55E185CF1C7C25CC00C459D8 /* JSQMessagesBubblesSizeCalculator.h */,
+				55E185D01C7C25CC00C459D8 /* JSQMessagesBubblesSizeCalculator.m */,
+			);
+			name = JSQMessageBubbleCalculator;
+			sourceTree = "<group>";
+		};
 		DA1355631AD251DF005B734F /* ILGeoNames */ = {
 			isa = PBXGroup;
 			children = (
@@ -1069,6 +1083,7 @@
 		DA77C76A1AB0272700614BBC /* ExternalFrameWork */ = {
 			isa = PBXGroup;
 			children = (
+				55E185CD1C7C25A600C459D8 /* JSQMessageBubbleCalculator */,
 				DA77C86F1AB0272700614BBC /* JSQMessagesViewController */,
 				DA77C8DF1AB0272800614BBC /* JSQSystemSoundPlayer */,
 				DA77C8E61AB0272800614BBC /* SCFacebook */,
@@ -1569,6 +1584,7 @@
 				DA77C7431AB026BB00614BBC /* AFURLConnectionOperation.m in Sources */,
 				DA77C98A1AB0272800614BBC /* JSQLocationMediaItem.m in Sources */,
 				DA77C7661AB026BB00614BBC /* REDActionSheetButton.m in Sources */,
+				55E185D11C7C25CC00C459D8 /* JSQMessagesBubblesSizeCalculator.m in Sources */,
 				DA77C7421AB026BB00614BBC /* AFSecurityPolicy.m in Sources */,
 				DA77C74A1AB026BB00614BBC /* DBManager.m in Sources */,
 				DA77C9A61AB0272800614BBC /* README.md in Sources */,

@@ -119,6 +119,7 @@ typedef enum : NSUInteger {
 -(NSString*)createServerPath:(NSString*)requestPath;
 
 -(void)postDataOnserver:(NSDictionary*)postDict withrequesturl:(NSString*)postUrl;
+-(void)postDataOnserverWithAppend:(NSString *)postStr withrequesturl:(NSString *)postUrl withPostDic:(NSDictionary*)postDic;
 -(void)postDataOnserverLocation:(NSDictionary *)postDict withrequesturl:(NSString *)postUrl;
 -(void)FetchDatafromServer:(NSString*)UrlString withAppendString:(NSString*)appendString;
 -(void)postDatawithMediaFile:(NSDictionary *)postDict MediaFile:(NSMutableArray*)mediaarray setMediaKey:(NSString*)MediaKey  withPostUrl:(NSString *)postUrl mediaType:(NSString*)type is_multiple:(BOOL)ismultiple;

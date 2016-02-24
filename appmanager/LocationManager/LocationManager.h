@@ -18,6 +18,7 @@
     CLLocationManager *locationManager;
     CLLocation *currentLocation;
     CLGeocoder * geoCoder;
+    NSMutableData *webData;
     
 }
 

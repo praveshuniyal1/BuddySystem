@@ -59,7 +59,7 @@ NSString *const DBUpdateStmt =@"Update";
         {
             char *errMsg;
             // messages
-           const char *sql_stmt = "CREATE TABLE IF NOT EXISTS Messages(ID INTEGER PRIMARY KEY AUTOINCREMENT, to_name TEXT,to_id TEXT,from_name TEXT,from_id TEXT,msg_id INTEGER,session_id INTEGER,content TEXT,type_id INTEGER,state INTEGER,create_time DATETIME,latitute double, longitute double)";
+           const char *sql_stmt = "CREATE TABLE IF NOT EXISTS Messages(ID INTEGER PRIMARY KEY AUTOINCREMENT, to_name TEXT,to_id TEXT,from_name TEXT,from_id TEXT,msg_id INTEGER,session_id INTEGER,content TEXT,type_id INTEGER,state INTEGER,create_time DATETIME,latitute DOUBLE, longitute DOUBLE)";
             if (sqlite3_exec(database, sql_stmt, NULL, NULL, &errMsg) != SQLITE_OK)
             {
                 NSLog(@"Failed to create Messages table");
@@ -260,7 +260,12 @@ NSString *const DBUpdateStmt =@"Update";
                 
                 NSString * createTime=[[ServerManager getSharedInstance]getUTCFormateDate:myDate];
                 
-                NSMutableDictionary * tempdict=  [NSMutableDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithInt:RowIdField],@"rowIndex",tonameField,@"to_name",to_userid,@"to_userId",fromnameField,@"from_name",from_id,@"from_id",[NSNumber numberWithInt:msgIdField],@"msg_id",[NSNumber numberWithLongLong:session_id],@"session_id",content,@"content",[NSNumber numberWithInt:type_id],@"type_id",[NSNumber numberWithInt:state],@"state",createTime,@"create_time", nil];
+                double lati=sqlite3_column_double(statement, 11);
+                double longi=sqlite3_column_double(statement, 12);
+
+                
+                
+                NSMutableDictionary * tempdict=  [NSMutableDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithInt:RowIdField],@"rowIndex",tonameField,@"to_name",to_userid,@"to_userId",fromnameField,@"from_name",from_id,@"from_id",[NSNumber numberWithInt:msgIdField],@"msg_id",[NSNumber numberWithLongLong:session_id],@"session_id",content,@"content",[NSNumber numberWithInt:type_id],@"type_id",[NSNumber numberWithInt:state],@"state",createTime,@"create_time", [NSNumber numberWithDouble:lati],@"latitute",[NSNumber numberWithDouble:longi],@"longitute", nil];
                 
                 [readmessageArr addObject:tempdict];
             }

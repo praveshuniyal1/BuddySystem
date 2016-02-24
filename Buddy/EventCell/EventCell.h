@@ -20,4 +20,5 @@
 @property (strong, nonatomic) IBOutlet UIView *jkplayerView;
 @property (strong, nonatomic) IBOutlet UIImageView *videoThumbView;
 -(void)loadEventCellData:(NSDictionary*)dict;
+-(void)loadEventCellData:(NSDictionary *)dict andHeight:(float)height;
 @end

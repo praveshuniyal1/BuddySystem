@@ -325,14 +325,17 @@ static ServerManager *sharedInstance = nil;
          [Delegate failureRsponseError:error];
      }];
 }
--(void)postDataOnserverLocation:(NSDictionary *)postDict withrequesturl:(NSString *)postUrl
+
+-(void)postDataOnserverWithAppend:(NSString *)postStr withrequesturl:(NSString *)postUrl withPostDic:(NSDictionary*)postDic
 {
-    NSMutableDictionary * dict=[NSMutableDictionary dictionaryWithDictionary:postDict];
+    //NSMutableDictionary * dict=[NSMutableDictionary dictionaryWithDictionary:postDict];
+   
+    NSString *serverpath=[self createServerPath:[NSString stringWithFormat:@"%@%@",postUrl,postStr]];
     
     AFHTTPRequestOperationManager *manager = [[AFHTTPRequestOperationManager alloc]initWithBaseURL:[NSURL URLWithString:KBaseUrl]];
     manager.responseSerializer = [AFHTTPResponseSerializer serializer];
     // manager.responseSerializer = [AFJSONResponseSerializer serializer];
-    [manager POST:postUrl parameters:postDict success:^(AFHTTPRequestOperation *operation, id responseObject)
+    [manager POST:serverpath parameters:postDic success:^(AFHTTPRequestOperation *operation, id responseObject)
      {
          NSLog(@"JSON: %@", responseObject);
          //        NSLog(@"Response: %@", [[NSString alloc] initWithData:responseObject encoding:NSUTF8StringEncoding]);
@@ -345,7 +348,35 @@ static ServerManager *sharedInstance = nil;
          NSLog(@"Error: %@", error);
          [Delegate failureRsponseError:error];
      }];
+}
 
+
+
+
+-(void)postDataOnserverLocation:(NSDictionary *)postDict withrequesturl:(NSString *)postUrl
+{
+    NSMutableDictionary * dict=[NSMutableDictionary dictionaryWithDictionary:postDict];
+    
+        AFHTTPRequestOperationManager *manager = [[AFHTTPRequestOperationManager alloc]initWithBaseURL:[NSURL URLWithString:KBaseUrl]];
+        
+        manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+        // manager.responseSerializer = [AFJSONResponseSerializer serializer];
+        [manager POST:postUrl parameters:postDict success:^(AFHTTPRequestOperation *operation, id responseObject)
+         {
+             NSLog(@"JSON: %@", responseObject);
+             //        NSLog(@"Response: %@", [[NSString alloc] initWithData:responseObject encoding:NSUTF8StringEncoding]);
+             NSDictionary *response = (NSDictionary*)[NSJSONSerialization JSONObjectWithData:operation.responseData options:kNilOptions error:nil];
+             NSLog(@"JSON response: %@", response);
+             [Delegate serverReponse:response withrequestName:postUrl];
+             
+         } failure:^(AFHTTPRequestOperation *operation, NSError *error)
+         {
+             NSLog(@"Error: %@", error);
+             [Delegate failureRsponseError:error];
+         }];
+
+    
+   
 }
 
 #pragma mark- postDatawithMediaFile-
@@ -485,7 +516,7 @@ static ServerManager *sharedInstance = nil;
 //        getUrlStr=[NSString stringWithFormat:@"%@&key=%@",UrlString,userToken];
 //        // getUrlStr=[self createServerPath:UrlString];
 //    }
-    NSString *serverpath=[self createServerPath:UrlString];
+    NSString *serverpath=[self createServerPath:[NSString stringWithFormat:@"%@%@",UrlString,appendString]];
     
     //     NSString *serverurlstr=[NSString stringWithFormat:@"%@%@",[self createServerPath:UrlString],getUrlStr];
     

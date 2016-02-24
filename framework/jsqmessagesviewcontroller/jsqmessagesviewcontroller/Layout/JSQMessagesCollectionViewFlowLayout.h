@@ -22,6 +22,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "JSQMessagesBubbleSizeCalculating.h"
+#import "JSQMessagesBubblesSizeCalculator.h"
 
 @class JSQMessagesCollectionView;
 
@@ -57,6 +59,8 @@ FOUNDATION_EXPORT const CGFloat kJSQMessagesCollectionViewAvatarSizeDefault;
  *  The collection view object currently using this layout object.
  */
 @property (readonly, nonatomic) JSQMessagesCollectionView *collectionView;
+
+@property (strong, nonatomic) id<JSQMessagesBubbleSizeCalculating> bubbleSizeCalculator;
 
 /**
  *  Specifies whether or not the layout should enable spring behavior dynamics for its items using `UIDynamics`.

@@ -34,6 +34,7 @@
 #import "UIImage+JSQMessages.h"
 
 
+
 const CGFloat kJSQMessagesCollectionViewCellLabelHeightDefault = 20.0f;
 const CGFloat kJSQMessagesCollectionViewAvatarSizeDefault = 30.0f;
 
@@ -70,6 +71,8 @@ const CGFloat kJSQMessagesCollectionViewAvatarSizeDefault = 30.0f;
 
 
 @implementation JSQMessagesCollectionViewFlowLayout
+
+@synthesize bubbleSizeCalculator = _bubbleSizeCalculator;
 
 #pragma mark - Initialization
 
@@ -157,6 +160,14 @@ const CGFloat kJSQMessagesCollectionViewAvatarSizeDefault = 30.0f;
 }
 
 #pragma mark - Setters
+
+- (void)setBubbleSizeCalculator:(id<JSQMessagesBubbleSizeCalculating>)bubbleSizeCalculator
+{
+    NSParameterAssert(bubbleSizeCalculator != nil);
+    _bubbleSizeCalculator = bubbleSizeCalculator;
+}
+
+
 
 - (void)setSpringinessEnabled:(BOOL)springinessEnabled
 {
@@ -427,6 +438,10 @@ const CGFloat kJSQMessagesCollectionViewAvatarSizeDefault = 30.0f;
     }
 }
 
+
+
+
+
 #pragma mark - Message cell layout utilities
 
 - (CGSize)messageBubbleSizeForItemAtIndexPath:(NSIndexPath *)indexPath
@@ -477,12 +492,22 @@ const CGFloat kJSQMessagesCollectionViewAvatarSizeDefault = 30.0f;
         CGFloat finalWidth = MAX(stringSize.width + horizontalInsetsTotal, self.bubbleImageAssetWidth) + 2.0f;
         
         finalSize = CGSizeMake(finalWidth, stringSize.height + verticalInsets);
+    
+    if (strMsg!=nil)
+    {
+        finalSize = CGSizeMake(finalWidth, stringSize.height + verticalInsets);
+    }
+    else
+    {
+        finalSize = CGSizeMake(200, stringSize.height + verticalInsets+130);
+    }
 //    }
     
     [self.messageBubbleCache setObject:[NSValue valueWithCGSize:finalSize] forKey:@(messageItem.hash)];
     
     return finalSize;
 }
+
 
 - (CGSize)sizeForItemAtIndexPath:(NSIndexPath *)indexPath
 {

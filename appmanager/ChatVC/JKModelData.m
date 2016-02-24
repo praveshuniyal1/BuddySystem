@@ -13,6 +13,10 @@
  */
 static JKModelData *sharedInstance = nil;
 @implementation JKModelData
+{
+    //JSQMessage * locationMediaMessage;
+    JSQMessage *locationMessage;
+}
 @synthesize kJSQSenderDisplayName,kJSQReciverDisplayName,kJSQReciverId,kJSQSenderId,kJSQReciverAvatarImage,kJSQSenderAvatarImage;
 +(JKModelData*)getSharedInstance
 {
@@ -138,7 +142,7 @@ static JKModelData *sharedInstance = nil;
     CLLocation *ferryBuildingInSF = [[CLLocation alloc] initWithLatitude:lat longitude:longit];
     
     JSQLocationMediaItem *locationItem = [[JSQLocationMediaItem alloc] init];
-    JSQMessage *locationMessage;
+   // JSQMessage *locationMessage;
     [locationItem setLocation:ferryBuildingInSF withCompletionHandler:completion];
     if ([senderId isEqualToString:kJSQReciverId])
     {
@@ -152,11 +156,39 @@ static JKModelData *sharedInstance = nil;
                                               displayName:kJSQSenderDisplayName
                                                     media:locationItem];
     }
-   
+    
     return locationMessage;
     //[self.messages addObject:locationMessage];
 
 }
+-(JSQMessage*)addlocationMediaMessageLat:(CLLocationDegrees)lat longi:(CLLocationDegrees)longit sendeid:(NSString*)senderId
+{
+    JSQLocationMediaItemCompletionBlock completion;
+    
+    CLLocation *ferryBuildingInSF = [[CLLocation alloc] initWithLatitude:lat longitude:longit];
+    
+    JSQLocationMediaItem *locationItem = [[JSQLocationMediaItem alloc] init];
+    // JSQMessage *locationMessage;
+    [locationItem setLocation:ferryBuildingInSF withCompletionHandler:completion];
+    if ([senderId isEqualToString:kJSQReciverId])
+    {
+        locationMessage = [JSQMessage messageWithSenderId:kJSQReciverId
+                                              displayName:kJSQReciverDisplayName
+                                                    media:locationItem];
+    }
+    else
+    {
+        locationMessage = [JSQMessage messageWithSenderId:kJSQSenderId
+                                              displayName:kJSQSenderDisplayName
+                                                    media:locationItem];
+    }
+    
+    return locationMessage;
+
+}
+
+
+
 #pragma mark-addVideoMediaMessage-
 - (JSQMessage*)addVideoMediaMessage:(NSURL*)videoUrl sendeid:(NSString*)senderId
 {
@@ -204,7 +236,7 @@ static JKModelData *sharedInstance = nil;
                     NSMutableDictionary * objectkeyDict=[NSMutableDictionary new];
                     int type_id=[[[getmsgs objectAtIndex:msgindx] valueForKey:@"type_id"] intValue];
                     NSString * from_id=[[getmsgs objectAtIndex:msgindx] valueForKey:@"from_id"];
-                    NSLog(@"%@",from_id);
+                    NSLog(@"fromId=%@",from_id);
                     switch (type_id)
                     {
                         case 0:
@@ -212,7 +244,7 @@ static JKModelData *sharedInstance = nil;
                             NSString *  content=[NSString stringWithFormat:@"%@",[[getmsgs objectAtIndex:msgindx] valueForKey:@"content"]];
                             
                             NSDateFormatter *dateFormater=[[NSDateFormatter alloc]init];
-                            [dateFormater setDateFormat:@"yyyy-MM-dd hh:mm:ss"];
+                            [dateFormater setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
                             NSDate *dateMessage=[dateFormater dateFromString:[[getmsgs objectAtIndex:msgindx] valueForKey:@"create_time"]];
                             NSLog(@"%@",dateMessage);
                             JSQMessage * textMessage;
@@ -254,38 +286,91 @@ static JKModelData *sharedInstance = nil;
                             // location
                             double latitute=[[[getmsgs objectAtIndex:msgindx] valueForKey:@"latitute"] doubleValue];
                             double longitute=[[[getmsgs objectAtIndex:msgindx] valueForKey:@"longitute"] doubleValue];
+                            
+                            
                             JSQMessage * locationMediaMessage;
+                            
                             if ([from_id isEqualToString:kJSQSenderId])
                             {
-                                locationMediaMessage=[self addlocationMediaMessageLat:latitute longi:longitute sendeid:kJSQSenderId Completion:^{
-                                    
-                                    
-                                    [objectkeyDict setValue:locationMediaMessage  forKey:@"jsqmessage"];
-                                    [objectkeyDict setValue:kJSQSenderId  forKey:@"senderid"];
-                                    [objectkeyDict setValue:kJSQReciverId  forKey:@"reciverid"];
-                                    [objectkeyDict setValue:[NSNumber numberWithInt:type_id]  forKey:@"type_id"];
-                                    [objectkeyDict setValue:msg_id forKey:@"msg_id"];
+                                
+                                [self addlocationMediaMessageLat:latitute longi:longitute sendeid:kJSQSenderId ];
+                                [objectkeyDict setValue:locationMessage forKey:@"jsqmessage"];
+                                [objectkeyDict setValue:kJSQSenderId  forKey:@"senderid"];
+                                [objectkeyDict setValue:kJSQReciverId  forKey:@"reciverid"];
+                                [objectkeyDict setValue:[NSNumber numberWithInt:type_id]  forKey:@"type_id"];
+                                [objectkeyDict setValue:msg_id forKey:@"msg_id"];
+                                if (locationMessage!=nil) {
                                     [self.messages addObject:objectkeyDict];
-                                    
-                                    
-                                }];
+                                }
+                                if ([[NSUserDefaults standardUserDefaults]boolForKey:@"wantReload"]==YES)
+                                {
+                                    [[NSNotificationCenter defaultCenter] postNotificationName:@"LoadLocation" object:self];
+                                }
+
+                               
+//                                locationMediaMessage=[self addlocationMediaMessageLat:latitute longi:longitute sendeid:kJSQSenderId Completion:^{
+//                                    
+//                                    [objectkeyDict setValue:locationMessage forKey:@"jsqmessage"];
+//                                    [objectkeyDict setValue:kJSQSenderId  forKey:@"senderid"];
+//                                    [objectkeyDict setValue:kJSQReciverId  forKey:@"reciverid"];
+//                                    [objectkeyDict setValue:[NSNumber numberWithInt:type_id]  forKey:@"type_id"];
+//                                    [objectkeyDict setValue:msg_id forKey:@"msg_id"];
+//                                    if (locationMessage!=nil) {
+//                                        [self.messages addObject:objectkeyDict];
+//                                    }
+//                                    if ([[NSUserDefaults standardUserDefaults]boolForKey:@"wantReload"]==YES)
+//                                    {
+//                                        [[NSNotificationCenter defaultCenter] postNotificationName:@"LoadLocation" object:self];
+//                                    }
+//                                    //[[NSNotificationCenter defaultCenter] postNotificationName:@"LoadLocation" object:self];
+//                                     NSLog(@"message array=%@",self.messages);
+//                                }];
+                                
                             }
                             else
                             {
-                                locationMediaMessage=[self addlocationMediaMessageLat:latitute longi:longitute sendeid:kJSQReciverId Completion:^{
-                                    
-                                    [objectkeyDict setValue:locationMediaMessage  forKey:@"jsqmessage"];
-                                    [objectkeyDict setValue:kJSQSenderId  forKey:@"senderid"];
-                                    [objectkeyDict setValue:kJSQReciverId  forKey:@"reciverid"];
-                                    [objectkeyDict setValue:[NSNumber numberWithInt:type_id]  forKey:@"type_id"];
-                                    [objectkeyDict setValue:msg_id forKey:@"msg_id"];
-                                    [self.messages addObject:objectkeyDict];
-                                    
-                                    
-                                    
-                                }];
                                 
+                                
+                                [self addlocationMediaMessageLat:latitute longi:longitute sendeid:kJSQReciverId ];
+                                [objectkeyDict setValue:locationMessage forKey:@"jsqmessage"];
+                                [objectkeyDict setValue:kJSQSenderId  forKey:@"senderid"];
+                                [objectkeyDict setValue:kJSQReciverId  forKey:@"reciverid"];
+                                [objectkeyDict setValue:[NSNumber numberWithInt:type_id]  forKey:@"type_id"];
+                                [objectkeyDict setValue:msg_id forKey:@"msg_id"];
+                                if (locationMessage!=nil) {
+                                    [self.messages addObject:objectkeyDict];
+                                }
+                                if ([[NSUserDefaults standardUserDefaults]boolForKey:@"wantReload"]==YES)
+                                {
+                                    [[NSNotificationCenter defaultCenter] postNotificationName:@"LoadLocation" object:self];
+                                }
+
+                                
+//                               locationMediaMessage=[self addlocationMediaMessageLat:latitute longi:longitute sendeid:kJSQReciverId Completion:^{
+//                                   
+//                                    [objectkeyDict setValue:locationMessage  forKey:@"jsqmessage"];
+//                                    [objectkeyDict setValue:kJSQSenderId  forKey:@"senderid"];
+//                                    [objectkeyDict setValue:kJSQReciverId  forKey:@"reciverid"];
+//                                    [objectkeyDict setValue:[NSNumber numberWithInt:type_id]  forKey:@"type_id"];
+//                                    [objectkeyDict setValue:msg_id forKey:@"msg_id"];
+//                                   if (locationMessage!=nil) {
+//                                        [self.messages addObject:objectkeyDict];
+//                                   }
+//                                   
+//                                   if ([[NSUserDefaults standardUserDefaults]boolForKey:@"wantReload"]==YES)
+//                                   {
+//                                       [[NSNotificationCenter defaultCenter] postNotificationName:@"LoadLocation" object:self];
+//                                   }
+//                                   
+//                                   //[[NSNotificationCenter defaultCenter] postNotificationName:@"LoadLocation" object:self];
+//                                   
+//                                NSLog(@"message array=%@",self.messages);
+//                                }];
+                               
+                               
                             }
+                            
+                            NSLog(@"message array=%@",self.messages);
                             
                             //content=[NSString stringWithFormat:@"%@",[chatDict valueForKey:@"userfile"]];
                         }
@@ -315,6 +400,7 @@ static JKModelData *sharedInstance = nil;
 #pragma mark- insert new message Query-
 -(void)insertChatConversesion:(NSDictionary*)chatDict
 {
+    
      NSString *dateString=[[ServerManager getSharedInstance]getUTCFormateDate:[NSDate date]];
     
     
@@ -330,15 +416,21 @@ static JKModelData *sharedInstance = nil;
         case 0:
         {
             // txt
-            content=[NSString stringWithFormat:@"%@",[chatDict valueForKey:@"msg"]];
+            
+            //content=[NSString stringWithFormat:@"%@",[chatDict valueForKey:@"msg"]];
+            content=[NSString stringWithFormat:@"%@",[chatDict valueForKey:@"message"]];
             
         }
             break;
         case 1:
         {
             // location
-             lati=[[chatDict valueForKey:@"lat"]doubleValue];
-             longit=[[chatDict valueForKey:@"longit"]doubleValue];
+//             lati=[[chatDict valueForKey:@"latitude"]doubleValue];
+//             longit=[[chatDict valueForKey:@"longitude"]doubleValue];
+            
+            lati=30.7800;
+            longit=76.6900;
+            
         }
             break;
        
@@ -346,7 +438,7 @@ static JKModelData *sharedInstance = nil;
     
     
    
-    if ([kJSQSenderId isEqual:[chatDict valueForKey:@"from_usrid"]])
+    if ([kJSQSenderId isEqual:[chatDict valueForKey:@"sender_user"]])
     {
        
         NSString *insertSQL = [NSString stringWithFormat: @"INSERT INTO Messages (to_name,to_id,from_name,from_id,msg_id,session_id,content,type_id,state,create_time,latitute,longitute) VALUES (\"%@\", \"%@\", \"%@\", \"%@\", \"%d\",\"%ld\",\"%@\",\"%d\",\"%d\",\"%@\",\"%f\",\"%f\")",kJSQReciverDisplayName, kJSQReciverId, kJSQSenderDisplayName,kJSQSenderId,(int)msg_id,(long)chatid,content,type_id,state,dateString,lati,longit];
@@ -359,7 +451,8 @@ static JKModelData *sharedInstance = nil;
     else
     {
       
-         NSString *insertSQL = [NSString stringWithFormat: @"INSERT INTO Messages (to_name,to_id,from_name,from_id,msg_id,session_id,content,type_id,state,create_time,latitute,longitute) VALUES (\"%@\", \"%@\", \"%@\", \"%@\", \"%d\",\"%ld\",\"%@\",\"%d\",\"%d\",\"%@\",\"%f\",\"%f\")", kJSQSenderDisplayName,kJSQSenderId,kJSQSenderDisplayName, kJSQReciverId,(int)msg_id,(long)chatid,content,type_id,state,dateString,lati,longit];
+         NSString *insertSQL = [NSString stringWithFormat: @"INSERT INTO Messages (to_name,to_id,from_name,from_id,msg_id,session_id,content,type_id,state,create_time,latitute,longitute) VALUES (\"%@\", \"%@\", \"%@\", \"%@\", \"%d\",\"%ld\",\"%@\",\"%d\",\"%d\",\"%@\",\"%f\",\"%f\")",kJSQSenderDisplayName ,kJSQSenderId,kJSQReciverDisplayName,kJSQReciverId,(int)msg_id,(long)chatid,content,type_id,state,dateString,lati,longit];
+        
        
          [[DBManager getSharedInstance]insertQuery:insertSQL];
     }

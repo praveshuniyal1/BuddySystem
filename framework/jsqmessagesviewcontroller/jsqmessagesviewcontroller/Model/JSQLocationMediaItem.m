@@ -73,7 +73,7 @@
 
 - (void)setLocation:(CLLocation *)location withCompletionHandler:(JSQLocationMediaItemCompletionBlock)completion
 {
-    [self setLocation:location region:MKCoordinateRegionMakeWithDistance(location.coordinate, 500.0, 500.0) withCompletionHandler:completion];
+    [self setLocation:location region:MKCoordinateRegionMakeWithDistance(location.coordinate, 50000.0, 50000.0) withCompletionHandler:completion];
 }
 
 - (void)setLocation:(CLLocation *)location region:(MKCoordinateRegion)region withCompletionHandler:(JSQLocationMediaItemCompletionBlock)completion

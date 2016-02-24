@@ -719,8 +719,10 @@ int idx=0;
     
     if ([[SelectCatDict valueForKey:@"CatTime"]isEqualToString:@"Now"])
     {
-        mes=[NSString stringWithFormat:@"Anyone in %@ up for some %@ right %@? %@ my buddy %@ for the details ",address,catTitletext.text,[SelectCatDict valueForKey:@"CatTime"],@"Message",[[NSUserDefaults standardUserDefaults]valueForKey:@"UserName"]];
-        myWall=[NSString stringWithFormat:@"Anyone in %@ up for some %@ right %@?",address,catTitletext.text,[SelectCatDict valueForKey:@"CatTime"]];
+        mes=[NSString stringWithFormat:@"Anyone in %@ up for some %@ right %@? %@ my buddy %@ for the details ",address,catTitletext.text,[[SelectCatDict valueForKey:@"CatTime"] lowercaseString],@"Message",[[NSUserDefaults standardUserDefaults]valueForKey:@"UserName"]];
+        myWall=[NSString stringWithFormat:@"Anyone in %@ up for some %@ right %@?",address,catTitletext.text,[[SelectCatDict valueForKey:@"CatTime"] lowercaseString]];
+        
+        
     }
     else if ([[SelectCatDict valueForKey:@"CatTime"]isEqualToString:@"Other"])
     {
@@ -731,8 +733,8 @@ int idx=0;
     
     else
     {
-        mes=[NSString stringWithFormat:@"Anyone in %@ up for some %@ %@? %@ my buddy %@ for the details ",address,catTitletext.text,[SelectCatDict valueForKey:@"CatTime"],@"Message",[[NSUserDefaults standardUserDefaults]valueForKey:@"UserName"]];
-        myWall=[NSString stringWithFormat:@"Anyone in %@ up for some %@ %@?",address,catTitletext.text,[SelectCatDict valueForKey:@"CatTime"]];
+        mes=[NSString stringWithFormat:@"Anyone in %@ up for some %@ %@? %@ my buddy %@ for the details ",address,catTitletext.text,[[SelectCatDict valueForKey:@"CatTime"] lowercaseString],@"Message",[[NSUserDefaults standardUserDefaults]valueForKey:@"UserName"]];
+        myWall=[NSString stringWithFormat:@"Anyone in %@ up for some %@ %@?",address,catTitletext.text,[[SelectCatDict valueForKey:@"CatTime"] lowercaseString]];
     }
     
     

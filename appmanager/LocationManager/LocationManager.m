@@ -124,10 +124,26 @@ typedef void(^addressCompletion)(NSString *);
                         {
                             [ServerManager getSharedInstance].Delegate=self;
                             [[ServerManager getSharedInstance]postDataOnserverLocation:postdict withrequesturl:KUpdateUserLocation];
-                           
+                            
                             
                         }
-                    }
+
+                       /*
+                        
+                        NSURL *urlString=[NSURL URLWithString:[NSString stringWithFormat:@"http://dev414.trigma.us/Buddy/webs/%@user_id=%@&latitude=%@&longitude=%@",KUpdateUserLocation,[[NSUserDefaults standardUserDefaults]valueForKey:@"userID"],latitudeLabel,longitudeLabel]];
+                        
+                        
+                        NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init];
+                        [request setURL:urlString];
+                        [request setHTTPMethod:@"POST"];
+                        [request setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];
+                        
+                        NSURLConnection *connection = [[NSURLConnection alloc] initWithRequest:request delegate:self];
+                        [connection start];
+
+                        */
+                        
+                   }
                 }
                 else
                 {
@@ -148,7 +164,23 @@ typedef void(^addressCompletion)(NSString *);
                                 [[NSUserDefaults standardUserDefaults]setBool:NO forKey:@"isUpdated"];
                                 
                             }
-                        }
+
+                            
+                            /*
+                            
+                            NSURL *urlString=[NSURL URLWithString:[NSString stringWithFormat:@"http://dev414.trigma.us/Buddy/webs/%@user_id=%@&latitude=%@&longitude=%@",KUpdateUserLocation,[[NSUserDefaults standardUserDefaults]valueForKey:@"userID"],latitudeLabel,longitudeLabel]];
+                            
+                            
+                            NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init];
+                            [request setURL:urlString];
+                            [request setHTTPMethod:@"POST"];
+                            [request setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];
+                            
+                            NSURLConnection *connection = [[NSURLConnection alloc] initWithRequest:request delegate:self];
+                            [connection start];
+
+                            */
+                                                    }
                         
                     }
                     
@@ -164,6 +196,7 @@ typedef void(^addressCompletion)(NSString *);
     }
 
 }
+
 
 -(void)getAddressFromLocation:(CLLocation *)location complationBlock:(addressCompletion)completionBlock
 {
@@ -181,6 +214,32 @@ typedef void(^addressCompletion)(NSString *);
          }
      }];
 }
+
+
+
+
+-(void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response
+{
+    webData=[[NSMutableData alloc]init];
+    [webData setLength: 0];
+}
+-(void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data
+{
+    [webData appendData:data];
+}
+-(void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error
+{
+    [[ServerManager getSharedInstance] hideHud];
+    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+    
+}
+
+-(void)connectionDidFinishLoading:(NSURLConnection *)connection
+{
+
+
+}
+
 
 
 -(void)serverReponse:(NSDictionary *)responseDict withrequestName:(NSString *)serviceurl

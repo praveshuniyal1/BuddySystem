@@ -40,7 +40,9 @@
     }    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeImage:) name:@"NewMessage" object:nil];
     
+    [[ServerManager getSharedInstance]showactivityHub:@"loading.." addWithView:self.navigationController.view];
     [self getMineAppSFriends];
+    
 }
 
 -(void) getMineAppSFriends
@@ -107,6 +109,7 @@
     if (is_net==YES)
     {
         [ServerManager getSharedInstance].Delegate=self;
+       
         [[ServerManager getSharedInstance]postDataOnserver:userinfo withrequesturl:KupdateFrindList];
         
     }
@@ -116,7 +119,7 @@
 -(void)serverReponse:(NSDictionary *)responseDict withrequestName:(NSString *)serviceurl
 {
     NSLog(@"Response tripathi -->> %@ and serviceURL------->>> %@",responseDict,serviceurl);
-    
+     [[ServerManager getSharedInstance]hideHud];
     if ([serviceurl isEqual:KSaveUsrActivity])
     {
         int success=[[responseDict valueForKey:@"success"]intValue];
@@ -144,7 +147,12 @@
 
 -(void)viewWillAppear:(BOOL)animated
 {
-    [[LocationManager locationInstance]getcurrentLocation];
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        //code in background
+        [[LocationManager locationInstance]getcurrentLocation];
+    });
+    
+    
     [super viewWillAppear:animated];
     [self bgplayer];
 }
@@ -179,8 +187,8 @@
         case 100:
         {
             // now
-            NSString * time=  [[ServerManager getSharedInstance]setCustomeDateFormateWithUTCTimeZone:yyyymmddHHmmSS withtime:[NSDate date]];
-            //NSString * time=  [[ServerManager getSharedInstance]setCustomeDateFormateWithUTCTimeZone:yyyymmddHHmmSS withtime:date];
+//            NSString * time=  [[ServerManager getSharedInstance]setCustomeDateFormateWithUTCTimeZone:yyyymmddHHmmSS withtime:[NSDate date]];
+            NSString * time=  [[ServerManager getSharedInstance]setCustomeDateFormateWithUTCTimeZone:yyyymmddHHmmSS withtime:date];
             [[NSUserDefaults standardUserDefaults] setObject:@"0" forKey:@"expiry_param"];
             [self selectEventTimeTitle:@"Now" SelectEventTime:time expiry_param:0];
         }
@@ -188,8 +196,8 @@
         case 101:
         {
             // today
-            NSString * time=  [[ServerManager getSharedInstance]setCustomeDateFormateWithUTCTimeZone:yyyymmddHHmmSS withtime:[NSDate date]];
-            //NSString * time=  [[ServerManager getSharedInstance]setCustomeDateFormateWithUTCTimeZone:yyyymmddHHmmSS withtime:date];
+//            NSString * time=  [[ServerManager getSharedInstance]setCustomeDateFormateWithUTCTimeZone:yyyymmddHHmmSS withtime:[NSDate date]];
+            NSString * time=  [[ServerManager getSharedInstance]setCustomeDateFormateWithUTCTimeZone:yyyymmddHHmmSS withtime:date];
                         [[NSUserDefaults standardUserDefaults] setObject:@"1" forKey:@"expiry_param"];
             [self selectEventTimeTitle:@"Today" SelectEventTime:time expiry_param:1];
         }
@@ -197,8 +205,8 @@
         case 102:
         {
             // this weekend
-            NSString * time=  [[ServerManager getSharedInstance]setCustomeDateFormateWithUTCTimeZone:yyyymmddHHmmSS withtime:[NSDate date]];
-             //NSString * time=  [[ServerManager getSharedInstance]setCustomeDateFormateWithUTCTimeZone:yyyymmddHHmmSS withtime:date];
+//            NSString * time=  [[ServerManager getSharedInstance]setCustomeDateFormateWithUTCTimeZone:yyyymmddHHmmSS withtime:[NSDate date]];
+             NSString * time=  [[ServerManager getSharedInstance]setCustomeDateFormateWithUTCTimeZone:yyyymmddHHmmSS withtime:date];
                         [[NSUserDefaults standardUserDefaults] setObject:@"2" forKey:@"expiry_param"];
             [self selectEventTimeTitle:@"This Weekend" SelectEventTime:time expiry_param:2];
         }
@@ -206,8 +214,8 @@
         case 103:
         {
             // anytime
-            NSString * time=  [[ServerManager getSharedInstance]setCustomeDateFormateWithUTCTimeZone:yyyymmddHHmmSS withtime:[NSDate date]];
-            // NSString * time=  [[ServerManager getSharedInstance]setCustomeDateFormateWithUTCTimeZone:yyyymmddHHmmSS withtime:date];
+//            NSString * time=  [[ServerManager getSharedInstance]setCustomeDateFormateWithUTCTimeZone:yyyymmddHHmmSS withtime:[NSDate date]];
+             NSString * time=  [[ServerManager getSharedInstance]setCustomeDateFormateWithUTCTimeZone:yyyymmddHHmmSS withtime:date];
                                     [[NSUserDefaults standardUserDefaults] setObject:@"3" forKey:@"expiry_param"];
             [self selectEventTimeTitle:@"Any Time" SelectEventTime:time expiry_param:3];
         }
@@ -335,7 +343,8 @@
         NSDate *date = [dateFormatter dateFromString:dateString];
         
         // Convert date object into desired format
-        [dateFormatter setDateFormat:@"E MMM dd"];
+       // [dateFormatter setDateFormat:@"E MMM dd"];
+        [dateFormatter setDateFormat:@"EEEE"];
         NSString *newDateString = [dateFormatter stringFromDate:date];
         
         [[NSUserDefaults standardUserDefaults]setObject:newDateString forKey:@"OtherDate"];

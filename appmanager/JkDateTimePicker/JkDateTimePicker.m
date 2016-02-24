@@ -136,7 +136,17 @@ NSString *const DateTimeMode=@"UIDatePickerModeDateAndTime";
 {
     
     // Convert string to date object
-    currentDate=datepicker.date;
+    
+    //currentDate=datepicker.date;
+    
+    NSString *dateString=[self getPastDateFromString:datepicker.date];
+    
+    NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
+    [dateFormat setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+    [dateFormat setTimeZone:[NSTimeZone timeZoneForSecondsFromGMT:0]];
+    currentDate = [dateFormat dateFromString:dateString];
+
+    
 
     selectdatetime=[[ServerManager getSharedInstance] setCustomeDateFormateWithUTCTimeZone:yyyymmddHHmmSS withtime:currentDate];
     // if (showToolBar==false)
@@ -144,6 +154,16 @@ NSString *const DateTimeMode=@"UIDatePickerModeDateAndTime";
     
     
 }
+-(NSString *)getPastDateFromString:(NSDate *)string
+{
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+    NSString *stringFromDate = [formatter stringFromDate:string];
+    
+    NSLog(@"%@", stringFromDate);
+    return stringFromDate;
+}
+
 -(void)selectTime
 {
   
