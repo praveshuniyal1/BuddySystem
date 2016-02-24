@@ -155,7 +155,11 @@
         [[ServerManager getSharedInstance]showactivityHub:@"Loading.." addWithView:self.view];
         [ServerManager getSharedInstance].Delegate=self;
         //NSDictionary * postDict=[NSDictionary dictionaryWithObjectsAndKeys:usrId,@"usr_id", to_userId,@"to_usrid", nil];
+//<<<<<<< HEAD
         NSDictionary * postDict=[NSDictionary dictionaryWithObjectsAndKeys:to_userId,@"to_usrid",to_userId,@"usr_id",  nil];
+//=======
+//        NSDictionary * postDict=[NSDictionary dictionaryWithObjectsAndKeys:to_userId,@"to_usrid",usrId,@"usr_id",  nil];
+//>>>>>>> 2381d9dc74b9c7a2608d3ce3f73838d6f32dcf0c
         [[ServerManager getSharedInstance]postDataOnserver:postDict withrequesturl:KfriendProfile];
         
         

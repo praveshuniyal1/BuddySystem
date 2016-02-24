@@ -371,7 +371,6 @@
             case 1:
             {
                 contactList=[responseDict valueForKey:@"data"];
-            //contactList=responseDict ;
                 if (contactList.count>0)
                 {
                     
@@ -380,20 +379,21 @@
                 }
             }
             case 0:{
-             
+            
                 [ServerManager showAlertView:@"Message" withmessage:[responseDict valueForKey:@"msg"]];
   
                 
                 
                 
-            }
-                break;
+           }
+               break;
                 
             default:
                 break;
         }
         
     }
+    
     else if ([serviceurl isEqual:KSearch])
     {
         int success=[[responseDict valueForKey:@"success"] intValue];

@@ -340,6 +340,7 @@
         NSString *dateString = selectdatetime;
         NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
         [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+        [dateFormatter setTimeZone:[NSTimeZone timeZoneForSecondsFromGMT:0]];
         NSDate *date = [dateFormatter dateFromString:dateString];
         
         // Convert date object into desired format

@@ -69,8 +69,10 @@ typedef enum : NSUInteger
 // Chat
 
 
+//<<<<<<< HEAD
 #define KRecivemsg               @"message_recieve?"
 //#define KsendMessage             @"message.php?"
+
 
 #define KsendMessage             @"chatting?"
 

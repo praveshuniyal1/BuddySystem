@@ -332,6 +332,7 @@ static ServerManager *sharedInstance = nil;
    
     NSString *serverpath=[self createServerPath:[NSString stringWithFormat:@"%@%@",postUrl,postStr]];
     
+//<<<<<<< HEAD
     AFHTTPRequestOperationManager *manager = [[AFHTTPRequestOperationManager alloc]initWithBaseURL:[NSURL URLWithString:KBaseUrl]];
     manager.responseSerializer = [AFHTTPResponseSerializer serializer];
     // manager.responseSerializer = [AFJSONResponseSerializer serializer];
@@ -375,6 +376,26 @@ static ServerManager *sharedInstance = nil;
              [Delegate failureRsponseError:error];
          }];
 
+//=======
+//        AFHTTPRequestOperationManager *manager = [[AFHTTPRequestOperationManager alloc]initWithBaseURL:[NSURL URLWithString:KBaseUrl]];
+//        
+//        manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+//        // manager.responseSerializer = [AFJSONResponseSerializer serializer];
+//        [manager POST:postUrl parameters:postDict success:^(AFHTTPRequestOperation *operation, id responseObject)
+//         {
+//             NSLog(@"JSON: %@", responseObject);
+//             //        NSLog(@"Response: %@", [[NSString alloc] initWithData:responseObject encoding:NSUTF8StringEncoding]);
+//             NSDictionary *response = (NSDictionary*)[NSJSONSerialization JSONObjectWithData:operation.responseData options:kNilOptions error:nil];
+//             NSLog(@"JSON response: %@", response);
+//             [Delegate serverReponse:response withrequestName:postUrl];
+//             
+//         } failure:^(AFHTTPRequestOperation *operation, NSError *error)
+//         {
+//             NSLog(@"Error: %@", error);
+//             [Delegate failureRsponseError:error];
+//         }];
+
+//>>>>>>> 2381d9dc74b9c7a2608d3ce3f73838d6f32dcf0c
     
    
 }
