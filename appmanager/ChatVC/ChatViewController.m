@@ -474,18 +474,12 @@
         NSString * strDate=[[ServerManager getSharedInstance]setCustomeDateFormateWithUTCTimeZone:yyyymmddHHmmSS withtime:[NSDate date]];
         NSDate * selectedDate=[[ServerManager getSharedInstance]setCustomeDateFormateWithUTCTimeZone:yyyymmddHHmmSS withtime:strDate];
 
-        //NSDictionary * params=[NSDictionary dictionaryWithObjectsAndKeys:senderid,@"from_usrid",message,@"msg",reciverid,@"to_usrid",selectedDate,@"date",[NSNumber numberWithInt:0],@"content_type", nil];
         
-//<<<<<<< HEAD
          NSString * poststr=[NSString stringWithFormat:@"from_usrid=%@&to_usrid=%@&msg=%@&content_type=%@&date=%@",[JKModelData getSharedInstance].kJSQSenderId,[JKModelData getSharedInstance].kJSQReciverId,message,[NSNumber numberWithInt:0],strDate];
         
          NSDictionary * params=[NSDictionary dictionaryWithObjectsAndKeys:senderid,@"from_usrid",message,@"msg",reciverid,@"to_usrid",[NSNumber numberWithInt:0],@"content_type",selectedDate,@"date",nil];
-        NSLog(@"Params=%@",params);
-        
-//=======
-//         NSDictionary * params=[NSDictionary dictionaryWithObjectsAndKeys:senderid,@"from_usrid",message,@"msg",reciverid,@"to_usrid",[NSNumber numberWithInt:0],@"content_type", nil];
-        NSLog(@"%@",params);
-//>>>>>>> 2381d9dc74b9c7a2608d3ce3f73838d6f32dcf0c
+         NSLog(@"Params=%@",params);
+
         [ServerManager getSharedInstance].Delegate=self;
        // [[ServerManager getSharedInstance]postDataOnserverWithAppend:poststr withrequesturl:KsendMessage withPostDic:params];
         

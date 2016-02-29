@@ -373,18 +373,14 @@
                 contactList=[responseDict valueForKey:@"data"];
                 if (contactList.count>0)
                 {
-                    
                     [contactTable reloadData];
-                                        
                 }
             }
-            case 0:{
+                break;
+            case 0:
+            {
             
                 [ServerManager showAlertView:@"Message" withmessage:[responseDict valueForKey:@"msg"]];
-  
-                
-                
-                
            }
                break;
                 

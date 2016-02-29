@@ -477,7 +477,7 @@ static JKModelData *sharedInstance = nil;
 #pragma mark- Select Query-
 -(NSMutableArray*)readAllChat
 {
-     NSString *querySQL = [NSString stringWithFormat: @"SELECT * FROM Messages   WHERE ((to_id='%@'and from_id='%@')or (to_id='%@'and from_id='%@')) order by msg_id ASC",kJSQReciverId,kJSQSenderId,kJSQSenderId,kJSQReciverId];
+     NSString *querySQL = [NSString stringWithFormat: @"SELECT * FROM Messages   WHERE ((to_id='%@'and from_id='%@')or (to_id='%@'and from_id='%@'))  order by msg_id ASC",kJSQReciverId,kJSQSenderId,kJSQSenderId,kJSQReciverId];
     return [[DBManager getSharedInstance]readallMessageQuery:querySQL];
 }
 

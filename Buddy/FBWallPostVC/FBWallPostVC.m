@@ -226,6 +226,17 @@ int idx=0;
     NSDate * create_date=(NSDate*)[timedict valueForKey:@"create_date"];
     NSDate * expire_date=(NSDate*)[timedict valueForKey:@"expire_date"];
     
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+    [dateFormatter setTimeZone:[NSTimeZone timeZoneForSecondsFromGMT:0]];
+    NSString *create_dateStr=[dateFormatter stringFromDate:create_date];
+     NSString *expire_dateStr=[dateFormatter stringFromDate:expire_date];
+    
+    NSTimeZone *currentTimeZone = [NSTimeZone localTimeZone];
+    NSTimeZone *utcTimeZone = [NSTimeZone timeZoneWithAbbreviation:@"UTC"];
+    //
+    NSString *timeZone=[currentTimeZone name];
+    
     NSLog(@"timedict create_date expire_date %@ %@ %@",timedict,create_date,expire_date);
     
     if(!create_date)
@@ -238,7 +249,7 @@ int idx=0;
         expire_date=(NSDate*)@"1";
     }
     
-    NSMutableDictionary *postdict=[NSMutableDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithInt:category_id],@"category_id",category_name,@"category_name",myid,@"usr_id",from_name1,@"usr_name",address,@"place",create_date,@"create_date",expire_date,@"expire_date",[NSNumber numberWithInt:expiryparam],@"expiry_param",  [[NSUserDefaults standardUserDefaults]valueForKey: @"City_LAT"],@"latitude",[[NSUserDefaults standardUserDefaults]valueForKey:@"City_LONG"],@"longitude",nil];
+    NSMutableDictionary *postdict=[NSMutableDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithInt:category_id],@"category_id",category_name,@"category_name",myid,@"usr_id",from_name1,@"usr_name",address,@"place",create_dateStr,@"create_date",expire_dateStr,@"expire_date",[NSNumber numberWithInt:expiryparam],@"expiry_param",  [[NSUserDefaults standardUserDefaults]valueForKey: @"City_LAT"],@"latitude",[[NSUserDefaults standardUserDefaults]valueForKey:@"City_LONG"],@"longitude",timeZone,@"time_zone",nil];
     
 
     

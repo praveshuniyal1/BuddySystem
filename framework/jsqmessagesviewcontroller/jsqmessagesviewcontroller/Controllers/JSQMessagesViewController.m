@@ -341,7 +341,7 @@ static void * kJSQMessagesKeyValueObservingContext = &kJSQMessagesKeyValueObserv
 
 - (void)finishReceivingMessage
 {
-    [self finishReceivingMessageAnimated:YES];
+    [self finishReceivingMessageAnimated:NO];
 }
 
 - (void)finishReceivingMessageAnimated:(BOOL)animated

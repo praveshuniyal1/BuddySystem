@@ -182,6 +182,10 @@
     [dateFormat setTimeZone:[NSTimeZone timeZoneForSecondsFromGMT:0]];
     NSDate *date = [dateFormat dateFromString:dateString];
     
+  
+    
+    
+    
     switch (timebtn.tag)
     {
         case 100:
