@@ -273,9 +273,17 @@ int idx=0;
 {
     //[[ServerManager getSharedInstance]showactivityHub:@"Please wait.." addWithView:self.navigationController.view];
     
-    activityView.hidden=NO;
+    if([[SelectCatDict valueForKey:@"status"] isEqualToString:@"Publish"]){
+        activityView.hidden=NO;
+        [self saveEventOnServer];
+    }
+    else{
+        [ServerManager showAlertView:@"Message" withmessage:@"You have not permission to share this activity. "];
+
+    }
+        
     
-    [self saveEventOnServer];
+    
 }
 
 - (IBAction)TappedOnChangeLocation:(id)sender
@@ -352,8 +360,16 @@ int idx=0;
     }
     else
     {
-        activityView.hidden=NO;
-        [self postWallOnFriends];
+        if([[SelectCatDict valueForKey:@"status"] isEqualToString:@"Publish"])
+        {
+            activityView.hidden=NO;
+            [self postWallOnFriends];
+        }
+        else{
+            [ServerManager showAlertView:@"Message" withmessage:@"You have not permission to share this activity. "];
+            
+        }
+       
     }
 }
 

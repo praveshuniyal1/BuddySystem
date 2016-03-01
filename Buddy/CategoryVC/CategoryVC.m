@@ -332,7 +332,7 @@
 //         NSString * video_name=[[[[categoryList objectAtIndex:arrindex] valueForKey:@"video_url"] componentsSeparatedByString:@"/"] lastObject];
          NSString * video_name=[[categoryList objectAtIndex:arrindex] valueForKey:@"video_url"] ;
          [NSUserDefaults setNSUserDefaultValue:video_name key:@"vidoeFileName"];
-         NSMutableDictionary * currentDict=[NSMutableDictionary dictionaryWithObjectsAndKeys:Headerbtn.titleLabel.text,@"CatTime",[[categoryList objectAtIndex:arrindex] valueForKey:@"category"],@"cat_name",[[categoryList objectAtIndex:arrindex] valueForKey:@"id"],@"cat_id",video_name,@"videoFile",address,@"address",[[categoryList objectAtIndex:arrindex] valueForKey:@"youtube_link"],@"youtube_link",[[categoryList objectAtIndex:arrindex] valueForKey:@"thumbnails"],@"thumbnails", nil];
+         NSMutableDictionary * currentDict=[NSMutableDictionary dictionaryWithObjectsAndKeys:Headerbtn.titleLabel.text,@"CatTime",[[categoryList objectAtIndex:arrindex] valueForKey:@"category"],@"cat_name",[[categoryList objectAtIndex:arrindex] valueForKey:@"id"],@"cat_id",video_name,@"videoFile",address,@"address",[[categoryList objectAtIndex:arrindex] valueForKey:@"youtube_link"],@"youtube_link",[[categoryList objectAtIndex:arrindex] valueForKey:@"youtube_thumbnails"],@"thumbnails",[[categoryList objectAtIndex:arrindex] valueForKey:@"status"],@"status", nil];
          
          FBWallPostVC * wallVc=[self.storyboard instantiateViewControllerWithIdentifier:@"FBWallPostVC"];
          
@@ -403,15 +403,21 @@
                         NSMutableDictionary * jsondict=[NSMutableDictionary dictionaryWithDictionary:[jsonarr objectAtIndex:ind]];
                         
                         int categoryid=[[jsondict valueForKey:@"id"] intValue];
+                        NSString* categoryid1=[jsondict valueForKey:@"id"];
                         
                         NSLog(@"%@",KappDelgate.categoryidArr);
                         if ([KappDelgate.categoryidArr containsObject:[NSNumber numberWithInt:categoryid]])
                         {
                             NSPredicate *resultPredicate = [NSPredicate predicateWithFormat:@"(id == %d)", categoryid];
+                            NSPredicate *resultPredicate1 = [NSPredicate predicateWithFormat:@"(id == %@)", categoryid1];
                             NSArray * filterarr = [jsonarray filteredArrayUsingPredicate:resultPredicate];
-                            if (filterarr .count>0)
+                            NSArray * filterarr1 = [jsonarr filteredArrayUsingPredicate:resultPredicate1];
+                            //if (filterarr .count>0)
+                            if (filterarr1 .count>0)
                             {
-                                [categoryList addObject:[filterarr objectAtIndex:0]];
+                                
+                                //[categoryList addObject:[filterarr objectAtIndex:0]];
+                                 [categoryList addObject:[filterarr1 objectAtIndex:0]];
                             }
                         }
                         else
