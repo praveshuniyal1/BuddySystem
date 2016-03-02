@@ -278,7 +278,8 @@ int idx=0;
         [self saveEventOnServer];
     }
     else{
-        [ServerManager showAlertView:@"Message" withmessage:@"You have not permission to share this activity. "];
+        //[ServerManager showAlertView:@"Message" withmessage:@"You have not permission to share this activity. "];
+        [self shareacitivityOnSocialNetwork];
 
     }
         
@@ -366,8 +367,8 @@ int idx=0;
             [self postWallOnFriends];
         }
         else{
-            [ServerManager showAlertView:@"Message" withmessage:@"You have not permission to share this activity. "];
-            
+            //[ServerManager showAlertView:@"Message" withmessage:@"You have not permission to share this activity. "];
+            [self shareacitivityOnSocialNetwork];
         }
        
     }

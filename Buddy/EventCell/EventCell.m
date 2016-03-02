@@ -100,7 +100,8 @@
         }
         [usrimageScroll setContentSize:CGSizeMake(x, usrimageScroll.frame.size.height)];
     }
-    int status=[[dict valueForKey:@"status"]intValue];
+    //int status=[[dict valueForKey:@"status"]intValue];
+    int status = [[dict valueForKey:@"expire_post"]intValue];
     UIColor * color;
     switch (status)
     {
