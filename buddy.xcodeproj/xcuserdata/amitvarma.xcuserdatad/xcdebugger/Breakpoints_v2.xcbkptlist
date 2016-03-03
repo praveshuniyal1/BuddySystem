@@ -154,11 +154,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Buddy/CategoryVC/CategoryVC.m"
-            timestampString = "478547875.200395"
+            timestampString = "478713342.603718"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "460"
-            endingLineNumber = "460"
+            startingLineNumber = "476"
+            endingLineNumber = "476"
             landmarkName = "-failureRsponseError:"
             landmarkType = "5">
          </BreakpointContent>
@@ -297,22 +297,6 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Buddy/FBWallPostVC/FBWallPostVC.m"
-            timestampString = "478195319.907026"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "235"
-            endingLineNumber = "235"
-            landmarkName = "-saveEventOnServer"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
             filePath = "Buddy/WhatHappendVC/WhatHappendVC.m"
             timestampString = "478454456.595038"
             startingColumnNumber = "9223372036854775807"
@@ -326,23 +310,7 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Buddy/FBWallPostVC/FBWallPostVC.m"
-            timestampString = "478546375.100488"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "274"
-            endingLineNumber = "274"
-            landmarkName = "-TappedOnGotIt:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Buddy/CategoryVC/CategoryVC.m"
@@ -358,15 +326,15 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Buddy/CategoryVC/CategoryVC.m"
-            timestampString = "478546565.624199"
+            timestampString = "478713342.603718"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "385"
-            endingLineNumber = "385"
+            startingLineNumber = "401"
+            endingLineNumber = "401"
             landmarkName = "-serverReponse:withrequestName:"
             landmarkType = "5">
          </BreakpointContent>
@@ -374,15 +342,15 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Buddy/CategoryVC/CategoryVC.m"
-            timestampString = "478547719.665965"
+            timestampString = "478713342.603718"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "409"
-            endingLineNumber = "409"
+            startingLineNumber = "425"
+            endingLineNumber = "425"
             landmarkName = "-serverReponse:withrequestName:"
             landmarkType = "5">
          </BreakpointContent>

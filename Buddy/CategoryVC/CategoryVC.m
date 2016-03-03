@@ -334,12 +334,23 @@
          [NSUserDefaults setNSUserDefaultValue:video_name key:@"vidoeFileName"];
          NSMutableDictionary * currentDict=[NSMutableDictionary dictionaryWithObjectsAndKeys:Headerbtn.titleLabel.text,@"CatTime",[[categoryList objectAtIndex:arrindex] valueForKey:@"category"],@"cat_name",[[categoryList objectAtIndex:arrindex] valueForKey:@"id"],@"cat_id",video_name,@"videoFile",address,@"address",[[categoryList objectAtIndex:arrindex] valueForKey:@"youtube_link"],@"youtube_link",[[categoryList objectAtIndex:arrindex] valueForKey:@"youtube_thumbnails"],@"thumbnails",[[categoryList objectAtIndex:arrindex] valueForKey:@"status"],@"status", nil];
          
-         FBWallPostVC * wallVc=[self.storyboard instantiateViewControllerWithIdentifier:@"FBWallPostVC"];
          
-         wallVc.SelectCatDict=[currentDict mutableCopy];
-         [self.navigationController pushViewController:wallVc animated:YES];
-         [[ServerManager getSharedInstance]hideHud];
-         
+         if([[currentDict valueForKey:@"status"] isEqualToString:@"Publish"])
+         {
+             FBWallPostVC * wallVc=[self.storyboard instantiateViewControllerWithIdentifier:@"FBWallPostVC"];
+             
+             wallVc.SelectCatDict=[currentDict mutableCopy];
+             [self.navigationController pushViewController:wallVc animated:YES];
+             [[ServerManager getSharedInstance]hideHud];
+         }
+         else
+         {
+             [[ServerManager getSharedInstance]hideHud];
+             ShareVC * shareview=[self.storyboard instantiateViewControllerWithIdentifier:@"ShareVC"];
+             shareview.shareDict=currentDict ;
+             [self.navigationController pushViewController:shareview animated:YES];
+             
+         }
      }];
     
     
@@ -347,6 +358,11 @@
     
     
 }
+
+
+
+
+
 
 #pragma mark- OnBack -
 - (IBAction)OnBack:(id)sender
