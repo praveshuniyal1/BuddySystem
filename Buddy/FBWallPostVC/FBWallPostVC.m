@@ -249,7 +249,9 @@ int idx=0;
         expire_date=(NSDate*)@"1";
     }
     
-    NSMutableDictionary *postdict=[NSMutableDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithInt:category_id],@"category_id",category_name,@"category_name",myid,@"usr_id",from_name1,@"usr_name",address,@"place",create_dateStr,@"create_date",[NSNumber numberWithInt:expiryparam],@"expiry_param",  [[NSUserDefaults standardUserDefaults]valueForKey: @"City_LAT"],@"latitude",[[NSUserDefaults standardUserDefaults]valueForKey:@"City_LONG"],@"longitude",timeZone,@"time_zone",expire_dateStr,@"expire_date",nil];
+    NSString*PublisStr= @"Published";
+    
+    NSMutableDictionary *postdict=[NSMutableDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithInt:category_id],@"category_id",category_name,@"category_name",myid,@"usr_id",from_name1,@"usr_name",address,@"place",create_dateStr,@"create_date",[NSNumber numberWithInt:expiryparam],@"expiry_param",  [[NSUserDefaults standardUserDefaults]valueForKey: @"City_LAT"],@"latitude",[[NSUserDefaults standardUserDefaults]valueForKey:@"City_LONG"],@"longitude",timeZone,@"time_zone",PublisStr,@"activity_status",expire_dateStr,@"expire_date",nil];
     
 
     

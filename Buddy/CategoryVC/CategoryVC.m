@@ -345,18 +345,79 @@
          }
          else
          {
-             [[ServerManager getSharedInstance]hideHud];
-             ShareVC * shareview=[self.storyboard instantiateViewControllerWithIdentifier:@"ShareVC"];
-             shareview.shareDict=currentDict ;
-             [self.navigationController pushViewController:shareview animated:YES];
+             [self saveEventOnServer:currentDict];
+             
+             [[NSUserDefaults standardUserDefaults]setObject:currentDict forKey:@"currentDict"];
+             
              
          }
      }];
     
     
     
+}
+
+
+#pragma mark-saveEventOnServer-
+-(void)saveEventOnServer :(NSDictionary*)SelectCatDict
+{
+    
+    NSString* name=[NSString stringWithFormat:@"%@",[[NSUserDefaults standardUserDefaults]valueForKey:@"tagLink"]];
+    NSString * from_name = [name stringByReplacingOccurrencesOfString:@" " withString:@""];
     
     
+   NSDictionary* userinfoDict=[NSDictionary dictionaryWithDictionary:[NSUserDefaults getNSUserDefaultValueForKey:kLoginUserInfo]] ;
+    NSLog(@"%@",[NSUserDefaults getNSUserDefaultObjectForKey:@"eventtimeDict"]);
+    
+    NSMutableDictionary *timedict=[NSMutableDictionary dictionaryWithDictionary:[NSUserDefaults getNSUserDefaultValueForKey:@"eventtimeDict"]];
+    
+    NSLog(@"timedict %@",timedict);
+    
+    NSString* myid=[NSString stringWithFormat:@"%@",[userinfoDict objectForKey:@"id"]];
+    NSString* from_name1=[NSString stringWithFormat:@"%@",[userinfoDict objectForKey:@"name"]];
+    [[NSUserDefaults standardUserDefaults]setObject:from_name forKey:@"FromName"];
+    int category_id=[[SelectCatDict valueForKey:@"cat_id"]intValue];
+    NSString * category_name=[NSString stringWithFormat:@"%@",[SelectCatDict valueForKey:@"cat_name"]];
+    
+    int expiryparam=[[timedict valueForKey:@"expiry_param"]intValue];
+    
+    NSDate * create_date=(NSDate*)[timedict valueForKey:@"create_date"];
+    NSDate * expire_date=(NSDate*)[timedict valueForKey:@"expire_date"];
+    
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+    [dateFormatter setTimeZone:[NSTimeZone timeZoneForSecondsFromGMT:0]];
+    NSString *create_dateStr=[dateFormatter stringFromDate:create_date];
+    NSString *expire_dateStr=[dateFormatter stringFromDate:expire_date];
+    
+    NSTimeZone *currentTimeZone = [NSTimeZone localTimeZone];
+    NSTimeZone *utcTimeZone = [NSTimeZone timeZoneWithAbbreviation:@"UTC"];
+    //
+    NSString *timeZone=[currentTimeZone name];
+    
+    NSLog(@"timedict create_date expire_date %@ %@ %@",timedict,create_date,expire_date);
+    
+    if(!create_date)
+    {
+        create_date=(NSDate*)@"1";
+    }
+    
+    if(!expire_date)
+    {
+        expire_date=(NSDate*)@"1";
+    }
+    
+    NSString*unPublisStr=@"Unpublished";
+    
+    NSMutableDictionary *postdict=[NSMutableDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithInt:category_id],@"category_id",category_name,@"category_name",myid,@"usr_id",from_name1,@"usr_name",[SelectCatDict valueForKey:@"address"],@"place",create_dateStr,@"create_date",[NSNumber numberWithInt:expiryparam],@"expiry_param",  [[NSUserDefaults standardUserDefaults]valueForKey: @"City_LAT"],@"latitude",[[NSUserDefaults standardUserDefaults]valueForKey:@"City_LONG"],@"longitude",timeZone,@"time_zone",unPublisStr,@"activity_status",expire_dateStr,@"expire_date",nil];
+    
+    
+    
+    if ([[ServerManager getSharedInstance]checkNetwork]==YES)
+    {
+        [ServerManager getSharedInstance].Delegate=self;
+        [[ServerManager getSharedInstance]postDataOnserver:postdict withrequesturl:KSaveUsrActivity];
+    }
 }
 
 
@@ -401,75 +462,90 @@
 {
     NSLog(@"responceURL=%@",serviceurl);
     [[ServerManager getSharedInstance]hideHud];
-    int success=[[responseDict valueForKey:@"status"]intValue];
-    KappDelgate.categoryidArr=[KappDelgate getAllCategoryId];
-    switch (success)
+    
+    if ([serviceurl isEqual:KSaveUsrActivity])
     {
-        case 1:
+        [[ServerManager getSharedInstance]hideHud];
+        ShareVC * shareview=[self.storyboard instantiateViewControllerWithIdentifier:@"ShareVC"];
+        shareview.shareDict=[[NSUserDefaults standardUserDefaults]valueForKey:@"currentDict"];
+        [self.navigationController pushViewController:shareview animated:YES];
+    }
+    else
+    {
+        
+        int success=[[responseDict valueForKey:@"status"]intValue];
+        KappDelgate.categoryidArr=[KappDelgate getAllCategoryId];
+        switch (success)
         {
-            NSMutableArray * jsonarr=[NSMutableArray arrayWithArray:[responseDict valueForKey:@"Activities"]];
-            if (jsonarr.count>0)
+            case 1:
             {
-                [categoryList removeAllObjects];
-                
-                if (KappDelgate.categoryidArr.count>0)
+                NSMutableArray * jsonarr=[NSMutableArray arrayWithArray:[responseDict valueForKey:@"Activities"]];
+                if (jsonarr.count>0)
                 {
-                    for (int ind=0; ind<[jsonarr count]; ind++)
+                    [categoryList removeAllObjects];
+                    
+                    if (KappDelgate.categoryidArr.count>0)
                     {
-                        NSMutableDictionary * jsondict=[NSMutableDictionary dictionaryWithDictionary:[jsonarr objectAtIndex:ind]];
-                        
-                        int categoryid=[[jsondict valueForKey:@"id"] intValue];
-                        NSString* categoryid1=[jsondict valueForKey:@"id"];
-                        
-                        NSLog(@"%@",KappDelgate.categoryidArr);
-                        if ([KappDelgate.categoryidArr containsObject:[NSNumber numberWithInt:categoryid]])
+                        for (int ind=0; ind<[jsonarr count]; ind++)
                         {
-                            NSPredicate *resultPredicate = [NSPredicate predicateWithFormat:@"(id == %d)", categoryid];
-                            NSPredicate *resultPredicate1 = [NSPredicate predicateWithFormat:@"(id == %@)", categoryid1];
-                            NSArray * filterarr = [jsonarray filteredArrayUsingPredicate:resultPredicate];
-                            NSArray * filterarr1 = [jsonarr filteredArrayUsingPredicate:resultPredicate1];
-                            //if (filterarr .count>0)
-                            if (filterarr1 .count>0)
+                            NSMutableDictionary * jsondict=[NSMutableDictionary dictionaryWithDictionary:[jsonarr objectAtIndex:ind]];
+                            
+                            int categoryid=[[jsondict valueForKey:@"id"] intValue];
+                            NSString* categoryid1=[jsondict valueForKey:@"id"];
+                            
+                            NSLog(@"%@",KappDelgate.categoryidArr);
+                            if ([KappDelgate.categoryidArr containsObject:[NSNumber numberWithInt:categoryid]])
                             {
-                                
-                                //[categoryList addObject:[filterarr objectAtIndex:0]];
-                                 [categoryList addObject:[filterarr1 objectAtIndex:0]];
+                                NSPredicate *resultPredicate = [NSPredicate predicateWithFormat:@"(id == %d)", categoryid];
+                                NSPredicate *resultPredicate1 = [NSPredicate predicateWithFormat:@"(id == %@)", categoryid1];
+                                NSArray * filterarr = [jsonarray filteredArrayUsingPredicate:resultPredicate];
+                                NSArray * filterarr1 = [jsonarr filteredArrayUsingPredicate:resultPredicate1];
+                                //if (filterarr .count>0)
+                                if (filterarr1 .count>0)
+                                {
+                                    
+                                    //[categoryList addObject:[filterarr objectAtIndex:0]];
+                                    [categoryList addObject:[filterarr1 objectAtIndex:0]];
+                                }
+                            }
+                            else
+                            {
+                                [categoryList addObject:jsondict];
                             }
                         }
-                        else
-                        {
-                            [categoryList addObject:jsondict];
-                        }
+                        
+                    }
+                    else
+                    {
+                        categoryList=[jsonarr mutableCopy];
+                        
                     }
                     
-                }
-                else
-                {
-                    categoryList=[jsonarr mutableCopy];
+                    if (categoryList.count>0)
+                    {
+                        // pagecontrol.numberOfPages=categoryList.count;
+                        
+                        [categoryCollection reloadData];
+                        [jsonarray removeAllObjects];
+                        
+                        [self showVisibleCell];
+                        
+                    }
+                    
                     
                 }
-                
-                if (categoryList.count>0)
-                {
-                   // pagecontrol.numberOfPages=categoryList.count;
-                    
-                    [categoryCollection reloadData];
-                    [jsonarray removeAllObjects];
-                    
-                    [self showVisibleCell];
-                    
-                }
-                
                 
             }
- 
-         }
-            
-            break;
-            
-        default:
-            break;
+                
+                break;
+                
+            default:
+                break;
+        }
+
+        
     }
+    
 }
 
 -(void)failureRsponseError:(NSError *)failureError
