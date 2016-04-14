@@ -777,7 +777,7 @@
                                                       NSString * thumbnails=[requestdict valueForKey:@"youtube_thumbnails"] ;
                                                       NSString * category=[requestdict valueForKey:@"category"] ;
                                                       
-                                                      NSString *videoUrlPath=[NSString stringWithFormat:@"http://dev414.trigma.us/Buddy/files/activities/video/%@",filename];
+                                                      NSString *videoUrlPath=[NSString stringWithFormat:@"http://buddyappnew.herokuapp.com/files/activities/video/%@",filename];
                                                       
                                                       NSMutableDictionary * inserdict=[NSMutableDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithInt:cateId],@"id",category,@"category",thumbnails,@"thumbnails",youtube_link,@"youtube_link",videoUrlPath,@"video_url", nil];
                                                       
@@ -856,7 +856,7 @@
                                                       NSString * thumbnails=[requestdict valueForKey:@"youtube_thumbnails"] ;
                                                       NSString * category=[requestdict valueForKey:@"category"] ;
                                                       
-                                                       NSString *videoUrlPath=[NSString stringWithFormat:@"http://dev414.trigma.us/Buddy/files/activities/video/%@",filename];
+                                                       NSString *videoUrlPath=[NSString stringWithFormat:@"http://buddyappnew.herokuapp.com/files/activities/video/%@",filename];
                                                       
                                                       NSMutableDictionary * inserdict=[NSMutableDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithInt:cateId],@"id",category,@"category",thumbnails,@"thumbnails",youtube_link,@"youtube_link",videoUrlPath,@"video_url", nil];
                                                       
@@ -941,7 +941,7 @@
                                                       NSString * thumbnails=[requestdict valueForKey:@"youtube_thumbnails"] ;
                                                       NSString * category=[requestdict valueForKey:@"category"] ;
                                                       
-                                                      NSString *videoUrlPath=[NSString stringWithFormat:@"http://dev414.trigma.us/Buddy/files/activities/video/%@",filename];
+                                                      NSString *videoUrlPath=[NSString stringWithFormat:@"http://buddyappnew.herokuapp.com/files/activities/video/%@",filename];
                                                       
                                                       NSMutableDictionary * inserdict=[NSMutableDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithInt:cateId],@"id",category,@"category",thumbnails,@"thumbnails",youtube_link,@"youtube_link",videoUrlPath,@"video_url", nil];
                                                       

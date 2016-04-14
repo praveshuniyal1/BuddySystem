@@ -115,7 +115,7 @@ int idx=0;
 -(void)bgplayer
 {
     NSString * filename=[SelectCatDict valueForKey:@"videoFile"];
-    filename = [filename stringByReplacingOccurrencesOfString:@"http://dev414.trigma.us/Buddy/files/activities/video/"
+    filename = [filename stringByReplacingOccurrencesOfString:@"http://buddyappnew.herokuapp.com/files/activities/video/"
                                          withString:@""];
     
     
@@ -505,7 +505,7 @@ int idx=0;
                 
                 
                 
-                NSURL *urli = [NSURL URLWithString:[NSString stringWithFormat:@"http://dev414.trigma.us/Buddy/webs/post_share?"]];
+                NSURL *urli = [NSURL URLWithString:[NSString stringWithFormat:@"http://buddyappnew.herokuapp.com/webs/post_share?"]];
                 NSLog(@"%@",urli);
                 
                 NSString * str = [NSString stringWithFormat:@"post_id=%@&access_token=%@",[stringResponse valueForKey:@"id"],@"392003234294832|8b61486e00b73967e154980ece91511b"];
@@ -546,7 +546,7 @@ int idx=0;
             if (idx==[contactList count])
             {
                 //idx++;
-                NSURL *urli = [NSURL URLWithString:[NSString stringWithFormat:@"http://dev414.trigma.us/Buddy/webs/post_share?"]];
+                NSURL *urli = [NSURL URLWithString:[NSString stringWithFormat:@"http://buddyappnew.herokuapp.com/webs/post_share?"]];
                 NSLog(@"%@",urli);
                 
                 NSString * str = [NSString stringWithFormat:@"post_id=%@&access_token=%@",[stringResponse valueForKey:@"id"],@"392003234294832|8b61486e00b73967e154980ece91511b"];

@@ -345,7 +345,7 @@
             if ([KappDelgate.categoryidArr containsObject:[NSNumber numberWithInt:categoryid]])
             {
                 NSString * video_name=[jsondict valueForKey:@"video_url"];
-                video_name = [video_name stringByReplacingOccurrencesOfString:@"http://dev414.trigma.us/Buddy/files/activities/video/"
+                video_name = [video_name stringByReplacingOccurrencesOfString:@"http://buddyappnew.herokuapp.com/files/activities/video/"
                                                                withString:@""];
 
                 NSString * videoPath=[[DBManager getSharedInstance]getFilePath:video_name];

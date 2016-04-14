@@ -332,7 +332,7 @@
 //         NSString * video_name=[[[[categoryList objectAtIndex:arrindex] valueForKey:@"video_url"] componentsSeparatedByString:@"/"] lastObject];
          NSString * video_name=[[categoryList objectAtIndex:arrindex] valueForKey:@"video_url"] ;
          [NSUserDefaults setNSUserDefaultValue:video_name key:@"vidoeFileName"];
-         NSMutableDictionary * currentDict=[NSMutableDictionary dictionaryWithObjectsAndKeys:Headerbtn.titleLabel.text,@"CatTime",[[categoryList objectAtIndex:arrindex] valueForKey:@"category"],@"cat_name",[[categoryList objectAtIndex:arrindex] valueForKey:@"id"],@"cat_id",video_name,@"videoFile",address,@"address",[[categoryList objectAtIndex:arrindex] valueForKey:@"youtube_link"],@"youtube_link",[[categoryList objectAtIndex:arrindex] valueForKey:@"youtube_thumbnails"],@"thumbnails",[[categoryList objectAtIndex:arrindex] valueForKey:@"status"],@"status", nil];
+         NSMutableDictionary * currentDict=[NSMutableDictionary dictionaryWithObjectsAndKeys:Headerbtn.titleLabel.text,@"CatTime",[[categoryList objectAtIndex:arrindex] valueForKey:@"category"],@"cat_name",[[categoryList objectAtIndex:arrindex] valueForKey:@"id"],@"cat_id",video_name,@"videoFile",address,@"address",[[categoryList objectAtIndex:arrindex] valueForKey:@"youtube_link"],@"youtube_link",[[categoryList objectAtIndex:arrindex] valueForKey:@"youtube_thumbnails"],@"thumbnails",[[categoryList objectAtIndex:arrindex] valueForKey:@"activity_status"],@"status", nil];
          
          
          if([[currentDict valueForKey:@"status"] isEqualToString:@"Publish"])

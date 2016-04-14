@@ -52,9 +52,9 @@ typedef enum : NSUInteger
 
 
 
-#define KBaseUrl               @"http://dev414.trigma.us/Buddy/webs/"
+//#define KBaseUrl               @"http://dev414.trigma.us/Buddy/webs/"
 
-//#define KBaseUrl             @"http://112.196.28.157/bestbuddies/"
+#define KBaseUrl             @"http://buddyappnew.herokuapp.com/webs/"
 
 #define Ksignup                @"registeruser?"
 //#define Ksignup                 @"registeruser.php?"

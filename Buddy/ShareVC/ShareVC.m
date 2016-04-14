@@ -63,7 +63,7 @@
 {
     
     NSString * filename=[shareDict valueForKey:@"videoFile"];
-    filename = [filename stringByReplacingOccurrencesOfString:@"http://dev414.trigma.us/Buddy/files/activities/video/"
+    filename = [filename stringByReplacingOccurrencesOfString:@"http://buddyappnew.herokuapp.com/files/activities/video/"
                                                    withString:@""];
     
     NSString * videoPath=[[DBManager getSharedInstance]getFilePath:filename];
