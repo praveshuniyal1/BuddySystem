@@ -43,7 +43,7 @@ typedef void(^addressCompletion)(NSString *);
        locationManager.delegate=self;
     
     locationManager.distanceFilter = kCLDistanceFilterNone;
-    locationManager.desiredAccuracy = kCLLocationAccuracyBest;
+    locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters;
     if ([locationManager respondsToSelector:@selector(requestWhenInUseAuthorization)]) 
         {
             [locationManager requestWhenInUseAuthorization];
@@ -252,7 +252,7 @@ typedef void(^addressCompletion)(NSString *);
         {
             [KappDelgate showHomeView];
         }
-        [locationManager stopUpdatingLocation];
+       // [locationManager stopUpdatingLocation];
     }
 
 }
