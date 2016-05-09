@@ -30,9 +30,13 @@
 #import "JKClassManager.h"
 
 @interface ILGeoNamesSearchController ()<ServerManagerDelegate>
+{
+    NSMutableArray * newSearcharray;
+}
 
 @property (nonatomic, retain) NSMutableArray *searchResults;
 @property (nonatomic, retain) ILGeoNamesLookup *geoNamesSearch;
+
 
 @end
 
@@ -41,6 +45,7 @@
 @synthesize searchResults;
 @synthesize delegate;
 @synthesize geoNamesSearch;
+bool isSearch=false;
 
 #pragma mark -
 #pragma mark View lifecycle
@@ -62,6 +67,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
+    newSearcharray=[NSMutableArray new];
     
     [objSearch becomeFirstResponder];
 }
@@ -100,8 +106,8 @@
 }
 - (BOOL)searchBarShouldBeginEditing:(UISearchBar *)searchBar
 {
-    
-    [self instantiateGeonamesSearch];
+    isSearch=false;
+   // [self instantiateGeonamesSearch];
     return YES;
 }
 -(void)instantiateGeonamesSearch
@@ -114,12 +120,39 @@
 }
 - (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText
 {
+   
     [self.searchResults removeAllObjects];
+    newSearcharray=[NSMutableArray new];
+    
     [self.tableView reloadData];
     
     // Delay the search 1 second to minimize outstanding requests
     [NSObject cancelPreviousPerformRequestsWithTarget:self];
-    [self performSelector:@selector(delayedSearch:) withObject:searchText afterDelay:1.0];
+    //ha[self performSelector:@selector(delayedSearch:) withObject:searchText afterDelay:1.0];
+    
+    
+    if ([searchText isEqualToString:@""])
+    {
+        isSearch=false;
+         [self.tableView reloadData];
+        
+        [self instantiateGeonamesSearch];
+        [geoNamesSearch search:@"Yes"
+                       maxRows:20
+                      startRow:0
+                      language:nil];
+        
+    }
+    else{
+        isSearch=true;
+        
+        NSString *query=[NSString stringWithFormat:@"http://getnearbycities.geobytes.com/GetNearbyCities?radius=100&locationcode=%@",searchText];
+        query = [query stringByReplacingOccurrencesOfString:@" "
+                                             withString:@"%20"];
+        [ServerManager getSharedInstance].Delegate=self;
+        [[ServerManager getSharedInstance]postDataOnserver:nil withrequesturl:query];
+    }
+ 
 
 }
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar
@@ -127,6 +160,30 @@
     [searchBar resignFirstResponder];
 
 }
+
+#pragma mark- Delegate Method of Server Manager-
+
+-(void)serverReponse:(NSDictionary *)responseDict withrequestName:(NSString *)serviceurl
+{
+    
+    [[ServerManager getSharedInstance]hideHud];
+    newSearcharray=[responseDict mutableCopy];
+    if (newSearcharray.count>1)
+    {
+        [self.tableView reloadData];
+    }
+    
+    
+
+}
+-(void)failureRsponseError:(NSError *)failureError
+{
+    [[ServerManager getSharedInstance]hideHud];
+    [ServerManager showAlertView:@"Erorr!!" withmessage:failureError.localizedDescription];
+    
+}
+
+
 
 #pragma mark -
 #pragma mark Table view data source
@@ -140,7 +197,13 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     // Return the number of rows in the section.
 
-    return [self.searchResults count];
+    if (isSearch==true)
+    {
+        return newSearcharray.count;
+    }else{
+         return [self.searchResults count];
+    }
+    return 0;
 }
 
 
@@ -159,24 +222,56 @@
     
 //        [cell loadLocationSearchData:geoname];
 //		NSString	*name = [geoname objectForKey:kILGeoNamesNameKey];
-    NSString *strCity=[self.searchResults[indexPath.row] valueForKey:@"name"];
     
-        NSString *strstate=[[self.searchResults[indexPath.row] valueForKey:@"location"] valueForKey:@"state"];
-    
-        NSString *strcountry=[[self.searchResults[indexPath.row] valueForKey:@"location"] valueForKey:@"country"];
-    
+    if (isSearch==true)
+    {
+        NSString *strCity=[[newSearcharray objectAtIndex:indexPath.row] objectAtIndex:1];
+        
+        NSString *strstate=[[newSearcharray objectAtIndex:indexPath.row] objectAtIndex:2];
+        
+        NSString *strcountry=[[newSearcharray objectAtIndex:indexPath.row] objectAtIndex:3];
+        
         if(strstate !=nil)
         {
             cell.textLabel.text=[NSString stringWithFormat:@"%@, %@, %@",strCity,strstate,strcountry];
         }
-    else if(strcountry!=nil)
+        else if(strcountry!=nil)
+        {
+            cell.textLabel.text=[NSString stringWithFormat:@"%@, %@",strCity,strcountry];
+        }
+        else{
+            cell.textLabel.text=[NSString stringWithFormat:@"%@ ",strCity];
+            
+        }
+    }
+    else
     {
-        cell.textLabel.text=[NSString stringWithFormat:@"%@, %@",strCity,strcountry];
+       
+        if (self.searchResults.count>0)
+        {
+            NSString *strCity=[self.searchResults[indexPath.row] valueForKey:@"name"];
+            
+            NSString *strstate=[[self.searchResults[indexPath.row] valueForKey:@"location"] valueForKey:@"state"];
+            
+            NSString *strcountry=[[self.searchResults[indexPath.row] valueForKey:@"location"] valueForKey:@"country"];
+            
+            if(strstate !=nil)
+            {
+                cell.textLabel.text=[NSString stringWithFormat:@"%@, %@, %@",strCity,strstate,strcountry];
+            }
+            else if(strcountry!=nil)
+            {
+                cell.textLabel.text=[NSString stringWithFormat:@"%@, %@",strCity,strcountry];
+            }
+            else{
+                cell.textLabel.text=[NSString stringWithFormat:@"%@ ",strCity];
+                
+            }
+        }
+        
+       
     }
-    else{
-        cell.textLabel.text=[NSString stringWithFormat:@"%@ ",strCity];
-
-    }
+   
 
 	
 	return cell;
@@ -194,44 +289,94 @@
     
 	[self.geoNamesSearch cancel];
     
-    NSLog(@"kkk %@",self.searchResults[indexPath.row] );
-    NSString *latlng=[[self.searchResults[indexPath.row] valueForKey:@"location"] valueForKey:@"lat"];
-    
-    if (!latlng)
+    if (isSearch==true)
     {
-        CLLocationCoordinate2D center=[self geoCodeUsingAddress:[self.searchResults[indexPath.row] valueForKey:@"name"]];
+        NSLog(@"kkk %@",newSearcharray[indexPath.row] );
+        NSString *latlng=[newSearcharray[indexPath.row] objectAtIndex:8];
         
-        [[NSUserDefaults standardUserDefaults] setFloat:center.latitude forKey:@"City_LAT"];
+        if (!latlng)
+        {
+            CLLocationCoordinate2D center=[self geoCodeUsingAddress:[[newSearcharray objectAtIndex:indexPath.row] objectAtIndex:1]];
+            
+            [[NSUserDefaults standardUserDefaults] setFloat:center.latitude forKey:@"City_LAT"];
+            
+            [[NSUserDefaults standardUserDefaults] setFloat:center.longitude forKey:@"City_LONG"];
+            
+        }
+        else {
+            [[NSUserDefaults standardUserDefaults] setObject:[newSearcharray[indexPath.row] objectAtIndex:8] forKey:@"City_LAT"];
+            
+            [[NSUserDefaults standardUserDefaults] setObject:[newSearcharray[indexPath.row] objectAtIndex:10] forKey:@"City_LONG"];
+        }
         
-        [[NSUserDefaults standardUserDefaults] setFloat:center.longitude forKey:@"City_LONG"];
+        
+        
+        NSArray *arrayWithTwoStrings = [[[newSearcharray objectAtIndex:indexPath.row] objectAtIndex:1] componentsSeparatedByString:@","];
+        
+        NSString *cityName=[NSString stringWithFormat:@"%@",[arrayWithTwoStrings objectAtIndex:0]];
+        
+        
+        
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"chngLocation" object:cityName];
+        [self dismissViewControllerAnimated:YES completion:nil];
+        
+        //    self.geoNamesSearch.delegate = nil;
+        
+        [self.delegate geoNamesSearchController:self didFinishWithResult:[newSearcharray objectAtIndex:indexPath.row]];
+        
+        
+        
+        [self.navigationController dismissViewControllerAnimated:YES completion:^{
+            [self.myDelegate locationView:self didselectlocation:[newSearcharray objectAtIndex:indexPath.row]];
+        }];
+
+        
         
     }
-    else {
-        [[NSUserDefaults standardUserDefaults] setObject:[[self.searchResults[indexPath.row] valueForKey:@"location"] valueForKey:@"lat"] forKey:@"City_LAT"];
+    else
+    {
+        NSLog(@"kkk %@",self.searchResults[indexPath.row] );
+        NSString *latlng=[[self.searchResults[indexPath.row] valueForKey:@"location"] valueForKey:@"lat"];
         
-        [[NSUserDefaults standardUserDefaults] setObject:[[self.searchResults[indexPath.row] valueForKey:@"location"] valueForKey:@"lng"] forKey:@"City_LONG"];
+        if (!latlng)
+        {
+            CLLocationCoordinate2D center=[self geoCodeUsingAddress:[self.searchResults[indexPath.row] valueForKey:@"name"]];
+            
+            [[NSUserDefaults standardUserDefaults] setFloat:center.latitude forKey:@"City_LAT"];
+            
+            [[NSUserDefaults standardUserDefaults] setFloat:center.longitude forKey:@"City_LONG"];
+            
+        }
+        else {
+            [[NSUserDefaults standardUserDefaults] setObject:[[self.searchResults[indexPath.row] valueForKey:@"location"] valueForKey:@"lat"] forKey:@"City_LAT"];
+            
+            [[NSUserDefaults standardUserDefaults] setObject:[[self.searchResults[indexPath.row] valueForKey:@"location"] valueForKey:@"lng"] forKey:@"City_LONG"];
+        }
+        
+        
+        
+        NSArray *arrayWithTwoStrings = [[self.searchResults[indexPath.row] valueForKey:@"name"] componentsSeparatedByString:@","];
+        
+        NSString *cityName=[NSString stringWithFormat:@"%@",[arrayWithTwoStrings objectAtIndex:0]];
+        
+        
+        
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"chngLocation" object:cityName];
+        [self dismissViewControllerAnimated:YES completion:nil];
+        
+        //    self.geoNamesSearch.delegate = nil;
+        
+        [self.delegate geoNamesSearchController:self didFinishWithResult:[self.searchResults objectAtIndex:indexPath.row]];
+        
+        
+        
+        [self.navigationController dismissViewControllerAnimated:YES completion:^{
+            [self.myDelegate locationView:self didselectlocation:self.searchResults[indexPath.row]];
+        }];
+        
     }
     
-   
-    
-    NSArray *arrayWithTwoStrings = [[self.searchResults[indexPath.row] valueForKey:@"name"] componentsSeparatedByString:@","];
-    
-    NSString *cityName=[NSString stringWithFormat:@"%@",[arrayWithTwoStrings objectAtIndex:0]];
-    
-    
-    
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"chngLocation" object:cityName];
-    [self dismissViewControllerAnimated:YES completion:nil];
-    
-//    self.geoNamesSearch.delegate = nil;
-    
-	[self.delegate geoNamesSearchController:self didFinishWithResult:[self.searchResults objectAtIndex:indexPath.row]];
-    
-    
-    
-    [self.navigationController dismissViewControllerAnimated:YES completion:^{
-        [self.myDelegate locationView:self didselectlocation:self.searchResults[indexPath.row]];
-    }];
+  
     
 }
 

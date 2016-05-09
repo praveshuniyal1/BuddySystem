@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="14F1713" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
@@ -76,7 +76,7 @@
                         </searchBar>
                         <prototypes>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Cell" textLabel="8Ha-DX-TfS" detailTextLabel="bjK-uP-iEK" style="IBUITableViewCellStyleSubtitle" id="57k-X2-uBo" customClass="CustomCell">
-                                <rect key="frame" x="0.0" y="66" width="320" height="44"/>
+                                <rect key="frame" x="0.0" y="130" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="57k-X2-uBo" id="hxL-8y-Pm1">
                                     <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
@@ -324,11 +324,11 @@
                                         </connections>
                                     </button>
                                     <view contentMode="scaleToFill" id="m4f-Qd-2zS">
-                                        <rect key="frame" x="0.0" y="105.00000350942092" width="320" height="402"/>
+                                        <rect key="frame" x="0.0" y="105" width="320" height="402.00000165514086"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" heightSizable="YES"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="fS5-eT-M3k">
-                                                <rect key="frame" x="6" y="354" width="308" height="40"/>
+                                                <rect key="frame" x="6" y="354.00000165514086" width="308" height="40"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                                 <state key="normal" image="suggest-activity_iphone">
                                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -447,7 +447,7 @@
                                                     <rect key="frame" x="0.0" y="0.0" width="132" height="77"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" name="GillSans-Light" family="Gill Sans" pointSize="27"/>
-                                                    <state key="normal" title="Today" backgroundImage="60025179-4637-4A79-BC94-C20A3B180C0A">
+                                                    <state key="normal" title="Today" backgroundImage="83C8C553-233A-4902-8481-069FB50A6C64">
                                                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                     </state>
                                                     <connections>
@@ -469,7 +469,7 @@
                                                     <rect key="frame" x="0.0" y="0.0" width="210" height="77"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES"/>
                                                     <fontDescription key="fontDescription" name="GillSans-Light" family="Gill Sans" pointSize="27"/>
-                                                    <state key="normal" title="This Weekend" backgroundImage="E18B4947-1FD4-4FD5-8AD3-976352B3AB92">
+                                                    <state key="normal" title="This Weekend" backgroundImage="CDC1C8C0-91B7-4155-AB32-D79C0CE4C917">
                                                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                     </state>
                                                     <connections>
@@ -491,7 +491,7 @@
                                                     <rect key="frame" x="0.0" y="0.0" width="185" height="70"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" name="GillSans-Light" family="Gill Sans" pointSize="27"/>
-                                                    <state key="normal" title="Anytime" backgroundImage="E18B4947-1FD4-4FD5-8AD3-976352B3AB92">
+                                                    <state key="normal" title="Anytime" backgroundImage="CDC1C8C0-91B7-4155-AB32-D79C0CE4C917">
                                                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                     </state>
                                                     <connections>
@@ -513,7 +513,7 @@
                                                     <rect key="frame" x="0.0" y="0.0" width="94" height="94"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" name="GillSans-Light" family="Gill Sans" pointSize="25"/>
-                                                    <state key="normal" title="Other" backgroundImage="0BAB4F86-7869-41AD-982F-18351F3ABCC7">
+                                                    <state key="normal" title="Other" backgroundImage="3EB1086F-058F-4269-B024-6CC92D1D2C6A">
                                                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                     </state>
                                                     <connections>
@@ -577,11 +577,11 @@
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             </imageView>
                             <view contentMode="scaleToFill" id="iEQ-fu-EDr">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="567.99999249748782"/>
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="e64-MI-ffa">
-                                        <rect key="frame" x="-4" y="507.99999249748782" width="62" height="62"/>
+                                        <rect key="frame" x="-4" y="508" width="62" height="62"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <state key="normal" image="menubtn">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -596,7 +596,7 @@
                                         <color key="currentPageIndicatorTintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     </pageControl>
                                     <collectionView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsVerticalScrollIndicator="NO" minimumZoomScale="0.0" maximumZoomScale="0.0" dataMode="prototypes" id="Of8-ey-abz">
-                                        <rect key="frame" x="0.0" y="106" width="320" height="356.99999421512558"/>
+                                        <rect key="frame" x="0.0" y="106.00000430267168" width="320" height="357"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" heightSizable="YES"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="20" id="SbW-Sn-OX5">
@@ -1372,7 +1372,7 @@ be deleted in 2 hours.</string>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="V1h-ye-RvK">
-                                        <rect key="frame" x="148.00000420670861" y="18" width="145" height="33"/>
+                                        <rect key="frame" x="148.00000472002793" y="18" width="145" height="33"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" name="GillSans" family="Gill Sans" pointSize="16"/>
                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -1873,7 +1873,7 @@ be deleted in 2 hours.</string>
         </scene>
     </scenes>
     <resources>
-        <image name="0BAB4F86-7869-41AD-982F-18351F3ABCC7" width="110" height="110">
+        <image name="3EB1086F-058F-4269-B024-6CC92D1D2C6A" width="110" height="110">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGPj9YJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK4HCBMU
 GR4fIyQsLzI4O1UkbnVsbNUJCgsMDQ4PEBESVk5TU2l6ZVYkY2xhc3NcTlNJbWFnZUZsYWdzVk5TUmVw
@@ -2730,7 +2730,7 @@ rwC0ALcAuQC7AL0AvwDEANsA3QDfxmHGZsZxxnrGjcaRxqTGr8a4xr3GxcbIxs3G3MbgxufG78b8xwHH
 A8cFxwrHEscVxxrHIsclxzfHOsc/AAAAAAAAAgEAAAAAAAAAQgAAAAAAAAAAAAAAAAAAx0E
 </mutableData>
         </image>
-        <image name="60025179-4637-4A79-BC94-C20A3B180C0A" width="132" height="77">
+        <image name="83C8C553-233A-4902-8481-069FB50A6C64" width="132" height="77">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGOzxYJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK0HCBEW
 GxwgISksLzU4VSRudWxs1AkKCwwNDg8QViRjbGFzc1xOU0ltYWdlRmxhZ3NWTlNSZXBzV05TQ29sb3KA
@@ -3478,8 +3478,7 @@ rSmtMK04rUWtSq1MrU6tU61brV6tY61rrW6tgK2DrYgAAAAAAAACAQAAAAAAAAA/AAAAAAAAAAAAAAAA
 AACtig
 </mutableData>
         </image>
-        <image name="D.png" width="649" height="362"/>
-        <image name="E18B4947-1FD4-4FD5-8AD3-976352B3AB92" width="250" height="99">
+        <image name="CDC1C8C0-91B7-4155-AB32-D79C0CE4C917" width="250" height="99">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGOzxYJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK0HCBEW
 GxwgISksLzU4VSRudWxs1AkKCwwNDg8QViRjbGFzc1xOU0ltYWdlRmxhZ3NWTlNSZXBzV05TQ29sb3KA
@@ -5201,6 +5200,7 @@ AAGREwABkRoAAZEiAAGRLwABkTQAAZE2AAGROAABkT0AAZFFAAGRSAABkU0AAZFVAAGRWAABkWoAAZFt
 AAGRcgAAAAAAAAQBAAAAAAAAAD8AAAAAAAAAAAAAAAAAAZF0A
 </mutableData>
         </image>
+        <image name="D.png" width="649" height="362"/>
         <image name="appTitile_title" width="260" height="36"/>
         <image name="back" width="54" height="55"/>
         <image name="chat" width="54" height="54"/>
