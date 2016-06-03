@@ -109,6 +109,11 @@ int idx=0;
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:YES];
+    if (contactList.count==1 || contactList.count==0)
+    {
+        txtFriendView.text=[NSString stringWithFormat:@"These %ld Friend will now post this message on their Facebook.",contactList.count];
+    }
+    
     isfirst=YES;
     [self bgplayer];
 }
@@ -197,6 +202,12 @@ int idx=0;
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
     static NSString *identifier = @"Cell";
     
+    if (contactList.count==1)
+    {
+        txtFriendView.text=[NSString stringWithFormat:@"These %ld Friend will now post this message on their Facebook.",contactList.count];
+    }else{
+        txtFriendView.text=[NSString stringWithFormat:@"These %ld Friends will now post this message on their Facebook.",contactList.count];
+    }
     
     CategoryCell *playingCardCell = [collectionView dequeueReusableCellWithReuseIdentifier:identifier forIndexPath:indexPath];
     //[playingCardCell loadFBWallPostCellData:[friendlist objectAtIndex:indexPath.row]];
@@ -501,8 +512,21 @@ int idx=0;
                 [connection start];
                 
                 
+                //used for get current date and time
+                
+                NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+                [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+                
+                NSTimeZone *currentTimeZone = [NSTimeZone localTimeZone];
+                NSString *timeZone=[currentTimeZone name];
                 
                 
+                NSDate *now = [NSDate date];
+                NSInteger sourceGMTOffset = [currentTimeZone secondsFromGMTForDate:now];
+                NSTimeInterval interval = sourceGMTOffset;
+                NSDate *destinationDate = [NSDate dateWithTimeInterval:interval sinceDate:now];
+                NSString *currentDate=[dateFormatter stringFromDate:destinationDate];
+
                 
                 
                 NSURL *urli = [NSURL URLWithString:[NSString stringWithFormat:@"http://buddyappnew.herokuapp.com/webs/post_share?"]];
@@ -543,11 +567,28 @@ int idx=0;
                 
                 
             }
-            if (idx==[contactList count])
+           else if (idx==[contactList count])
             {
                 //idx++;
+                
+                //used for get current date and time
+                
+                NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+                [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+                
+                NSTimeZone *currentTimeZone = [NSTimeZone localTimeZone];
+                NSString *timeZone=[currentTimeZone name];
+                
+                
+                NSDate *now = [NSDate date];
+                NSInteger sourceGMTOffset = [currentTimeZone secondsFromGMTForDate:now];
+                NSTimeInterval interval = sourceGMTOffset;
+                NSDate *destinationDate = [NSDate dateWithTimeInterval:interval sinceDate:now];
+                NSString *currentDate=[dateFormatter stringFromDate:destinationDate];
+                
                 NSURL *urli = [NSURL URLWithString:[NSString stringWithFormat:@"http://buddyappnew.herokuapp.com/webs/post_share?"]];
                 NSLog(@"%@",urli);
+                
                 
                 NSString * str = [NSString stringWithFormat:@"post_id=%@&access_token=%@",[stringResponse valueForKey:@"id"],@"392003234294832|8b61486e00b73967e154980ece91511b"];
                 
@@ -626,6 +667,20 @@ int idx=0;
     }
     }
     
+}
+
+//get current time and date
+- (NSDate *) getCountryDateWithTimeZone:(NSString *)zone
+{
+    
+    NSDate *now = [NSDate date];
+    NSTimeZone *szone = [NSTimeZone timeZoneWithName:zone];
+    
+    NSInteger sourceGMTOffset = [szone secondsFromGMTForDate:now];
+    NSTimeInterval interval = sourceGMTOffset;
+    NSDate *destinationDate = [NSDate dateWithTimeInterval:interval sinceDate:now];
+    
+    return destinationDate;
 }
 
 
@@ -757,8 +812,8 @@ int idx=0;
     else if ([[SelectCatDict valueForKey:@"CatTime"]isEqualToString:@"Other"])
     {
         NSString *dayDate=[[NSUserDefaults standardUserDefaults]valueForKey:@"OtherDate"];
-        mes=[NSString stringWithFormat:@"Anyone in %@ up for some %@ on %@ ? %@ my buddy %@ for the details ",address,catTitletext.text,dayDate,@"Message",[[NSUserDefaults standardUserDefaults]valueForKey:@"UserName"]];
-        myWall=[NSString stringWithFormat:@"Anyone in %@ up for some %@ on %@ ?",address,catTitletext.text,dayDate];
+        mes=[NSString stringWithFormat:@"Anyone in %@ up for some %@ on %@? %@ my buddy %@ for the details ",address,catTitletext.text,dayDate,@"Message",[[NSUserDefaults standardUserDefaults]valueForKey:@"UserName"]];
+        myWall=[NSString stringWithFormat:@"Anyone in %@ up for some %@ on %@?",address,catTitletext.text,dayDate];
     }
     
     else
@@ -823,6 +878,8 @@ int idx=0;
                 if (contactList.count>=10) {
                     contactList = [contactList subarrayWithRange:NSMakeRange(0, 10)];
                 }
+                
+                
                 
                 
                 friendCollectionView.delegate=self;

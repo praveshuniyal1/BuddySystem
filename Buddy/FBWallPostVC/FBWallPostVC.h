@@ -34,6 +34,11 @@
     
     
     IBOutlet UIView *activityView;
+    
+    
+    IBOutlet UITextView *txtFriendView;
+    
+    
 }
 @property (nonatomic,strong)FBRequestConnection *requestConnection;
 @property(strong,nonatomic)NSString * address;
