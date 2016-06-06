@@ -82,7 +82,7 @@ bool isSearch=false;
     
     
 }
-
+//update  location value
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];

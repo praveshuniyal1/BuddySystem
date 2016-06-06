@@ -192,7 +192,7 @@
                 {
                     if ([isExpire isEqualToString:@"1"])
                     {
-                        paragraph=[NSString stringWithFormat:@"%@ is looking for %@ buddies right now .",name,activity];
+                        paragraph=[NSString stringWithFormat:@"%@ is looking for %@ buddies right now.",name,activity];
                     }else{
                         paragraph=[NSString stringWithFormat:@"%@ is looking for %@ buddies.",name,activity];
                     }
@@ -227,7 +227,7 @@
             else
             {
                 
-                NSString* name=[NSString stringWithFormat:@"%@&%@",[usr_name objectAtIndex:0],[usr_name objectAtIndex:1]];
+                NSString* name=[NSString stringWithFormat:@"%@ & %@",[usr_name objectAtIndex:0],[usr_name objectAtIndex:1]];
                 
                  NSString *isExpire = [dict valueForKey:@"expire_post"];
                 if ([strTime isEqualToString:@"Now"])
