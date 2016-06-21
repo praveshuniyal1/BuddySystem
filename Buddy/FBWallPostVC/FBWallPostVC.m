@@ -840,6 +840,7 @@ int idx=0;
 #pragma mark- delegate Method's of ServerManager-
 -(void)serverReponse:(NSDictionary *)responseDict withrequestName:(NSString *)serviceurl
 {
+    [[ServerManager getSharedInstance]hideHud];
     NSLog(@"Response tripathi -->> %@ and serviceURL------->>> %@",responseDict,serviceurl);
     
     if ([serviceurl isEqual:KSaveUsrActivity])

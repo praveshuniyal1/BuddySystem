@@ -1,4 +1,4 @@
-//
+ //
 //  CustomCell.m
 //  BuddySystem
 //
@@ -56,7 +56,8 @@
     }
     else
     {
-        description=[NSString stringWithFormat:@"%@",[[[dict valueForKey:@"common_activity"] valueForKey:@"category_name"] componentsJoinedByString:@","]];
+       // description=[NSString stringWithFormat:@"%@",[[[dict valueForKey:@"common_activity"] valueForKey:@"activity_name"] componentsJoinedByString:@","]];
+         description=[NSString stringWithFormat:@"%@",[[dict valueForKey:@"common_activity"] valueForKey:@"Activity"]];
     }
     
     

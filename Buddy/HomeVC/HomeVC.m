@@ -40,10 +40,21 @@
     }    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeImage:) name:@"NewMessage" object:nil];
     
-    [[ServerManager getSharedInstance]showactivityHub:@"loading.." addWithView:self.navigationController.view];
+    //[[ServerManager getSharedInstance]showactivityHub:@"loading.." addWithView:self.navigationController.view];
     [self getMineAppSFriends];
     
 }
+-(void)viewWillAppear:(BOOL)animated
+{
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        //code in background
+        [[LocationManager locationInstance]getcurrentLocation];
+    });
+    
+    
+    [self bgplayer];
+}
+
 
 -(void) getMineAppSFriends
 {
@@ -145,17 +156,7 @@
     [KappDelgate addPlayerInCurrentViewController:self.view bringView:contentView MovieUrl:fileUrl];
 }
 
--(void)viewWillAppear:(BOOL)animated
-{
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        //code in background
-        [[LocationManager locationInstance]getcurrentLocation];
-    });
-    
-    
-    [super viewWillAppear:animated];
-    [self bgplayer];
-}
+
 - (IBAction)TappedOnTime:(UIButton*)timebtn
 {
 //    NSDate *now = [NSDate date];

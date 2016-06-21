@@ -130,7 +130,7 @@ typedef void(^addressCompletion)(NSString *);
 
                        /*
                         
-                        NSURL *urlString=[NSURL URLWithString:[NSString stringWithFormat:@"http://dev414.trigma.us/Buddy/webs/%@user_id=%@&latitude=%@&longitude=%@",KUpdateUserLocation,[[NSUserDefaults standardUserDefaults]valueForKey:@"userID"],latitudeLabel,longitudeLabel]];
+                        NSURL *urlString=[NSURL URLWithString:[NSString stringWithFormat:@"http://buddyappnew.herokuapp.com/webs/%@user_id=%@&latitude=%@&longitude=%@",KUpdateUserLocation,[[NSUserDefaults standardUserDefaults]valueForKey:@"userID"],latitudeLabel,longitudeLabel]];
                         
                         
                         NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init];
@@ -168,7 +168,7 @@ typedef void(^addressCompletion)(NSString *);
                             
                             /*
                             
-                            NSURL *urlString=[NSURL URLWithString:[NSString stringWithFormat:@"http://dev414.trigma.us/Buddy/webs/%@user_id=%@&latitude=%@&longitude=%@",KUpdateUserLocation,[[NSUserDefaults standardUserDefaults]valueForKey:@"userID"],latitudeLabel,longitudeLabel]];
+                            NSURL *urlString=[NSURL URLWithString:[NSString stringWithFormat:@"http://buddyappnew.herokuapp.com/webs/%@user_id=%@&latitude=%@&longitude=%@",KUpdateUserLocation,[[NSUserDefaults standardUserDefaults]valueForKey:@"userID"],latitudeLabel,longitudeLabel]];
                             
                             
                             NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init];
@@ -244,6 +244,7 @@ typedef void(^addressCompletion)(NSString *);
 
 -(void)serverReponse:(NSDictionary *)responseDict withrequestName:(NSString *)serviceurl
 {
+    
     NSLog(@"Response tripathi -->> %@ and serviceURL------->>> %@",responseDict,serviceurl);
     
     if ([serviceurl isEqual:KUpdateUserLocation])

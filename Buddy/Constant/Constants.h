@@ -93,7 +93,7 @@ typedef enum : NSUInteger
 //#define KUserFriendlist          @"friendlist.php?"
 #define KUserFriendlist          @"online_friends?"
 
-#define KSearch                  @"activitysearch.php?"
+#define KSearch                  @"activitysearch?"
 
 #define KfriendProfile           @"friend_profile?"
 //My Activity

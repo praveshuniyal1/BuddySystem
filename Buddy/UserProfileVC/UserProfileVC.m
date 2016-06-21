@@ -149,14 +149,14 @@
     if (is_net==YES)
     {
         NSDictionary * userinfoDict=[NSDictionary dictionaryWithDictionary:[NSUserDefaults getNSUserDefaultValueForKey:kLoginUserInfo]] ;
-       NSString* usrId=[NSString stringWithFormat:@"%@",[userinfoDict objectForKey:@"id"]];
-        NSString * to_userId=[NSString stringWithFormat:@"%@",[userinfodict objectForKey:@"usr_id"]];
+       NSString* to_userId=[NSString stringWithFormat:@"%@",[userinfoDict objectForKey:@"id"]];
+        NSString * usrId=[NSString stringWithFormat:@"%@",[userinfodict objectForKey:@"usr_id"]];
 
         [[ServerManager getSharedInstance]showactivityHub:@"Loading.." addWithView:self.view];
         [ServerManager getSharedInstance].Delegate=self;
         //NSDictionary * postDict=[NSDictionary dictionaryWithObjectsAndKeys:usrId,@"usr_id", to_userId,@"to_usrid", nil];
 //<<<<<<< HEAD
-        NSDictionary * postDict=[NSDictionary dictionaryWithObjectsAndKeys:to_userId,@"to_usrid",to_userId,@"usr_id",  nil];
+        NSDictionary * postDict=[NSDictionary dictionaryWithObjectsAndKeys:usrId,@"usr_id",to_userId,@"to_usrid",  nil];
 //=======
 //        NSDictionary * postDict=[NSDictionary dictionaryWithObjectsAndKeys:to_userId,@"to_usrid",usrId,@"usr_id",  nil];
 //>>>>>>> 2381d9dc74b9c7a2608d3ce3f73838d6f32dcf0c
@@ -427,11 +427,14 @@
     }
     else if([serviceurl isEqual:KsendMessage])
     {
-        int success=[[responseDict valueForKey:@"success"] intValue];
+        int success=[[responseDict valueForKey:@"status"] intValue];
         switch (success) {
             case 1:
             {
-                [ServerManager showAlertView:@"Message!!" withmessage:[responseDict valueForKey:@"msg"]];
+                //[ServerManager showAlertView:@"Message!!" withmessage:[responseDict valueForKey:@"msg"]];
+                [ServerManager showAlertView:@"Message!!" withmessage:@"message send successfully"];
+                MessageText.text=nil;
+                [self resignInputView];
             }
                 break;
                 
@@ -456,7 +459,8 @@
     
     if (![[contactdict valueForKey:@"common_activity"] isKindOfClass:[NSNull class]])
     {
-        lbl_event.text=[NSString stringWithFormat:@"%@ and more",[[contactdict valueForKey:@"common_activity"] componentsJoinedByString:@","]];
+        //lbl_event.text=[NSString stringWithFormat:@"%@ and more",[[contactdict valueForKey:@"common_activity"] componentsJoinedByString:@","]];
+        lbl_event.text=[NSString stringWithFormat:@"%@ and more",[[contactdict valueForKey:@"common_activity"] valueForKey:@"Activity"]];
     }
     else
     {

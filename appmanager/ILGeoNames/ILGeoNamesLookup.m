@@ -192,11 +192,9 @@ NSString *const kILGeoNamesErrorDomain = @"org.geonames";
         isSearch=YES;
         urlString = [NSString stringWithFormat:@"https://graph.facebook.com/search?q=%@&type=adgeolocation&location_types=city&access_token=%@",escQuery,[[NSUserDefaults standardUserDefaults] valueForKey:@"accessToken"]];
         
+//        urlString = [NSString stringWithFormat:@"https://graph.facebook.com/search?q=%@&type=adgeolocation&location_types=city&access_token=392003234294832|8b61486e00b73967e154980ece91511b",escQuery];
         
-        //used facebook api for near by search api
-        //https://graph.facebook.com/search?q=ritual&type=place&center=37.76,-122.427&distance=1000&access_token=mytoken.
-        
-//        https://api.foursquare.com/v2/venues/search?client_id=AJYEDMWZKIUULUZB0LTC1D1CZQM11IHIBIGPTS5FBRMPXSF4&client_secret=WDIDMXXOGM2N2ZYAV4DI5B0PDLGAQYH13M1ZEDGZBOJUXWMI&v=20130815&ll=30.727617,76.846662&query=aroma
+    
     }
     [self sendRequestWithURLString:urlString];
     

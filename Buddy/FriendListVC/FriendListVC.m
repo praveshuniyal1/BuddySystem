@@ -167,7 +167,6 @@
     else
     {
         didindexPath = [contactTable indexPathForSelectedRow];
-        
         selectdict=[NSMutableDictionary dictionaryWithDictionary:[contactList objectAtIndex:didindexPath.row]];
     }
     
@@ -366,7 +365,7 @@
     [[ServerManager getSharedInstance]hideHud];
     if ([serviceurl isEqual:KUserFriendlist])
     {
-        int success=[[responseDict valueForKey:@"success"] intValue];
+        int success=[[responseDict valueForKey:@"status"] intValue];
         switch (success) {
             case 1:
             {
@@ -380,7 +379,7 @@
             case 0:
             {
             
-                [ServerManager showAlertView:@"Message" withmessage:[responseDict valueForKey:@"msg"]];
+                [ServerManager showAlertView:@"Message" withmessage:[responseDict valueForKey:@"message"]];
            }
                break;
                 
