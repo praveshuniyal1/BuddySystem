@@ -244,7 +244,7 @@ typedef void(^addressCompletion)(NSString *);
 
 -(void)serverReponse:(NSDictionary *)responseDict withrequestName:(NSString *)serviceurl
 {
-    
+    [[ServerManager getSharedInstance]hideHud];
     NSLog(@"Response tripathi -->> %@ and serviceURL------->>> %@",responseDict,serviceurl);
     
     if ([serviceurl isEqual:KUpdateUserLocation])

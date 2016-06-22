@@ -389,7 +389,7 @@ static JKModelData *sharedInstance = nil;
 
            }
     
-    
+      NSLog(@"message array=%@",self.messages);
     
     
     

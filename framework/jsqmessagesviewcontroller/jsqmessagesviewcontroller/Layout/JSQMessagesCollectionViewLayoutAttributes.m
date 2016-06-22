@@ -43,6 +43,9 @@
 {
     NSParameterAssert(messageBubbleFont != nil);
     _messageBubbleFont = messageBubbleFont;
+    
+    
+    
 }
 
 - (void)setMessageBubbleContainerViewWidth:(CGFloat)messageBubbleContainerViewWidth

@@ -40,12 +40,14 @@
     }    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeImage:) name:@"NewMessage" object:nil];
     
-    //[[ServerManager getSharedInstance]showactivityHub:@"loading.." addWithView:self.navigationController.view];
+    [[ServerManager getSharedInstance]showactivityHub:@"loading.." addWithView:self.navigationController.view];
     [self getMineAppSFriends];
     
 }
 -(void)viewWillAppear:(BOOL)animated
 {
+//    NSMutableArray *arr=[NSMutableArray new];
+//    arr=[arr objectAtIndex:0];
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         //code in background
         [[LocationManager locationInstance]getcurrentLocation];

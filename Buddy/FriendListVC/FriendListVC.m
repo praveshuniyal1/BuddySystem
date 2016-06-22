@@ -40,7 +40,7 @@
     //topbarView.layer.backgroundColor = [UIColor whiteColor]. CGColor;
     topbarView.layer.masksToBounds = YES;
     
-    searchtext.placeholder=@"Search by name or activity..";
+    searchtext.placeholder=@"Search by name..";
 //    [ServerManager changeTextColorOfSearchBarButton:[UIColor colorWithRed:242/255 green:92/255 blue:80/255 alpha:1]];
 //   
     // Do any additional setup after loading the view.
@@ -257,7 +257,7 @@
         
         // NSString * poststr=[NSString stringWithFormat:@"usr_id=%@&usr_name=%@",usrId,name];
         [ServerManager getSharedInstance].Delegate=self;
-        NSDictionary * postDict=[NSDictionary dictionaryWithObjectsAndKeys:usrId,@"usr_id",searchText,@"search_key", nil];
+        NSDictionary * postDict=[NSDictionary dictionaryWithObjectsAndKeys:usrId,@"usr_id",searchText,@"username", nil];
         [[ServerManager getSharedInstance]postDataOnserver:postDict withrequesturl:KSearch];
         
         
@@ -391,10 +391,11 @@
     
     else if ([serviceurl isEqual:KSearch])
     {
-        int success=[[responseDict valueForKey:@"success"] intValue];
+        int success=[[responseDict valueForKey:@"status"] intValue];
         switch (success) {
             case 1:
             {
+                searchResults=[NSMutableArray new];
                 searchResults=[responseDict valueForKey:@"data"];
                 if (searchResults.count>0)
                 {
@@ -410,7 +411,7 @@
                 break;
                 
             default:
-                [ServerManager showAlertView:@"Message" withmessage:[responseDict valueForKey:@"msg"]];
+                [ServerManager showAlertView:@"Message" withmessage:[responseDict valueForKey:@"message"]];
                 break;
         }
  

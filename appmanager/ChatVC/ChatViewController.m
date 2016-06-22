@@ -27,6 +27,7 @@
 {
     [super viewDidLoad];
     
+   
     
     self.collectionView.backgroundColor=[UIColor clearColor];
     self.collectionView.delegate=self;
@@ -44,7 +45,8 @@
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    self.collectionView.collectionViewLayout.springinessEnabled = YES;
+    //self.collectionView.collectionViewLayout.springinessEnabled = YES;
+     [self scrollToBottomAnimated:YES];
 }
 
 

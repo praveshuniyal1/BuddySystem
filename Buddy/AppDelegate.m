@@ -9,6 +9,8 @@
 
 #import "AppDelegate.h"
 #import <QuartzCore/QuartzCore.h>
+#import <Fabric/Fabric.h>
+#import <Crashlytics/Crashlytics.h>
 
 @implementation AppDelegate
 {
@@ -22,6 +24,11 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    // TODO: Move this to where you establish a user session
+    
+   [Fabric with:@[[Crashlytics class]]];
+     [self logUser];
+    
     maxIdleTime=30;
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
   
@@ -116,6 +123,7 @@
     {
          [self loginView];
     }
+
     
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
@@ -124,6 +132,16 @@
     
     return YES;
 }
+
+- (void) logUser {
+    // TODO: Use the current user's information
+    // You can call any combination of these three methods
+    [CrashlyticsKit setUserIdentifier:@"12345"];
+    [CrashlyticsKit setUserEmail:@"amit.verma@trigma.in"];
+    [CrashlyticsKit setUserName:@"Test User"];
+}
+
+
 
 - (BOOL)application:(UIApplication *)application
             openURL:(NSURL *)url

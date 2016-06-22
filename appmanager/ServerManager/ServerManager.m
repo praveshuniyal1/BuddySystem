@@ -522,21 +522,7 @@ static ServerManager *sharedInstance = nil;
 #pragma mark-FetchDataFromServer-
 -(void)FetchDatafromServer:(NSString *)UrlString withAppendString:(NSString *)appendString
 {
-//    NSString *userToken =[self genrateMD5String];
-//    
-//    //    NSDictionary * postDit=[NSDictionary dictionaryWithObjectsAndKeys:userToken,@"key", nil];
-//    
-//    NSString * getUrlStr;
-//    if (appendString.length>0)
-//    {
-//        
-//        getUrlStr=[NSString stringWithFormat:@"%@%@&key=%@",UrlString,appendString,userToken];
-//    }
-//    else
-//    {
-//        getUrlStr=[NSString stringWithFormat:@"%@&key=%@",UrlString,userToken];
-//        // getUrlStr=[self createServerPath:UrlString];
-//    }
+
     NSString *serverpath=[self createServerPath:[NSString stringWithFormat:@"%@%@",UrlString,appendString]];
     
     //     NSString *serverurlstr=[NSString stringWithFormat:@"%@%@",[self createServerPath:UrlString],getUrlStr];
