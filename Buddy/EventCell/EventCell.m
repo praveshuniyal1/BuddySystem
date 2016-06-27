@@ -32,10 +32,12 @@
     // Configure the view for the selected state
 }
 
+
+
+
 -(void)loadEventCellData:(NSDictionary *)dict andHeight:(float)height
 {
     
-
     NSLog(@"%@",dict);
     NSString * activity=[dict valueForKey:@"category"];//category
     
@@ -50,7 +52,21 @@
     
     NSURL *youtube_tumbnails=[NSURL URLWithString:[dict valueForKey:@"youtube_thumbnails"]];//youtube_thumbnails
     
-    [self.videoThumbView sd_setImageWithURL:youtube_tumbnails];
+    
+   
+   
+    
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *filePath = [[paths objectAtIndex:0] stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.png",[dict valueForKey:@"id"]]];
+    UIImage *imaget = [[UIImage alloc] initWithContentsOfFile:filePath];
+ 
+    NSLog(@"Print Size %f",imaget.size.height);
+    
+    
+    NSLog(@"Print Size %f",imaget.size.width);
+    //   self.videoThumbView.image = [self imageWithImage:imaget scaledToSize:self.contentView.frame.size];
+    
+    //[self.videoThumbView sd_setImageWithURL:youtube_tumbnails];
     
     for(UIView *view in usrimageScroll.subviews)
     {
@@ -283,4 +299,28 @@
     }
     
 }
+
+-(UIImage*)imageWithImage:(UIImage*)image
+              scaledToSize:(CGSize)newSize;
+{
+    UIGraphicsBeginImageContext( newSize );
+    [image drawInRect:CGRectMake(0,0,newSize.width,newSize.height)];
+    UIImage* newImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    
+    return newImage;
+}
+
+
+- (NSString *)documentsPathForFileName:(NSString *)name
+{
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,NSUserDomainMask, YES);
+    NSString *documentsPath = [paths objectAtIndex:0];
+    
+    return [documentsPath stringByAppendingPathComponent:name];
+}
+
+
+
+
 @end

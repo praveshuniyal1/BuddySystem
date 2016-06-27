@@ -800,6 +800,41 @@
                                                       NSMutableDictionary * inserdict=[NSMutableDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithInt:cateId],@"id",category,@"category",thumbnails,@"thumbnails",youtube_link,@"youtube_link",videoUrlPath,@"video_url", nil];
                                                       
                                                       isDownloadBG=NO;
+                                                      
+                                                      //thumb image
+                                                      
+                                                      
+                                                   /*
+                                                      AVURLAsset *asset=[[AVURLAsset alloc] initWithURL:[NSURL URLWithString:videoUrlPath] options:nil];
+                                                      AVAssetImageGenerator *generator = [[AVAssetImageGenerator alloc] initWithAsset:asset];
+                                                      generator.appliesPreferredTrackTransform=TRUE;
+                                                      
+                                                      CMTime thumbTime = CMTimeMakeWithSeconds(0,30);
+                                                      
+                                                      AVAssetImageGeneratorCompletionHandler handler = ^(CMTime requestedTime, CGImageRef im, CMTime actualTime, AVAssetImageGeneratorResult result, NSError *error){
+                                                          if (result != AVAssetImageGeneratorSucceeded) {
+                                                              NSLog(@"couldn't generate thumbnail, error:%@", error);
+                                                          }
+                                                          
+                                                                 UIImage*  thumbimage=[UIImage imageWithCGImage:im] ;
+                                                                    [self storeThumbNamilImage:thumbimage and:inserdict];//
+                                                                    [self inserCategoryDataInDb:inserdict];
+                                                                    [self dowloadStreamVideo:nextDic andFurtherNext:secondDic fileCount:jsonCount andtotalCount:(int)totalCount];
+                                                      };
+                                                      
+                                                      CGSize maxSize = CGSizeMake(640, 400);
+                                                      generator.maximumSize = maxSize;
+                                                      [generator generateCGImagesAsynchronouslyForTimes:[NSArray arrayWithObject:[NSValue valueWithCMTime:thumbTime]] completionHandler:handler];
+                                                      
+                                                      
+                                                      */
+                                                      
+                                                      
+                                                      
+                                                      
+                                                      
+//                                                      [self storeThumbNamilImage:thumbnileimage and:inserdict];//
+//                                                      
                                                       [self inserCategoryDataInDb:inserdict];
                                                       
                                                        [self dowloadStreamVideo:nextDic andFurtherNext:secondDic fileCount:jsonCount andtotalCount:(int)totalCount];
@@ -879,9 +914,41 @@
                                                       NSMutableDictionary * inserdict=[NSMutableDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithInt:cateId],@"id",category,@"category",thumbnails,@"thumbnails",youtube_link,@"youtube_link",videoUrlPath,@"video_url", nil];
                                                       
                                                       isDownloadBG=YES;
+                                                      
+                                                      
+                                                  /*
+                                                      AVURLAsset *asset=[[AVURLAsset alloc] initWithURL:[NSURL URLWithString:videoUrlPath] options:nil];
+                                                      AVAssetImageGenerator *generator = [[AVAssetImageGenerator alloc] initWithAsset:asset];
+                                                      generator.appliesPreferredTrackTransform=TRUE;
+                                                      
+                                                      CMTime thumbTime = CMTimeMakeWithSeconds(0,30);
+                                                      
+                                                      AVAssetImageGeneratorCompletionHandler handler = ^(CMTime requestedTime, CGImageRef im, CMTime actualTime, AVAssetImageGeneratorResult result, NSError *error){
+                                                          if (result != AVAssetImageGeneratorSucceeded) {
+                                                              NSLog(@"couldn't generate thumbnail, error:%@", error);
+                                                          }
+                                                          
+                                                          UIImage*  thumbimage=[UIImage imageWithCGImage:im] ;
+                                                          [self storeThumbNamilImage:thumbimage and:inserdict];//
+                                                          [self inserCategoryDataInDb:inserdict];
+                                                           [self dowloadStreamVideo:secondDic fileCount:jsonCount andtotalCount:(int)totalCount];
+                                                      };
+                                                      
+                                                      CGSize maxSize = CGSizeMake(640, 400);
+                                                      generator.maximumSize = maxSize;
+                                                      [generator generateCGImagesAsynchronouslyForTimes:[NSArray arrayWithObject:[NSValue valueWithCMTime:thumbTime]] completionHandler:handler];
+                                                      
+                                                      
+                                                      
+                                                      */
+                                                      
+                                                      
+                                                      
+                                                      
+                                                      
+                                                      //thumb image
+//                                                      [self storeThumbNamilImage:thumbnileimage and:inserdict];//
                                                       [self inserCategoryDataInDb:inserdict];
-                                                      
-                                                      
                                                        [self dowloadStreamVideo:secondDic fileCount:jsonCount andtotalCount:(int)totalCount];
                                                       
                                                       
@@ -964,6 +1031,32 @@
                                                       NSMutableDictionary * inserdict=[NSMutableDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithInt:cateId],@"id",category,@"category",thumbnails,@"thumbnails",youtube_link,@"youtube_link",videoUrlPath,@"video_url", nil];
                                                       
                                                       isDownloadBG=YES;
+                                                      
+                                                   /*
+                                                      AVURLAsset *asset=[[AVURLAsset alloc] initWithURL:[NSURL URLWithString:videoUrlPath] options:nil];
+                                                      AVAssetImageGenerator *generator = [[AVAssetImageGenerator alloc] initWithAsset:asset];
+                                                      generator.appliesPreferredTrackTransform=TRUE;
+                                                      
+                                                      CMTime thumbTime = CMTimeMakeWithSeconds(0,30);
+                                                      
+                                                      AVAssetImageGeneratorCompletionHandler handler = ^(CMTime requestedTime, CGImageRef im, CMTime actualTime, AVAssetImageGeneratorResult result, NSError *error){
+                                                          if (result != AVAssetImageGeneratorSucceeded) {
+                                                              NSLog(@"couldn't generate thumbnail, error:%@", error);
+                                                          }
+                                                          
+                                                          UIImage*  thumbimage=[UIImage imageWithCGImage:im] ;
+                                                          [self storeThumbNamilImage:thumbimage and:inserdict];//
+                                                          [self inserCategoryDataInDb:inserdict];
+                                                      };
+                                                      
+                                                      CGSize maxSize = CGSizeMake(640, 400);
+                                                      generator.maximumSize = maxSize;
+                                                      [generator generateCGImagesAsynchronouslyForTimes:[NSArray arrayWithObject:[NSValue valueWithCMTime:thumbTime]] completionHandler:handler];
+                                                      */
+                                                     
+                                                      
+                                                      //thumb image
+                                                     // [self storeThumbNamilImage:thumbnileimage and:inserdict];//
                                                       [self inserCategoryDataInDb:inserdict];
                                                       
                                                       
@@ -1002,6 +1095,46 @@
     }];
     
 }
+
+
+#pragma store thumb image to document directory
+
+-(void)storeThumbNamilImage:(UIImage*)selectedImage and:(NSDictionary*)dic
+{
+    CGRect rect = CGRectMake(0,0,640,560);
+    UIGraphicsBeginImageContext( rect.size );
+    [selectedImage drawInRect:rect];
+    UIImage *picture1 = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    
+    NSData *profile_image_data = UIImagePNGRepresentation(picture1);
+    
+    ///////////////////////////////////////Store image in document directory
+    
+    NSString *strImagePath=[NSString stringWithFormat:@"%@.png",[dic valueForKey:@"id"]];
+    
+    
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *documentsPath = [paths objectAtIndex:0];
+    NSString *filePath = [documentsPath stringByAppendingPathComponent:strImagePath];
+    [profile_image_data writeToFile:filePath atomically:YES];
+    
+    
+   NSString* str_offline=[self documentsPathForFileName:strImagePath];
+    NSString *documentsDirectory = [paths objectAtIndex:0];
+    NSString *getImagePath = [documentsDirectory stringByAppendingPathComponent:[@"/" stringByAppendingString:[[self documentsPathForFileName:strImagePath] lastPathComponent]]];
+    UIImage *img=[UIImage imageWithContentsOfFile:getImagePath];
+
+}
+
+- (NSString *)documentsPathForFileName:(NSString *)name
+{
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,NSUserDomainMask, YES);
+    NSString *documentsPath = [paths objectAtIndex:0];
+    
+    return [documentsPath stringByAppendingPathComponent:name];
+}
+
 
 #pragma mark- Save Category in DB-
 -(void)inserCategoryDataInDb:(NSMutableDictionary*)dic

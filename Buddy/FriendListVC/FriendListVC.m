@@ -411,7 +411,7 @@
                 break;
                 
             default:
-                [ServerManager showAlertView:@"Message" withmessage:[responseDict valueForKey:@"message"]];
+                //[ServerManager showAlertView:@"Message" withmessage:[responseDict valueForKey:@"message"]];
                 break;
         }
  

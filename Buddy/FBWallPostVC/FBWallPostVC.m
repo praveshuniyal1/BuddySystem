@@ -286,7 +286,9 @@ int idx=0;
 {
     //[[ServerManager getSharedInstance]showactivityHub:@"Please wait.." addWithView:self.navigationController.view];
     
-    if([[SelectCatDict valueForKey:@"status"] isEqualToString:@"Publish"]){
+    
+    if([[SelectCatDict valueForKey:@"status"] isEqualToString:@"Publish"])
+    {
         activityView.hidden=NO;
         [self saveEventOnServer];
     }
@@ -295,9 +297,14 @@ int idx=0;
         [self shareacitivityOnSocialNetwork];
 
     }
-        
     
     
+    
+}
+//convert image to base64
+- (NSString *)encodeToBase64String:(UIImage *)image
+{
+    return [UIImagePNGRepresentation(image) base64EncodedStringWithOptions:NSDataBase64Encoding64CharacterLineLength];
 }
 
 - (IBAction)TappedOnChangeLocation:(id)sender

@@ -255,7 +255,8 @@
             NSLog(@"Select Slide dict %ldd=%@",(long)current,jsondict);
 
                 NSString * video_name=[[[[categoryList objectAtIndex:current] valueForKey:@"video_url"] componentsSeparatedByString:@"/"] lastObject] ;
-                
+            
+            
                 NSString * videoPath=[[DBManager getSharedInstance]getFilePath:video_name];
                 
                 if (![videoPath isEqual:@"No found"])
