@@ -41,7 +41,7 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeImage:) name:@"NewMessage" object:nil];
     
     [[ServerManager getSharedInstance]showactivityHub:@"loading.." addWithView:self.navigationController.view];
-    [self getMineAppSFriends];
+    //[self getMineAppSFriends];
     
 }
 -(void)viewWillAppear:(BOOL)animated
@@ -53,7 +53,7 @@
         [[LocationManager locationInstance]getcurrentLocation];
     });
     
-    
+    [self getMineAppSFriends];
     [self bgplayer];
 }
 
@@ -136,6 +136,16 @@
     if ([serviceurl isEqual:KSaveUsrActivity])
     {
         int success=[[responseDict valueForKey:@"success"]intValue];
+    }
+    else if ([serviceurl isEqual:KupdateFrindList])
+    {
+        if ([[responseDict valueForKey:@"message_status"] isEqualToString:@"unread"])
+        {
+            [chatbtn setImage:[UIImage imageNamed:@"chat_hover"] forState:UIControlStateNormal];
+        }
+        else{
+             [chatbtn setImage:[UIImage imageNamed:@"chat"] forState:UIControlStateNormal];
+        }
     }
 }
 -(void)failureRsponseError:(NSError *)failureError

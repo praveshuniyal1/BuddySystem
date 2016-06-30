@@ -24,6 +24,8 @@
     int downloadIndx;
   
 }
+@property(nonatomic,assign)BOOL isFromWhatHappen;
+
 @property (strong, nonatomic) FBSession *session;
 
 @property(strong,nonatomic)NSMutableArray * categoryidArr;

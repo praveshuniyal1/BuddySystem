@@ -79,7 +79,9 @@ typedef enum : NSUInteger
 // WHAT happning
 
 #define kWhatHappning             @"activity_timeline?"
-#define KaddActivity              @"match?"
+#define KaddActivity              @"adminer?"
+#define KUnblockUser              @"unblockuser?"
+#define KReadUnread               @"read_unread?"
 
 // do somthings
 

@@ -10,11 +10,11 @@
 #import "JKClassManager.h"
 #import "ServerManager.h"
 #import "JKModelData.h"
-@interface FriendListVC : UIViewController<ServerManagerDelegate,UISearchBarDelegate,UISearchControllerDelegate,UISearchDisplayDelegate>
+@interface FriendListVC : UIViewController<ServerManagerDelegate,UISearchBarDelegate,UISearchControllerDelegate,UISearchDisplayDelegate,UITableViewDelegate,UITableViewDataSource>
 {
     IBOutlet UIView *topbarView;
     
-    IBOutlet UITableView * contactTable;
+    
     IBOutlet UISearchBar *searchtext;
     NSMutableArray * searchResults;
     NSIndexPath *didindexPath;
@@ -23,6 +23,7 @@
     NSString * name;
     
 }
+@property(strong,nonatomic)IBOutlet UITableView * contactTable;
 @property(strong,nonatomic)UIRefreshControl*refreshControl;
 - (IBAction)OnBack:(id)sender;
 @end

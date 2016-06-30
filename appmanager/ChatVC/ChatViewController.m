@@ -8,6 +8,7 @@
 
 #import "ChatViewController.h"
 #import "JKModelData.h"
+#import "UserProfileVC.h"
 
 
 @interface ChatViewController () < UIImagePickerControllerDelegate, UINavigationControllerDelegate,UIActionSheetDelegate>
@@ -19,7 +20,7 @@
 
 @implementation ChatViewController
 
-@synthesize messageArray,selectFreindInfoDict;
+@synthesize messageArray,selectFreindInfoDict,profilePic,profileName,friendId,toUserId;
 
 
 #pragma mark - View lifecycle
@@ -27,7 +28,27 @@
 {
     [super viewDidLoad];
     
+        profilePic.layer.cornerRadius=profilePic.frame.size.width/2;
+        profilePic.layer.masksToBounds=YES;
+        profilePic.layer.borderColor=[[UIColor whiteColor] CGColor];
+        profilePic.layer.borderWidth=1;
    
+    
+    if (IS_IPHONE_6P)
+    {
+        headerView.frame=CGRectMake(0, 0, 414, 54);
+    }
+    else if (IS_IPHONE_6)
+    {
+        headerView.frame=CGRectMake(0, 0, 375, 54);
+    }
+    
+    [self.navigationController.view addSubview:headerView];
+    
+
+    NSDictionary * params=[NSDictionary dictionaryWithObjectsAndKeys:friendId,@"from_usrid",toUserId,@"to_usrid", nil];
+    [[ServerManager getSharedInstance]postDataOnserver:params withrequesturl:KReadUnread];
+    
     
     self.collectionView.backgroundColor=[UIColor clearColor];
     self.collectionView.delegate=self;
@@ -37,17 +58,232 @@
     [ServerManager getSharedInstance].Delegate=self;
     
     [self initilizeInputview];
-    [self TappedOnReceiveConversesion];
-    timerRecive=[NSTimer scheduledTimerWithTimeInterval:5.0 target:self selector:@selector(TappedOnReceiveConversesion) userInfo:nil repeats:YES];
+//    [self TappedOnReceiveConversesion];
+//    timerRecive=[NSTimer scheduledTimerWithTimeInterval:5.0 target:self selector:@selector(TappedOnReceiveConversesion) userInfo:nil repeats:YES];
+    
+   
     
 
 }
+
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
     //self.collectionView.collectionViewLayout.springinessEnabled = YES;
      [self scrollToBottomAnimated:YES];
 }
+
+- (IBAction)TapedOnDot:(UIButton*)menubtn
+{
+    [self showREDActionSheet:menubtn.center];
+
+}
+
+- (IBAction)TappedOnMapPoint:(id)sender
+{
+    UIAlertView *alert=[[UIAlertView alloc]initWithTitle:@"Message" message:@"Do you want to share your location to your friend?" delegate:self cancelButtonTitle:@"No" otherButtonTitles:@"Yes", nil];
+    [alert show];
+}
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (buttonIndex==1)
+    {
+        [self ClickOnToolBarButtons:nil];
+    }
+}
+
+
+#pragma mark-REDActionSheet-
+-(void)showREDActionSheet:(CGPoint)point
+{
+    menuPopview=[PopoverView showPopoverAtPoint:point inView:self.view withContentView:menuContentView delegate:nil];
+    
+}
+
+#pragma mark - Table view data source
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    
+    // Return the number of sections.
+    return 2;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    
+    // Return the number of rows in the section.
+    
+    switch (section) {
+        case 0:
+            return 3;
+            break;
+            
+        default:
+            return 1;
+            break;
+    }
+    
+}
+
+- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    cell.clipsToBounds = NO;
+    cell.layer.shadowColor = [[UIColor grayColor] CGColor];
+    cell.layer.shadowOffset = CGSizeMake(0,2);
+    cell.layer.shadowOpacity = 0.5;
+    cell.layer.cornerRadius=7;
+    cell.textLabel.textAlignment=NSTextAlignmentCenter;
+    switch (indexPath.section) {
+        case 0:
+        {
+            [cell setBackgroundColor:[UIColor whiteColor]];
+            cell.textLabel.textColor=[ServerManager colorWithR:242 G:92 B:80 A:1];//[UIColor colorWithR:242 G:92 B:80 A:1];
+        }
+            break;
+        case 1:
+        {
+            [cell setBackgroundColor:[ServerManager colorWithR:242 G:92 B:80 A:1]];
+            cell.textLabel.textColor=[UIColor whiteColor];
+        }
+            break;
+            
+            
+    }
+    
+}
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
+    cell.clipsToBounds = YES;
+    cell.layer.shadowColor = [[UIColor grayColor] CGColor];
+    cell.layer.shadowOffset = CGSizeMake(0,2);
+    cell.layer.shadowOpacity = 0.5;
+    cell.layer.cornerRadius=12;
+    cell.selectionStyle=UITableViewCellSelectionStyleNone;
+    switch (indexPath.section)
+    {
+        case 0:
+        {
+            
+            switch (indexPath.row)
+            {
+                case 0:
+                    
+                    cell.textLabel.text=[NSString stringWithFormat:@"Show %@'s Profile",profileName.text];
+                    break;
+                case 1:
+                    
+                    cell.textLabel.text=@"Things In Common";
+                    break;
+                case 2:
+                    
+                    cell.textLabel.text=[NSString stringWithFormat:@"Unmatch %@",profileName.text];
+                    break;
+                    
+            }
+            
+        }
+            break;
+        case 1:
+            cell.textLabel.text=@"Cancel";
+            break;
+            
+    }
+    // Configure the cell...
+    
+    return cell;
+}
+
+-(void)tableView:(UITableView*)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    switch (indexPath.section)
+    {
+        case 0:
+        {
+            // NSLog(@"%d",indexPath.row);
+            
+            switch (indexPath.row)
+            {
+                case 0:
+                    
+                {
+                    // user profile
+                   
+                    NSString * profileLink=[NSString stringWithFormat:@"https://www.facebook.com/%@",friendId];
+                    NSURL *url = [NSURL URLWithString:profileLink];
+                    [[UIApplication sharedApplication] openURL:url];
+                    [menuPopview dismiss];
+                }
+                    break;
+                case 1:
+                    
+                    // things in commmon
+                {
+                    
+                    [timerRecive invalidate];
+                    [self dismissViewControllerAnimated:YES completion:nil];
+                    
+                    UserProfileVC * profileview=[self.storyboard instantiateViewControllerWithIdentifier:@"UserProfileVC"];
+                    NSMutableDictionary *selectdict=[[NSMutableDictionary alloc]init];
+                    [selectdict setObject:friendId forKey:@"usr_id"];
+                    profileview.userinfodict=[selectdict mutableCopy];
+                    
+                    if (UI_USER_INTERFACE_IDIOM()==UIUserInterfaceIdiomPad)
+                    {
+                        profileview.modalPresentationStyle=UIModalPresentationFormSheet;
+                        
+                        [KappDelgate.navigation presentViewController:profileview animated:YES completion:nil];
+                    }
+                    else
+                    {
+                       // [KappDelgate.navigation pushViewController:profileview animated:YES];
+                        [KappDelgate.navigation presentViewController:profileview animated:YES completion:nil];
+                    }
+                    
+                    [menuPopview dismiss];
+                    
+                }
+                    
+                   
+                    break;
+                case 2:
+                {
+                    // user Unmatch
+                    [menuPopview dismiss];
+                    if ([[ServerManager getSharedInstance ]checkNetwork]==YES)
+                    {
+                        [ServerManager getSharedInstance].Delegate=self;
+                        [[ServerManager getSharedInstance]showactivityHub:@"Please wait.." addWithView:self.view];
+                        NSDictionary * userDict=[NSDictionary dictionaryWithDictionary:[NSUserDefaults getNSUserDefaultValueForKey:kLoginUserInfo]] ;
+                        NSString * usrId=[NSString stringWithFormat:@"%@",[userDict objectForKey:@"id"]];
+                        
+                        NSDictionary * params=[NSDictionary dictionaryWithObjectsAndKeys:usrId,@"user_id",friendId,@"block_user", nil];
+                        [[ServerManager getSharedInstance]postDataOnserver:params withrequesturl:KaddActivity];
+                        
+                        
+                    }
+                    
+                    
+                }
+                    
+                    
+                    break;
+                    
+            }
+        }
+            break;
+            
+        case 1:
+            [menuPopview dismiss];
+            break;
+           
+            
+    }
+}
+
+
+
 
 
 -(void)initilizeInputview
@@ -418,6 +654,51 @@
 
     }
     }
+    else if ([serviceurl isEqual:KReadUnread])
+    {
+        [self TappedOnReceiveConversesion];
+        timerRecive=[NSTimer scheduledTimerWithTimeInterval:5.0 target:self selector:@selector(TappedOnReceiveConversesion) userInfo:nil repeats:YES];
+        
+        int success=[[responseDict valueForKey:@"status"] intValue];
+        switch (success)
+        {
+            case 0:
+            {
+            }
+                break;
+            case 1:
+            {
+            }
+                break;
+                
+            default:
+                break;
+        }
+   
+    }
+    else if([serviceurl isEqual:KaddActivity])
+    {
+        int success=[[responseDict valueForKey:@"status"] intValue];
+        switch (success) {
+            case 1:
+            {
+                [ServerManager showAlertView:@"Message!!" withmessage:[responseDict valueForKey:@"message"]];
+                [KappDelgate dismissViewController:self];
+            }
+                break;
+                
+            case 0:
+            {
+                [ServerManager showAlertView:@"Message!!" withmessage:[responseDict valueForKey:@"message"]];
+            }
+                break;
+                
+            default:
+                break;
+        }
+
+    }
+        
 }
 -(void)failureRsponseError:(NSError *)failureError
 {

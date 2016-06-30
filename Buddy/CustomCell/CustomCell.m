@@ -9,7 +9,7 @@
 #import "CustomCell.h"
 #import "JKClassManager.h"
 @implementation CustomCell
-@synthesize btnUserimage;
+@synthesize btnUserimage,UnblockBtn;
 - (void)awakeFromNib {
     // Initialization code
 }
@@ -21,6 +21,47 @@
 }
 -(void)loadFriendCellData:(NSDictionary *)dict ShowSearchBarController:(BOOL)animation
 {
+    
+    CGFloat width=[self widthOfString:[NSString stringWithFormat:@"%@",[dict valueForKey:@"usr_name"]] withFont:[UIFont systemFontOfSize:20]];
+    lbl_title.frame=CGRectMake(83, 9, width+10, 26);
+    
+ if (!dotImage)
+ {
+    dotImage=[[UIImageView alloc]init];
+ }
+    else
+    {
+        [dotImage removeFromSuperview];
+        dotImage = nil;
+    }
+    if([[dict valueForKey:@"message_status"] isEqualToString:@"read"])
+    {
+      dotImage.image=nil;
+    }
+    else{
+       
+        dotImage.frame=CGRectMake(83+width+15, 15, 17, 17);
+        [self.contentView addSubview:dotImage];
+          dotImage.image=[UIImage imageNamed:@"red"];
+    }
+    
+    if (animation==YES)
+    {
+        UnblockBtn.hidden=YES;
+    }
+    else
+    {
+        if ([[dict valueForKey:@"block_user"] isEqualToString:@"unblocked"])
+        {
+            UnblockBtn.hidden=YES;
+        }
+        else{
+            UnblockBtn.hidden=NO;
+        }
+    }
+    
+   
+    
     
     
     btnUserimage.layer.cornerRadius = btnUserimage.frame.size.width / 2;
@@ -42,6 +83,7 @@
             [visibleSate setImage:[UIImage imageNamed:@"red"]];
             break;
     }
+    visibleSate.hidden=YES;
     
     NSString * name=[NSString stringWithFormat:@"%@",[dict valueForKey:@"usr_name"]];
     
@@ -50,8 +92,8 @@
     NSString * description;
     if (animation==YES)
     {
-        description=[NSString stringWithFormat:@"%@",[[dict valueForKey:@"common_activity"]componentsJoinedByString:@","]];
-        
+        //description=[NSString stringWithFormat:@"%@",[[dict valueForKey:@"common_activity"]componentsJoinedByString:@","]];
+        description=[NSString stringWithFormat:@"%@",[[dict valueForKey:@"common_activity"] valueForKey:@"Activity"]];
 
     }
     else
@@ -71,4 +113,17 @@
 
     lbl_address.text=[NSString stringWithFormat:@"%@",[dict objectForKey:kILGeoNamesNameKey]];
 }
+
+//get width of name label
+- (CGFloat)widthOfString:(NSString *)string withFont:(NSFont *)font
+{
+    NSDictionary *attributes = [NSDictionary dictionaryWithObjectsAndKeys:font, NSFontAttributeName, nil];
+    return [[[NSAttributedString alloc] initWithString:string attributes:attributes] size].width;
+}
+- (void)layoutSubviews
+{
+    [super layoutSubviews];
+}
+
+
 @end

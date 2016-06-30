@@ -34,6 +34,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    KappDelgate.isFromWhatHappen=NO;
     CountoFpages=0;
     categoryList=[NSMutableArray new];
     jsonarray=[NSMutableArray new];

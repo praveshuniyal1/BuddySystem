@@ -9,11 +9,15 @@
 #import "FriendListVC.h"
 #import "UIColor+JP.h"
 @interface FriendListVC ()
+{
+    NSMutableArray *blockedArr;
+}
 
 @end
 
 @implementation FriendListVC
 
+@synthesize contactTable;
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -29,7 +33,8 @@
     [super viewDidLoad];
 
     searchResults=[NSMutableArray new];
-    contactList =[NSMutableArray new];
+    blockedArr=[NSMutableArray new];
+    
     
     topbarView.clipsToBounds = NO;
      topbarView.layer.shadowRadius = 10.0;
@@ -40,14 +45,14 @@
     //topbarView.layer.backgroundColor = [UIColor whiteColor]. CGColor;
     topbarView.layer.masksToBounds = YES;
     
-    searchtext.placeholder=@"Search by name..";
+    searchtext.placeholder=@"Search by name and activity..";
 //    [ServerManager changeTextColorOfSearchBarButton:[UIColor colorWithRed:242/255 green:92/255 blue:80/255 alpha:1]];
 //   
     // Do any additional setup after loading the view.
     NSDictionary * userinfoDict=[NSDictionary dictionaryWithDictionary:[NSUserDefaults getNSUserDefaultValueForKey:kLoginUserInfo]] ;
     usrId=[NSString stringWithFormat:@"%@",[userinfoDict objectForKey:@"id"]];
     name=[NSString stringWithFormat:@"%@",[userinfoDict objectForKey:@"name"]];
-    [self getAllUserList];
+    //[self getAllUserList];
     
     self.refreshControl = [[UIRefreshControl alloc] init];
     self.refreshControl.backgroundColor = [UIColor colorWithWhite:72 alpha:.08];
@@ -59,6 +64,15 @@
     [contactTable addSubview:self.refreshControl];
 
 }
+-(void)viewWillAppear:(BOOL)animated
+{
+    [[ServerManager getSharedInstance]hideHud];
+    [self getAllUserList];
+}
+-(void)viewWillDisappear:(BOOL)animated
+{
+    [[ServerManager getSharedInstance]hideHud];
+}
 
 
 -(void)getAllUserList
@@ -66,8 +80,7 @@
     BOOL is_net=[[ServerManager getSharedInstance]checkNetwork];
     if (is_net==YES)
     {
-        [[ServerManager getSharedInstance]showactivityHub:@"Loading.." addWithView:self.view];
-        // NSString * poststr=[NSString stringWithFormat:@"usr_id=%@&usr_name=%@",usrId,name];
+        //[[ServerManager getSharedInstance]showactivityHub:@"Loading.." addWithView:self.view];
         [ServerManager getSharedInstance].Delegate=self;
         
         NSDictionary * postDict=[NSDictionary dictionaryWithObjectsAndKeys:usrId,@"usr_id", nil];
@@ -76,6 +89,8 @@
         
     }
 }
+
+
 
 - (void)handleRefresh
 {
@@ -110,14 +125,48 @@
         
     }
 }
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    if (tableView == self.searchDisplayController.searchResultsTableView)
+    {
+        return 1 ;
+    }
+    else{
+        return 2 ;
+    }
+    
+    
+}
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
+    
+    if (tableView == self.searchDisplayController.searchResultsTableView)
+    {
+        return nil;
+    }else
+    {
+        if(section == 0)
+            return @"Friend ";
+        else
+            return @"Blocked User";
+    }
+}
+
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     if (tableView == self.searchDisplayController.searchResultsTableView)
     {
         return [searchResults count];
         
-    } else {
-         return [contactList count];;
+    }
+    else {
+        
+        if (section==0)
+        {
+         return [contactList count];
+        }
+        else{
+            return [blockedArr count];
+        }
     }
    
     
@@ -130,6 +179,8 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+   
+    
     static NSString *CellIdentifier = @"Cell";
     CustomCell *cell = (CustomCell *)[contactTable dequeueReusableCellWithIdentifier:CellIdentifier];
     
@@ -137,18 +188,26 @@
     if (tableView == self.searchDisplayController.searchResultsTableView)
     {
         
-        
-        [cell loadFriendCellData:[searchResults objectAtIndex:indexPath.row] ShowSearchBarController:NO];
+        [cell loadFriendCellData:[searchResults objectAtIndex:indexPath.row] ShowSearchBarController:YES];
     } else
     {
+        if (indexPath.section==0)
+        {
+            [cell loadFriendCellData:[contactList objectAtIndex:indexPath.row]ShowSearchBarController:NO];
+             cell.btnUserimage.tag=indexPath.row;
+            [cell.btnUserimage addTarget:self action:@selector(TappedOnUserProfileVC:) forControlEvents:UIControlEventTouchUpInside];
+        }
+        else{
+             [cell loadFriendCellData:[blockedArr objectAtIndex:indexPath.row]ShowSearchBarController:NO];
+            cell.UnblockBtn.tag=indexPath.row;
+            [cell.UnblockBtn addTarget:self action:@selector(UnBlockUser:) forControlEvents:UIControlEventTouchUpInside];
+        }
         
         
-        [cell loadFriendCellData:[contactList objectAtIndex:indexPath.row]ShowSearchBarController:NO];
     }
 
     
-    cell.btnUserimage.tag=indexPath.row;
-    [cell.btnUserimage addTarget:self action:@selector(TappedOnUserProfileVC:) forControlEvents:UIControlEventTouchUpInside];
+    
     
     
     return cell;
@@ -163,19 +222,40 @@
         didindexPath = [self.searchDisplayController.searchResultsTableView indexPathForSelectedRow];
         selectdict=[NSMutableDictionary dictionaryWithDictionary:[searchResults objectAtIndex:didindexPath.row]];
         [self HideSearchController];
+        [self LoadChatView:selectdict];
     }
     else
     {
-        didindexPath = [contactTable indexPathForSelectedRow];
-        selectdict=[NSMutableDictionary dictionaryWithDictionary:[contactList objectAtIndex:didindexPath.row]];
+        if (indexPath.section==0)
+        {
+            didindexPath = [contactTable indexPathForSelectedRow];
+            selectdict=[NSMutableDictionary dictionaryWithDictionary:[contactList objectAtIndex:didindexPath.row]];
+             [self LoadChatView:selectdict];
+        }
+        else{
+            
+        }
+        
     }
     
     
+    
+   
+}
+-(void)LoadChatView:(NSMutableDictionary*)selectdict
+{
     ChatViewController * chatview=[self.storyboard instantiateViewControllerWithIdentifier:@"ChatViewController"];
+    chatview.profileName.text =[NSString stringWithFormat:@"%@",[selectdict valueForKey:@"usr_name"]];
+    chatview.friendId=[NSString stringWithFormat:@"%@",[selectdict valueForKey:@"usr_id"]];
+    chatview.toUserId=usrId;
+    
+    NSURL * profileurl=[NSURL URLWithString:[selectdict valueForKey:@"profile_pic"]];
+    [chatview.profilePic sd_setImageWithURL:profileurl];
+    
     NSURL * imageUrl=[NSURL URLWithString:[selectdict valueForKey:@"profile_pic"]];
     NSString * frindId=[NSString stringWithFormat:@"%@",[selectdict valueForKey:@"usr_id"]];
     NSString * frindname=[NSString stringWithFormat:@"%@",[selectdict valueForKey:@"usr_name"]];
-   
+    
     NSOperationQueue * myQueie=[[NSOperationQueue alloc]init];
     [myQueie addOperationWithBlock:^{
         
@@ -192,7 +272,7 @@
                      [[JKModelData getSharedInstance]setKJSQReciverDisplayName:frindname];
                      [[JKModelData getSharedInstance]setKJSQReciverAvatarImage:image];
                      
-                    
+                     
                  }
                  
              }
@@ -205,14 +285,14 @@
             NSDictionary * selectcontac=[NSDictionary dictionaryWithObjectsAndKeys:frindname,@"name",frindId,@"id",image,@"image", nil];
             chatview.selectFreindInfoDict=selectcontac;
             UINavigationController * chatnav=[[UINavigationController alloc]initWithRootViewController:chatview];
+            
             [self presentViewController:chatnav animated:YES completion:nil];
             
             
         }];
         
     }];
-    
-   
+
 }
 
 
@@ -334,8 +414,7 @@
     }
     UserProfileVC * profileview=[self.storyboard instantiateViewControllerWithIdentifier:@"UserProfileVC"];
     profileview.userinfodict=[selectdict mutableCopy];
-//    UINavigationController * nav=[[UINavigationController alloc]initWithRootViewController:profileview];
-//    nav.navigationBarHidden=YES;
+
     if (UI_USER_INTERFACE_IDIOM()==UIUserInterfaceIdiomPad)
     {
         profileview.modalPresentationStyle=UIModalPresentationFormSheet;
@@ -346,6 +425,17 @@
     {
          [KappDelgate.navigation presentViewController:profileview animated:YES completion:nil];
     }
+}
+#pragma unblockUser
+-(void)UnBlockUser:(UIButton*)btn
+{
+    [ServerManager getSharedInstance].Delegate=self;
+    [[ServerManager getSharedInstance]showactivityHub:@"Please wait.." addWithView:self.view];
+    NSDictionary * userDict=[NSDictionary dictionaryWithDictionary:[NSUserDefaults getNSUserDefaultValueForKey:kLoginUserInfo]] ;
+    NSString * userId=[NSString stringWithFormat:@"%@",[userDict objectForKey:@"id"]];
+    
+    NSDictionary * params=[NSDictionary dictionaryWithObjectsAndKeys:userId,@"user_id",[[blockedArr objectAtIndex:btn.tag] valueForKey:@"usr_id"],@"unblock_user", nil];
+    [[ServerManager getSharedInstance]postDataOnserver:params withrequesturl:KUnblockUser];
 }
 
 #pragma mark--OnBack--
@@ -369,15 +459,36 @@
         switch (success) {
             case 1:
             {
-                contactList=[responseDict valueForKey:@"data"];
-                if (contactList.count>0)
+                contactList=[NSMutableArray new];
+                blockedArr=[NSMutableArray new];
+                
+                
+                
+                for (int i=0; i<[[responseDict valueForKey:@"data"] count]; i++)
+                      {
+                          if ([[[[responseDict valueForKey:@"data"] objectAtIndex:i]valueForKey:@"block_user"] isEqualToString:@"unblocked"])
+                          {
+                              [contactList addObject:[[responseDict valueForKey:@"data"] objectAtIndex:i]];
+                          }
+                          else{
+                              [blockedArr addObject:[[responseDict valueForKey:@"data"] objectAtIndex:i]];
+                          }
+                      }
+                
+              
+                
+                //contactList=[responseDict valueForKey:@"data"];
+                if (contactList.count>0||blockedArr.count>0)
                 {
                     [contactTable reloadData];
+                   // [contactTable reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationNone];
+                   
                 }
             }
                 break;
             case 0:
             {
+                
             
                 [ServerManager showAlertView:@"Message" withmessage:[responseDict valueForKey:@"message"]];
            }
@@ -403,18 +514,48 @@
                     [self.searchDisplayController.searchResultsTableView reloadData];
                     
                 }
-                else{
-                    [ServerManager showAlertView:@"Message" withmessage:[responseDict valueForKey:@"msg"]];
+                else
+                {
+                    [self.searchDisplayController.searchResultsTableView reloadData];
+                    //[ServerManager showAlertView:@"Message" withmessage:[responseDict valueForKey:@"message"]];
                     
                 }
             }
                 break;
+            case 0:
+            {
+                searchResults=[NSMutableArray new];
+                [self.searchDisplayController.searchResultsTableView reloadData];
+            }
+                break;
+                
                 
             default:
                 //[ServerManager showAlertView:@"Message" withmessage:[responseDict valueForKey:@"message"]];
                 break;
         }
  
+    }
+    else if ([serviceurl isEqual:KUnblockUser])
+    {
+        int success=[[responseDict valueForKey:@"status"] intValue];
+        switch (success) {
+            case 1:
+            {
+                [[ServerManager getSharedInstance]showactivityHub:@"Loading" addWithView:self.view];
+                [self getAllUserList];
+            }
+                break;
+            case 0:
+            {
+                [ServerManager showAlertView:@"Message" withmessage:[responseDict valueForKey:@"message"]];
+            }
+                break;
+                
+            default:
+                
+                break;
+        }
     }
     
 }

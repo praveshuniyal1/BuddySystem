@@ -20,12 +20,13 @@
     UIImageView *imgView;
     
 }
-@synthesize reciveDict,navigation,remoteNotifdict,menupopview,playerview,contentFileUrl,fromView,loginnavigation,downloadIndx,categoryidArr;
+@synthesize reciveDict,navigation,remoteNotifdict,menupopview,playerview,contentFileUrl,fromView,loginnavigation,downloadIndx,categoryidArr,isFromWhatHappen;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     // TODO: Move this to where you establish a user session
     
+    isFromWhatHappen=NO;
    [Fabric with:@[[Crashlytics class]]];
      [self logUser];
     
@@ -251,7 +252,8 @@
 
 
 
--(void)application:(UIApplication *)app didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
+-(void)application:(UIApplication *)app didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken
+{
     
     NSString *deviceTokens = [[deviceToken description] stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"<>"]];
     deviceTokens = [deviceTokens stringByReplacingOccurrencesOfString:@" " withString:@""];
@@ -310,10 +312,15 @@
                 }
                 break;
                     
-                    
+            case 0:
+            {
+                [[NSNotificationCenter defaultCenter] postNotificationName:@"NewMessage" object:nil];
+            }
+                break;
                 
             }
-            
+    
+        
         
     }
     
@@ -803,9 +810,52 @@
                                                       
                                                       //thumb image
                                                       
+                                                      [self inserCategoryDataInDb:inserdict];
+                                                      
+                                                      NSURL *fileUrl;
+                                                      
+                                                      NSString * filenameThumb=[inserdict valueForKey:@"video_url"];
+                                                      filenameThumb = [filenameThumb stringByReplacingOccurrencesOfString:@"http://buddyappnew.herokuapp.com/files/activities/video/"
+                                                                                                     withString:@""];
+                                                      
+                                                      NSString * videoPath=[[DBManager getSharedInstance]getFilePath:filename];
+                                                      if (![videoPath isEqual:@"No found"])
+                                                      {
+                                                           fileUrl= [NSURL fileURLWithPath:[NSString stringWithFormat:@"%@",videoPath]];
+                                                          
+                                                      }
+                                                      
+                                                      NSOperationQueue *myQueue = [[NSOperationQueue alloc] init];
+                                                      [myQueue addOperationWithBlock:^{
+                                                          
+                                                          
+                                                          [[ServerManager getSharedInstance]genrateThumbnil:fileUrl  thumbnilSize:self.window.frame.size  success:^(UIImage *thumbnil)
+                                                           {
+                                                               
+                                                               
+                                                               thumbnileimage=thumbnil;
+                                                               
+                                                               UIImage*  thumbimage=thumbnil ;
+                                                               [self storeThumbNamilImage:thumbimage and:inserdict];//
+                                                               [self dowloadStreamVideo:nextDic andFurtherNext:secondDic fileCount:jsonCount andtotalCount:(int)totalCount];
+                                                               
+                                                           } failure:^(NSError *error)
+                                                           {
+                                                               
+                                                           }];
+                                                          
+                                                      }];
+                                                      
+                                                      [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+                                                          // Main thread work (UI usually)
+                                                      }];
+                                                      
+                                                      
+                                                      
                                                       
                                                    /*
-                                                      AVURLAsset *asset=[[AVURLAsset alloc] initWithURL:[NSURL URLWithString:videoUrlPath] options:nil];
+                                                      
+                                                     AVURLAsset *asset=[[AVURLAsset alloc] initWithURL:fileUrl options:nil];
                                                       AVAssetImageGenerator *generator = [[AVAssetImageGenerator alloc] initWithAsset:asset];
                                                       generator.appliesPreferredTrackTransform=TRUE;
                                                       
@@ -815,29 +865,32 @@
                                                           if (result != AVAssetImageGeneratorSucceeded) {
                                                               NSLog(@"couldn't generate thumbnail, error:%@", error);
                                                           }
-                                                          
-                                                                 UIImage*  thumbimage=[UIImage imageWithCGImage:im] ;
-                                                                    [self storeThumbNamilImage:thumbimage and:inserdict];//
-                                                                    [self inserCategoryDataInDb:inserdict];
-                                                                    [self dowloadStreamVideo:nextDic andFurtherNext:secondDic fileCount:jsonCount andtotalCount:(int)totalCount];
+                                                          else
+                                                          {
+                                                              dispatch_async(dispatch_get_main_queue(), ^{
+                                                                  
+                                                                  UIImage*  thumbimage=[UIImage imageWithCGImage:im] ;
+                                                                  [self storeThumbNamilImage:thumbimage and:inserdict];//
+                                                                  [self inserCategoryDataInDb:inserdict];
+                                                                  [self dowloadStreamVideo:nextDic andFurtherNext:secondDic fileCount:jsonCount andtotalCount:(int)totalCount];
+                                                              });
+                                                          }
+
                                                       };
                                                       
-                                                      CGSize maxSize = CGSizeMake(640, 400);
+                                                      CGSize maxSize = CGSizeMake(640, 560);
                                                       generator.maximumSize = maxSize;
                                                       [generator generateCGImagesAsynchronouslyForTimes:[NSArray arrayWithObject:[NSValue valueWithCMTime:thumbTime]] completionHandler:handler];
                                                       
+                                                     */
                                                       
-                                                      */
-                                                      
-                                                      
-                                                      
-                                                      
+                
                                                       
 //                                                      [self storeThumbNamilImage:thumbnileimage and:inserdict];//
 //                                                      
-                                                      [self inserCategoryDataInDb:inserdict];
-                                                      
-                                                       [self dowloadStreamVideo:nextDic andFurtherNext:secondDic fileCount:jsonCount andtotalCount:(int)totalCount];
+//                                                      [self inserCategoryDataInDb:inserdict];
+//                                                      
+//                                                       [self dowloadStreamVideo:nextDic andFurtherNext:secondDic fileCount:jsonCount andtotalCount:(int)totalCount];
                                                      
                                                       
                                                   }
@@ -916,8 +969,56 @@
                                                       isDownloadBG=YES;
                                                       
                                                       
-                                                  /*
-                                                      AVURLAsset *asset=[[AVURLAsset alloc] initWithURL:[NSURL URLWithString:videoUrlPath] options:nil];
+                                                      
+                                                      
+                                                      
+                                                      
+                                                      [self inserCategoryDataInDb:inserdict];
+                                                      
+                                                      NSURL *fileUrl;
+                                                      
+                                                      NSString * filenameThumb=[inserdict valueForKey:@"video_url"];
+                                                      filenameThumb = [filenameThumb stringByReplacingOccurrencesOfString:@"http://buddyappnew.herokuapp.com/files/activities/video/"
+                                                                                                               withString:@""];
+                                                      
+                                                      NSString * videoPath=[[DBManager getSharedInstance]getFilePath:filename];
+                                                      if (![videoPath isEqual:@"No found"])
+                                                      {
+                                                          fileUrl= [NSURL fileURLWithPath:[NSString stringWithFormat:@"%@",videoPath]];
+                                                          
+                                                      }
+                                                      
+                                                      NSOperationQueue *myQueue = [[NSOperationQueue alloc] init];
+                                                      [myQueue addOperationWithBlock:^{
+                                                          
+                                                          
+                                                          [[ServerManager getSharedInstance]genrateThumbnil:fileUrl  thumbnilSize:self.window.frame.size  success:^(UIImage *thumbnil)
+                                                           {
+                                                               
+                                                               
+                                                               thumbnileimage=thumbnil;
+                                                               
+                                                               UIImage*  thumbimage=thumbnil ;
+                                                               [self storeThumbNamilImage:thumbimage and:inserdict];//
+                                                               [self dowloadStreamVideo:secondDic fileCount:jsonCount andtotalCount:(int)totalCount];
+                                                               
+                                                           } failure:^(NSError *error)
+                                                           {
+                                                               
+                                                           }];
+                                                          
+                                                      }];
+                                                      
+                                                      [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+                                                          // Main thread work (UI usually)
+                                                      }];
+
+                                                      
+                                                      
+                                                 /*
+                                                      
+                                                       NSURL * fileUrl= [NSURL fileURLWithPath:[NSString stringWithFormat:@"%@",videoUrlPath]];
+                                                      AVURLAsset *asset=[[AVURLAsset alloc] initWithURL:fileUrl options:nil];
                                                       AVAssetImageGenerator *generator = [[AVAssetImageGenerator alloc] initWithAsset:asset];
                                                       generator.appliesPreferredTrackTransform=TRUE;
                                                       
@@ -927,20 +1028,31 @@
                                                           if (result != AVAssetImageGeneratorSucceeded) {
                                                               NSLog(@"couldn't generate thumbnail, error:%@", error);
                                                           }
+                                                          else{
+                                                              dispatch_async(dispatch_get_main_queue(), ^{
+                                                                  // code here
+                                                                  UIImage*  thumbimage=[UIImage imageWithCGImage:im] ;
+                                                                  [self storeThumbNamilImage:thumbimage and:inserdict];//
+                                                                  [self inserCategoryDataInDb:inserdict];
+                                                                  [self dowloadStreamVideo:secondDic fileCount:jsonCount andtotalCount:(int)totalCount];
+                                                              });
+                                                          }
                                                           
-                                                          UIImage*  thumbimage=[UIImage imageWithCGImage:im] ;
-                                                          [self storeThumbNamilImage:thumbimage and:inserdict];//
-                                                          [self inserCategoryDataInDb:inserdict];
-                                                           [self dowloadStreamVideo:secondDic fileCount:jsonCount andtotalCount:(int)totalCount];
+                                                          
+                                                          
+                                                          
+                                                        
+                                                          
+                                                          
                                                       };
                                                       
-                                                      CGSize maxSize = CGSizeMake(640, 400);
+                                                      CGSize maxSize = CGSizeMake(640, 560);
                                                       generator.maximumSize = maxSize;
                                                       [generator generateCGImagesAsynchronouslyForTimes:[NSArray arrayWithObject:[NSValue valueWithCMTime:thumbTime]] completionHandler:handler];
                                                       
                                                       
                                                       
-                                                      */
+                                                     */
                                                       
                                                       
                                                       
@@ -948,8 +1060,8 @@
                                                       
                                                       //thumb image
 //                                                      [self storeThumbNamilImage:thumbnileimage and:inserdict];//
-                                                      [self inserCategoryDataInDb:inserdict];
-                                                       [self dowloadStreamVideo:secondDic fileCount:jsonCount andtotalCount:(int)totalCount];
+//                                                      [self inserCategoryDataInDb:inserdict];
+//                                                       [self dowloadStreamVideo:secondDic fileCount:jsonCount andtotalCount:(int)totalCount];
                                                       
                                                       
                                                       
@@ -1032,8 +1144,58 @@
                                                       
                                                       isDownloadBG=YES;
                                                       
-                                                   /*
-                                                      AVURLAsset *asset=[[AVURLAsset alloc] initWithURL:[NSURL URLWithString:videoUrlPath] options:nil];
+                                                      
+                                                      
+                                                      
+                                                      [self inserCategoryDataInDb:inserdict];
+                                                      
+                                                      NSURL *fileUrl;
+                                                      
+                                                      NSString * filenameThumb=[inserdict valueForKey:@"video_url"];
+                                                      filenameThumb = [filenameThumb stringByReplacingOccurrencesOfString:@"http://buddyappnew.herokuapp.com/files/activities/video/"
+                                                                                                               withString:@""];
+                                                      
+                                                      NSString * videoPath=[[DBManager getSharedInstance]getFilePath:filename];
+                                                      if (![videoPath isEqual:@"No found"])
+                                                      {
+                                                          fileUrl= [NSURL fileURLWithPath:[NSString stringWithFormat:@"%@",videoPath]];
+                                                          
+                                                      }
+                                                      
+                                                      NSOperationQueue *myQueue = [[NSOperationQueue alloc] init];
+                                                      [myQueue addOperationWithBlock:^{
+                                                          
+                                                          
+                                                          [[ServerManager getSharedInstance]genrateThumbnil:fileUrl  thumbnilSize:self.window.frame.size  success:^(UIImage *thumbnil)
+                                                           {
+                                                               
+                                                               
+                                                               thumbnileimage=thumbnil;
+                                                               
+                                                               UIImage*  thumbimage=thumbnil ;
+                                                               [self storeThumbNamilImage:thumbimage and:inserdict];//
+                                                               
+                                                           } failure:^(NSError *error)
+                                                           {
+                                                               
+                                                           }];
+                                                          
+                                                      }];
+                                                      
+                                                      [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+                                                          // Main thread work (UI usually)
+                                                      }];
+
+                                                      
+                                                      
+                                                      
+                                                      
+                                                      
+                                                /*
+                                                    
+                                                       NSURL * fileUrl= [NSURL fileURLWithPath:[NSString stringWithFormat:@"%@",videoUrlPath]];
+                                                      
+                                                    AVURLAsset *asset=[[AVURLAsset alloc] initWithURL:fileUrl options:nil];
                                                       AVAssetImageGenerator *generator = [[AVAssetImageGenerator alloc] initWithAsset:asset];
                                                       generator.appliesPreferredTrackTransform=TRUE;
                                                       
@@ -1043,24 +1205,40 @@
                                                           if (result != AVAssetImageGeneratorSucceeded) {
                                                               NSLog(@"couldn't generate thumbnail, error:%@", error);
                                                           }
+                                                          else
+                                                          {
+                                                              if (isFromWhatHappen==YES)
+                                                              {
+                                                                  dispatch_async(dispatch_get_main_queue(), ^{
+                                                                      // code here
+                                                                      UIImage*  thumbimage=[UIImage imageWithCGImage:im] ;
+                                                                      [self storeThumbNamilImage:thumbimage and:inserdict];//
+                                                                      [self inserCategoryDataInDb:inserdict];
+                                                                  });
+                                                              }
+                                                              else
+                                                              {
+                                                                  UIImage*  thumbimage=[UIImage imageWithCGImage:im] ;
+                                                                  [self storeThumbNamilImage:thumbimage and:inserdict];//
+                                                                  [self inserCategoryDataInDb:inserdict];
+                                                                  
+                                                              }
+                                                          }
                                                           
-                                                          UIImage*  thumbimage=[UIImage imageWithCGImage:im] ;
-                                                          [self storeThumbNamilImage:thumbimage and:inserdict];//
-                                                          [self inserCategoryDataInDb:inserdict];
+                                                         
+                                                          
+                                                          
                                                       };
                                                       
-                                                      CGSize maxSize = CGSizeMake(640, 400);
+                                                      CGSize maxSize = CGSizeMake(640, 560);
                                                       generator.maximumSize = maxSize;
                                                       [generator generateCGImagesAsynchronouslyForTimes:[NSArray arrayWithObject:[NSValue valueWithCMTime:thumbTime]] completionHandler:handler];
-                                                      */
-                                                     
+                                                      
+                                                    */
                                                       
                                                       //thumb image
-                                                     // [self storeThumbNamilImage:thumbnileimage and:inserdict];//
-                                                      [self inserCategoryDataInDb:inserdict];
-                                                      
-                                                      
-                                                      
+//                                                      [self storeThumbNamilImage:thumbnileimage and:inserdict];//
+//                                                      [self inserCategoryDataInDb:inserdict];
                                                       
                                                       
                                                       
@@ -1119,11 +1297,12 @@
     NSString *filePath = [documentsPath stringByAppendingPathComponent:strImagePath];
     [profile_image_data writeToFile:filePath atomically:YES];
     
-    
-   NSString* str_offline=[self documentsPathForFileName:strImagePath];
-    NSString *documentsDirectory = [paths objectAtIndex:0];
-    NSString *getImagePath = [documentsDirectory stringByAppendingPathComponent:[@"/" stringByAppendingString:[[self documentsPathForFileName:strImagePath] lastPathComponent]]];
-    UIImage *img=[UIImage imageWithContentsOfFile:getImagePath];
+   
+//        if (isFromWhatHappen==YES)
+//        {
+//            [[NSNotificationCenter defaultCenter]postNotificationName:@"loadVideoFromAppDelegate" object:nil];
+//        }
+   
 
 }
 
@@ -1167,6 +1346,7 @@
                 {
                      [[NSNotificationCenter defaultCenter]postNotificationName:DBInsertStmt object:fileUrl];
                 }
+                
                
                 
             }

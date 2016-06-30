@@ -41,16 +41,16 @@
     NSLog(@"%@",dict);
     NSString * activity=[dict valueForKey:@"category"];//category
     
-    if (IS_IPHONE_6) {
-        self.videoThumbView.frame=CGRectMake(self.superview.frame.origin.x, self.superview.frame.origin.y+41, self.superview.frame.size.width, height-38);
-    }
-    else if (IS_IPHONE_6P)
-    {
-       self.videoThumbView.frame=CGRectMake(self.superview.frame.origin.x, self.superview.frame.origin.y+41, self.superview.frame.size.width, height-70);
-    }
-   
+//    if (IS_IPHONE_6) {
+//        self.videoThumbView.frame=CGRectMake(self.superview.frame.origin.x, self.superview.frame.origin.y+41, self.superview.frame.size.width, height-38);
+//    }
+//    else if (IS_IPHONE_6P)
+//    {
+//       self.videoThumbView.frame=CGRectMake(self.superview.frame.origin.x, self.superview.frame.origin.y+41, self.superview.frame.size.width, height-70);
+//    }
+//   
     
-    NSURL *youtube_tumbnails=[NSURL URLWithString:[dict valueForKey:@"youtube_thumbnails"]];//youtube_thumbnails
+   // NSURL *youtube_tumbnails=[NSURL URLWithString:[dict valueForKey:@"youtube_thumbnails"]];//youtube_thumbnails
     
     
    
@@ -59,12 +59,18 @@
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *filePath = [[paths objectAtIndex:0] stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.png",[dict valueForKey:@"id"]]];
     UIImage *imaget = [[UIImage alloc] initWithContentsOfFile:filePath];
+    
+    if (imaget)
+    {
+        self.videoThumbView.image = [self imageWithImage:imaget scaledToSize:self.contentView.frame.size];
+    }
+    else
+    {
+        
+    }
+    
  
-    NSLog(@"Print Size %f",imaget.size.height);
     
-    
-    NSLog(@"Print Size %f",imaget.size.width);
-    //   self.videoThumbView.image = [self imageWithImage:imaget scaledToSize:self.contentView.frame.size];
     
     //[self.videoThumbView sd_setImageWithURL:youtube_tumbnails];
     

@@ -15,13 +15,14 @@
     IBOutlet UILabel *lbl_description;
     
     IBOutlet UIImageView *visibleSate;
-    
+    UIImageView *dotImage;
     // location
     
     IBOutlet UILabel *lbl_address;
     
+    
 }
-
+@property(strong,nonatomic)IBOutlet UIButton *UnblockBtn;
 @property(strong,nonatomic)IBOutlet UIButton *btnUserimage;
 -(void)loadFriendCellData:(NSDictionary*)dict ShowSearchBarController:(BOOL)animation;
 -(void)loadLocationSearchData:(NSDictionary*)dict;

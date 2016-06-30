@@ -7,6 +7,7 @@
 //
 
 #import "WhatHappendVC.h"
+#import "AppDelegate.h"
 
 @interface WhatHappendVC ()
 {
@@ -30,6 +31,8 @@
 {
     [super viewDidLoad];
     KappDelgate.downloadIndx=0;
+    KappDelgate.isFromWhatHappen=YES;
+    
     eventVideoList=[NSMutableArray new];
     eventVideoList=[KappDelgate readAllCategory];
 
@@ -40,12 +43,12 @@
     usrId=[NSString stringWithFormat:@"%@",[userinfoDict objectForKey:@"id"]];
      name=[NSString stringWithFormat:@"%@",[userinfoDict objectForKey:@"name"]];
     
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(getAllEventSAfterLoad:) name:@"loadVideoFromAppDelegate" object:nil];
+    
     [[NSNotificationCenter defaultCenter]addObserverForName:DBInsertStmt object:nil queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification *note)
      {
          [self afterDownloadReload];
          
-         
-        
          if ( [[note object] isKindOfClass:[NSURL class]])
          {
              
@@ -67,6 +70,12 @@
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeImage:) name:@"NewMessage" object:nil];
 
+}
+-(void)getAllEventSAfterLoad:(NSNotification *)notification
+{
+    [self getAllEvents];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"loadVideoFromAppDelegate" object:nil];
+    
 }
 
 - (void)didReceiveMemoryWarning

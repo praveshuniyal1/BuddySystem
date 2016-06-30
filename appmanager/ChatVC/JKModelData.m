@@ -425,11 +425,11 @@ static JKModelData *sharedInstance = nil;
         case 1:
         {
             // location
-//             lati=[[chatDict valueForKey:@"latitude"]doubleValue];
-//             longit=[[chatDict valueForKey:@"longitude"]doubleValue];
+             lati=[[chatDict valueForKey:@"latitude"]doubleValue];
+             longit=[[chatDict valueForKey:@"longitude"]doubleValue];
             
-            lati=30.7800;
-            longit=76.6900;
+//            lati=30.7800;
+//            longit=76.6900;
             
         }
             break;

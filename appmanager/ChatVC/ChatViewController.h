@@ -11,7 +11,7 @@
 #import "AsyncImageView.h"
 
 @class JKModelData;
-@interface ChatViewController : JSQMessagesViewController<ServerManagerDelegate,PopoverViewDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,UIPopoverControllerDelegate,JSQMessagesCollectionViewCellDelegate,JSQMessagesCollectionViewDataSource,JSQMessagesCollectionViewDelegateFlowLayout>
+@interface ChatViewController : JSQMessagesViewController<ServerManagerDelegate,PopoverViewDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,UIPopoverControllerDelegate,JSQMessagesCollectionViewCellDelegate,JSQMessagesCollectionViewDataSource,JSQMessagesCollectionViewDelegateFlowLayout,UIAlertViewDelegate>
 {
     
     UIImagePickerController * imagePicker;
@@ -28,9 +28,26 @@
     NSMutableArray *Get_chat_array;
     
     NSTimer *timerRecive;
+    IBOutlet UIView *headerView;
+    
+     PopoverView *menuPopview;
+    
+    IBOutlet UIView *menuContentView;
+    IBOutlet UITableView *MenuTable;
+
+    
+    
 }
 @property(strong,nonatomic)NSDictionary * selectFreindInfoDict;
 @property (strong, nonatomic) JKModelData *jkmodelData;
+
+
+@property (strong, nonatomic) IBOutlet UIImageView *profilePic;
+@property (strong, nonatomic) IBOutlet UILabel *profileName;
+@property(strong,nonatomic)NSString *friendId;
+@property(strong,nonatomic)NSString *toUserId;
+
+
 
 - (IBAction)ClickOnToolBarButtons:(id)sender;
 - (IBAction)OnCancel:(id)sender;

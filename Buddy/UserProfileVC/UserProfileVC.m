@@ -168,10 +168,14 @@
 
 
 
-- (IBAction)TappedOnMapPoint:(UIButton*)menubtn
+
+
+- (IBAction)TapedOnDots:(UIButton*)menubtn
 {
     [self showREDActionSheet:menubtn.center];
 }
+
+
 
 - (IBAction)OnBack:(id)sender
 {
@@ -215,6 +219,47 @@
     
     
     
+}
+
+- (IBAction)TappedOnMapPoint:(UIButton*)menubtn
+{
+    
+    UIAlertView *alert=[[UIAlertView alloc]initWithTitle:@"Message" message:@"Do you want to share your location to your friend?" delegate:self cancelButtonTitle:@"No" otherButtonTitles:@"Yes", nil];
+    [alert show];
+    
+    
+}
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (buttonIndex==1)
+    {
+        [self ClickOnToolBarButtons];
+    }
+}
+-(void)ClickOnToolBarButtons
+{
+    CLLocationCoordinate2D  loctCoord = [[LocationManager locationInstance]getcurrentLocation];
+    
+    NSString * lati=[NSString stringWithFormat:@"%f", loctCoord.latitude];
+    NSString * longi=[NSString stringWithFormat:@"%f", loctCoord.longitude];
+    
+    BOOL is_net=[[ServerManager getSharedInstance]checkNetwork];
+    
+    if (is_net==YES)
+    {
+        NSDictionary * userinfoDict=[NSDictionary dictionaryWithDictionary:[NSUserDefaults getNSUserDefaultValueForKey:kLoginUserInfo]] ;
+        NSString* from_usrId=[NSString stringWithFormat:@"%@",[userinfoDict objectForKey:@"id"]];
+        NSString *msg=@"aa";
+        NSString * strDate=[[ServerManager getSharedInstance]setCustomeDateFormateWithUTCTimeZone:yyyymmddHHmmSS withtime:[NSDate date]];
+        NSDate * selectedDate=[[ServerManager getSharedInstance]setCustomeDateFormateWithUTCTimeZone:yyyymmddHHmmSS withtime:strDate];
+        NSString* friendid= [JKModelData getSharedInstance].kJSQReciverId ;
+        NSDictionary * params=[NSDictionary dictionaryWithObjectsAndKeys:from_usrId,@"from_usrid",friendid,@"to_usrid",selectedDate,@"date",lati,@"latitude",longi,@"longitude",[NSNumber numberWithInt:1],@"content_type",msg,@"msg" ,nil];
+        [ServerManager getSharedInstance].Delegate=self;
+        [[ServerManager getSharedInstance]postDataOnserver:params withrequesturl:KsendMessage];
+        [JSQSystemSoundPlayer jsq_playMessageSentSound];
+        
+    }
 }
 
 
@@ -338,12 +383,15 @@
                 {
                     // user profile
                     // user profile
-                    NSString * profileLink=[NSString stringWithFormat:@"https://www.facebook.com/profile.php?id=%@",friendId];
-                    UIFacebookBrowser * fbbrowser=[self.storyboard instantiateViewControllerWithIdentifier:@"UIFacebookBrowser"];
-                    fbbrowser.fblink=[NSURL URLWithString:profileLink];
-                    self.navigationController.navigationBarHidden=NO;
-                  
-                    [self.navigationController pushViewController:fbbrowser animated:YES];
+                    NSString * profileLink=[NSString stringWithFormat:@"https://www.facebook.com/%@",friendId];
+//                    UIFacebookBrowser * fbbrowser=[self.storyboard instantiateViewControllerWithIdentifier:@"UIFacebookBrowser"];
+//                    fbbrowser.fblink=[NSURL URLWithString:profileLink];
+//                    self.navigationController.navigationBarHidden=NO;
+//                  
+//                    [self.navigationController pushViewController:fbbrowser animated:YES];
+                    
+                    NSURL *url = [NSURL URLWithString:profileLink];
+                    [[UIApplication sharedApplication] openURL:url];
                     [menuPopview dismiss];
                 }
                     break;
@@ -364,7 +412,8 @@
                         NSDictionary * userDict=[NSDictionary dictionaryWithDictionary:[NSUserDefaults getNSUserDefaultValueForKey:kLoginUserInfo]] ;
                         NSString * usrId=[NSString stringWithFormat:@"%@",[userDict objectForKey:@"id"]];
                         
-                        NSDictionary * params=[NSDictionary dictionaryWithObjectsAndKeys:usrId,@"usr_id",friendId,@"to_usrid",@"unmatch",@"action", nil];
+                        
+                        NSDictionary * params=[NSDictionary dictionaryWithObjectsAndKeys:usrId,@"user_id",friendId,@"block_user", nil];
                         [[ServerManager getSharedInstance]postDataOnserver:params withrequesturl:KaddActivity];
                         
                     }
@@ -411,14 +460,25 @@
     }
     else  if ([serviceurl isEqual:KaddActivity])
     {
-        int success=[[responseDict valueForKey:@"success"] intValue];
+        int success=[[responseDict valueForKey:@"status"] intValue];
         switch (success) {
             case 1:
             {
-                
-                [ServerManager showAlertView:@"Message!!" withmessage:[responseDict valueForKey:@"msg"]];
+                [ServerManager showAlertView:@"Message!!" withmessage:[responseDict valueForKey:@"message"]];
+                MessageText.text=nil;
+                [self resignInputView];
+                [KappDelgate dismissViewController:self];
             }
                 break;
+                
+            case 0:
+            {
+                [ServerManager showAlertView:@"Message!!" withmessage:[responseDict valueForKey:@"message"]];
+                MessageText.text=nil;
+                [self resignInputView];
+            }
+                break;
+                
                 
             default:
                 break;
@@ -435,12 +495,40 @@
                 [ServerManager showAlertView:@"Message!!" withmessage:@"message send successfully"];
                 MessageText.text=nil;
                 [self resignInputView];
+                
             }
                 break;
                 
             default:
                 break;
         }
+    }
+    else if([serviceurl isEqual:KaddActivity])
+    {
+        int success=[[responseDict valueForKey:@"status"] intValue];
+        switch (success) {
+            case 1:
+            {
+                [ServerManager showAlertView:@"Message!!" withmessage:[responseDict valueForKey:@"message"]];
+                MessageText.text=nil;
+                [self resignInputView];
+                [KappDelgate dismissViewController:self];
+            }
+                break;
+                
+            case 0:
+            {
+                [ServerManager showAlertView:@"Message!!" withmessage:[responseDict valueForKey:@"message"]];
+                MessageText.text=nil;
+                [self resignInputView];
+            }
+                break;
+
+                
+            default:
+                break;
+        }
+
     }
     
 }
@@ -460,7 +548,7 @@
     if (![[contactdict valueForKey:@"common_activity"] isKindOfClass:[NSNull class]])
     {
         //lbl_event.text=[NSString stringWithFormat:@"%@ and more",[[contactdict valueForKey:@"common_activity"] componentsJoinedByString:@","]];
-        lbl_event.text=[NSString stringWithFormat:@"%@ and more",[[contactdict valueForKey:@"common_activity"] valueForKey:@"Activity"]];
+        lbl_event.text=[NSString stringWithFormat:@"You are both for %@ and more...",[[contactdict valueForKey:@"common_activity"] valueForKey:@"Activity"]];
     }
     else
     {
@@ -482,7 +570,7 @@
     {
         case 0:
             
-            lbl_relation.text=[NSString stringWithFormat:@"%@ is friend of me",username.text];
+            lbl_relation.text=[NSString stringWithFormat:@"%@ is friend of %@",username.text,[contactdict valueForKey:@"friend_name"]];
             break;
         case 1:
         {
