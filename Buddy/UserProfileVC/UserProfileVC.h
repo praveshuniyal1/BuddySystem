@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "JKClassManager.h"
-@interface UserProfileVC : UIViewController<ServerManagerDelegate,UIAlertViewDelegate>
+@interface UserProfileVC : UIViewController<ServerManagerDelegate,UIAlertViewDelegate,UIActionSheetDelegate>
 {
     
     IBOutlet UIView *menuContentView;

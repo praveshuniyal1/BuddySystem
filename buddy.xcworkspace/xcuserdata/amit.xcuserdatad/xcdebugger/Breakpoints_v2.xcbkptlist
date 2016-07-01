@@ -54,54 +54,6 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Buddy/AppDelegate.m"
-            timestampString = "488982076.151335"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1214"
-            endingLineNumber = "1214"
-            landmarkName = "-dowloadStreamVideo:fileCount:andtotalCount:"
-            landmarkType = "5">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "__58-[AppDelegate dowloadStreamVideo:fileCount:andtotalCount:]_block_invoke_2"
-                  moduleName = "Buddy"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/amit/Desktop/BuddySystem/Buddy/AppDelegate.m"
-                  timestampString = "488982245.924346"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "1245"
-                  endingLineNumber = "1245"
-                  offsetFromSymbolStart = "1860">
-               </Location>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "__58-[AppDelegate dowloadStreamVideo:fileCount:andtotalCount:]_block_invoke_2"
-                  moduleName = "Buddy"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/amit/Desktop/BuddySystem/Buddy/AppDelegate.m"
-                  timestampString = "488982245.924688"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "1245"
-                  endingLineNumber = "1245"
-                  offsetFromSymbolStart = "2096">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
@@ -112,22 +64,6 @@
             startingLineNumber = "814"
             endingLineNumber = "814"
             landmarkName = "-dowloadStreamVideo:andNext:andfurtherNexr:fileCount:andtotalCount:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Buddy/AppDelegate.m"
-            timestampString = "488982076.151335"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1173"
-            endingLineNumber = "1173"
-            landmarkName = "-dowloadStreamVideo:fileCount:andtotalCount:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -170,11 +106,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Buddy/UserProfileVC/UserProfileVC.m"
-            timestampString = "488898527.742753"
+            timestampString = "489059341.92184"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "187"
-            endingLineNumber = "187"
+            startingLineNumber = "284"
+            endingLineNumber = "284"
             landmarkName = "-OpenMenuVC:"
             landmarkType = "5">
          </BreakpointContent>
@@ -202,11 +138,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "AppManager/ChatVC/ChatViewController.m"
-            timestampString = "488964148.181392"
+            timestampString = "489059736.080113"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "603"
-            endingLineNumber = "603"
+            startingLineNumber = "690"
+            endingLineNumber = "690"
             landmarkName = "-serverReponse:withrequestName:"
             landmarkType = "5">
          </BreakpointContent>
@@ -218,11 +154,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "AppManager/ChatVC/ChatViewController.m"
-            timestampString = "488964148.181392"
+            timestampString = "489059736.080113"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "658"
-            endingLineNumber = "658"
+            startingLineNumber = "745"
+            endingLineNumber = "745"
             landmarkName = "-serverReponse:withrequestName:"
             landmarkType = "5">
          </BreakpointContent>
@@ -234,11 +170,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Buddy/UserProfileVC/UserProfileVC.m"
-            timestampString = "488970960.441692"
+            timestampString = "489059341.92184"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "507"
-            endingLineNumber = "507"
+            startingLineNumber = "604"
+            endingLineNumber = "604"
             landmarkName = "-serverReponse:withrequestName:"
             landmarkType = "5">
          </BreakpointContent>

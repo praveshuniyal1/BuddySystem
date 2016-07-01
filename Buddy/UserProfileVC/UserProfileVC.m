@@ -31,8 +31,8 @@
 -(void)initilizeMessageView
 {
     CGSize size = self.view.frame.size;
-    ToolBar.frame=CGRectMake(ToolBar.frame.origin.x, size.height-(ComINPUT_HEIGHT+65), size.width, ComINPUT_HEIGHT);
-    MessageText.text=@"Write a message.";
+    ToolBar.frame=CGRectMake(ToolBar.frame.origin.x, size.height-(ComINPUT_HEIGHT), size.width, ComINPUT_HEIGHT);
+    MessageText.text=@"Message.";
     MessageText.textColor=[UIColor lightGrayColor];
     MessageText.layer.borderColor=[[UIColor lightGrayColor]CGColor];
     MessageText.layer.borderWidth=1;
@@ -127,7 +127,7 @@
         CGFloat inputViewFrameY = keyboardY - inputViewFrame.size.height;
         
         // for ipad modal form presentations
-        CGFloat messageViewFrameBottom = self.view.frame.size.height - (ComINPUT_HEIGHT+65);
+        CGFloat messageViewFrameBottom = self.view.frame.size.height - (ComINPUT_HEIGHT);
         if(inputViewFrameY > messageViewFrameBottom)
             
             inputViewFrameY = messageViewFrameBottom;
@@ -172,7 +172,104 @@
 
 - (IBAction)TapedOnDots:(UIButton*)menubtn
 {
-    [self showREDActionSheet:menubtn.center];
+   UIAlertController *actionSheetController = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+    
+    NSString *profilrStr=[NSString stringWithFormat:@"Show %@'s Profile",username.text];
+    NSString *commonStr=@"Things In Common";
+    NSString *unmatchStr=[NSString stringWithFormat:@"Unmatch %@",username.text];
+    
+    UIAlertAction *showFriendProfile = [UIAlertAction actionWithTitle:profilrStr style:UIAlertActionStyleDefault handler:^(UIAlertAction * action)
+                             {
+                                 [self performSelector:@selector(showFriendProfile:) withObject:nil];
+                             }];
+    
+    UIAlertAction *commonThings = [UIAlertAction actionWithTitle:commonStr style:UIAlertActionStyleDefault handler:^(UIAlertAction * action)
+                                {
+                                    [self performSelector:@selector(commonThings:) withObject:nil];
+                                }];
+    UIAlertAction *unmatch = [UIAlertAction actionWithTitle:unmatchStr style:UIAlertActionStyleDefault handler:^(UIAlertAction * action)
+                                {
+                                    [self performSelector:@selector(unmatch:) withObject:nil];
+                                }];
+
+    
+    UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction *action)
+                             {
+                                 [actionSheetController dismissViewControllerAnimated:YES completion:nil];
+                                 
+                                 
+                             }];
+    
+    
+    [actionSheetController addAction:showFriendProfile];
+    [actionSheetController addAction:commonThings];
+    [actionSheetController addAction:unmatch];
+    [actionSheetController addAction:cancel];
+    
+    
+    //******** THIS IS THE IMPORTANT PART!!!  ***********
+    actionSheetController.view.tintColor = [UIColor colorWithRed:120.0f/255.0f green:230.0f/255.0f blue:252.0f/255.0f alpha:1.0];
+    
+    
+    [self presentViewController:actionSheetController animated:YES completion:nil];
+    
+   
+    
+  // [self showREDActionSheet:menubtn.center];
+}
+
+-(void)showFriendProfile:(id)sender
+{
+    NSString * profileLink=[NSString stringWithFormat:@"https://www.facebook.com/%@",friendId];
+    NSURL *url = [NSURL URLWithString:profileLink];
+    [[UIApplication sharedApplication] openURL:url];
+    [menuPopview dismiss];
+}
+-(void)commonThings:(id)sender
+{
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+-(void)unmatch:(id)sender
+{
+    if ([[ServerManager getSharedInstance ]checkNetwork]==YES)
+    {
+        [ServerManager getSharedInstance].Delegate=self;
+        [[ServerManager getSharedInstance]showactivityHub:@"Please wait.." addWithView:self.view];
+        NSDictionary * userDict=[NSDictionary dictionaryWithDictionary:[NSUserDefaults getNSUserDefaultValueForKey:kLoginUserInfo]] ;
+        NSString * usrId=[NSString stringWithFormat:@"%@",[userDict objectForKey:@"id"]];
+        
+        
+        NSDictionary * params=[NSDictionary dictionaryWithObjectsAndKeys:usrId,@"user_id",friendId,@"block_user", nil];
+        [[ServerManager getSharedInstance]postDataOnserver:params withrequesturl:KaddActivity];
+        
+    }
+
+}
+
+- (void)actionSheet:(UIActionSheet *)popup clickedButtonAtIndex:(NSInteger)buttonIndex {
+    
+    switch (popup.tag) {
+        case 1: {
+            switch (buttonIndex) {
+                case 0:
+                    //[self FBShare];
+                    break;
+                case 1:
+                   // [self TwitterShare];
+                    break;
+                case 2:
+                    //[self emailContent];
+                    break;
+               
+                    break;
+                default:
+                    break;
+            }
+            break;
+        }
+        default:
+            break;
+    }
 }
 
 
@@ -586,7 +683,7 @@
 #pragma mark-Delegate Method of TextView-
 - (BOOL)textViewShouldBeginEditing:(UITextView *)textView
 {
-    if ([MessageText.text isEqual:@"Write a message."])
+    if ([MessageText.text isEqual:@"Message."])
     {
         MessageText.text=@"";
         MessageText.textColor=[UIColor blackColor];
@@ -603,11 +700,11 @@
 {
     if (MessageText.text.length==0)
     {
-        MessageText.text=@"Write a message.";
+        MessageText.text=@"Message.";
         MessageText.textColor=[UIColor lightGrayColor];
         MessageText.layer.borderColor=[[UIColor lightGrayColor]CGColor];
     }
-    else if (![MessageText.text isEqual:@"Write a message."])
+    else if (![MessageText.text isEqual:@"Message."])
     {
         MessageText.textColor=[UIColor blackColor];
         MessageText.layer.borderColor=[[UIColor redColor]CGColor];
@@ -623,11 +720,11 @@
 {
     if (MessageText.text.length==0)
     {
-        MessageText.text=@"Write a message.";
+        MessageText.text=@"Message.";
         MessageText.textColor=[UIColor lightGrayColor];
         MessageText.layer.borderColor=[[UIColor lightGrayColor]CGColor];
     }
-    else if (![MessageText.text isEqual:@"Write a message."])
+    else if (![MessageText.text isEqual:@"Message."])
     {
         MessageText.textColor=[UIColor blackColor];
         MessageText.layer.borderColor=[[UIColor redColor]CGColor];

@@ -270,7 +270,7 @@
 
                 
                 
-                [[ServerManager getSharedInstance]postDataOnserver:params withrequesturl:KaddActivity];
+                [[ServerManager getSharedInstance]postDataOnserver:params withrequesturl:KAddWhatHappendActivity];
  
             }
            
