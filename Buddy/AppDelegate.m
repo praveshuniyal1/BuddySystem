@@ -104,7 +104,9 @@
     
    
     //Init SCFacebook
-    [SCFacebook initWithPermissions:@[@"email",@"publish_actions",@"publish_stream",@"user_friends",@"user_posts"]];
+    
+   // [SCFacebook initWithPermissions:@[@"email",@"publish_actions",@"publish_stream",@"user_friends",@"user_posts"]];
+    [SCFacebook initWithPermissions:@[@"email",@"publish_actions",@"user_friends",@"user_posts"]];
     
    
     

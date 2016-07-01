@@ -26,11 +26,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Buddy/AppDelegate.m"
-            timestampString = "488982076.151335"
+            timestampString = "489070768.007684"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "614"
-            endingLineNumber = "614"
+            startingLineNumber = "616"
+            endingLineNumber = "616"
             landmarkName = "-addPlayerInCurrentViewController:bringView:MovieUrl:"
             landmarkType = "5">
          </BreakpointContent>
@@ -58,11 +58,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Buddy/AppDelegate.m"
-            timestampString = "488982076.151335"
+            timestampString = "489070768.007684"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "814"
-            endingLineNumber = "814"
+            startingLineNumber = "816"
+            endingLineNumber = "816"
             landmarkName = "-dowloadStreamVideo:andNext:andfurtherNexr:fileCount:andtotalCount:"
             landmarkType = "5">
          </BreakpointContent>
