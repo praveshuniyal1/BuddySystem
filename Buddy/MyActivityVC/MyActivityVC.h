@@ -23,6 +23,7 @@
     NSString * suggestActivityid;
     NSString * suggestActivityName;
     
+    IBOutlet UIButton *chatBtn;
 
 }
 

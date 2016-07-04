@@ -111,6 +111,8 @@ typedef enum : NSUInteger
 #define KUpdateUserLocation      @"updateUserCity?"
 #define KupdateFrindList         @"updatefriendlist?"
 
+#define KRedIcon                 @"red_icon?"
+
 
 //http://112.196.28.157/bestbuddies/access_token.php?key=715b0d6e4bf4256d03de2cf055068412&usr_id=762360043882488
 #endif

@@ -26,6 +26,10 @@
     PopoverView *menuPopview;
 
     IBOutlet UITableView *MenuTable;
+    IBOutlet UIBarButtonItem *sendButton;
+    
+    
+    
 }
 @property(strong,nonatomic)NSMutableDictionary * userinfodict;
 - (IBAction)TappedOnMapPoint:(id)sender;

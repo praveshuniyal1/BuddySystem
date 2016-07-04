@@ -473,6 +473,19 @@
         shareview.shareDict=[[NSUserDefaults standardUserDefaults]valueForKey:@"currentDict"];
         [self.navigationController pushViewController:shareview animated:YES];
     }
+    
+    else if ([serviceurl isEqual:KRedIcon])
+    {
+        [[ServerManager getSharedInstance]hideHud];
+        if ([[responseDict valueForKey:@"message_status"] isEqualToString:@"unread"])
+        {
+            [chatBtn setImage:[UIImage imageNamed:@"chat_hover"] forState:UIControlStateNormal];
+        }
+        else{
+            [chatBtn setImage:[UIImage imageNamed:@"chat"] forState:UIControlStateNormal];
+        }
+    }
+
     else
     {
         
@@ -535,7 +548,7 @@
                         
                     }
                     
-                    
+                    [self checkForRedIcon];
                 }
                 
             }
@@ -557,6 +570,14 @@
     [ServerManager showAlertView:@"Error!!" withmessage:failureError.localizedDescription];
 }
 
+-(void)checkForRedIcon
+{
+    [[ServerManager getSharedInstance]showactivityHub:@"Please wait.." addWithView:self.view];
+    NSDictionary * userinfoDict=[NSDictionary dictionaryWithDictionary:[NSUserDefaults getNSUserDefaultValueForKey:kLoginUserInfo]] ;
+    NSString* userId=[NSString stringWithFormat:@"%@",[userinfoDict objectForKey:@"id"]];
+    NSDictionary * params=[NSDictionary dictionaryWithObjectsAndKeys:userId,@"user_id", nil];
+    [[ServerManager getSharedInstance]postDataOnserver:params withrequesturl:KRedIcon];
+}
 
 -(void)viewDidDisappear:(BOOL)animated
 {

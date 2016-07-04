@@ -9,6 +9,7 @@
 #import "ChatViewController.h"
 #import "JKModelData.h"
 #import "UserProfileVC.h"
+#import "MapView.h"
 
 
 @interface ChatViewController () < UIImagePickerControllerDelegate, UINavigationControllerDelegate,UIActionSheetDelegate>
@@ -673,6 +674,33 @@
 - (void)collectionView:(JSQMessagesCollectionView *)collectionView didTapMessageBubbleAtIndexPath:(NSIndexPath *)indexPath
 {
     NSLog(@"Tapped message bubble!");
+     JSQMessage *currentMessage = [[[JKModelData getSharedInstance].messages objectAtIndex:indexPath.item] valueForKey:@"jsqmessage"];
+    
+    if (currentMessage.isMediaMessage) {
+        id<JSQMessageMediaData> mediaItem = currentMessage.media;
+        
+        if ([mediaItem isKindOfClass:[JSQLocationMediaItem class]]) {
+            JSQLocationMediaItem *locationItem = (JSQLocationMediaItem *)mediaItem;
+            
+            CLLocationCoordinate2D location=locationItem.coordinate;
+           // NSString *s = [NSString stringWithFormat:@"%f,%f",location.latitude,location.longitude];
+            
+            UIStoryboard * mainStoryboard=[self mainstoryboard];
+            MapView * mapview=[mainStoryboard instantiateViewControllerWithIdentifier:@"MapView"];
+            mapview.location=locationItem.coordinate;
+            
+            [self presentViewController:mapview
+                               animated:YES
+                             completion:nil];
+            // do stuff with the image
+        }
+    }
+    
+    
+    
+    
+    
+    //[self.view addSubview:mapBackGroundView];
 }
 
 - (void)collectionView:(JSQMessagesCollectionView *)collectionView didTapCellAtIndexPath:(NSIndexPath *)indexPath touchLocation:(CGPoint)touchLocation
@@ -682,6 +710,22 @@
 
 
 //9888423315
+
+
+#pragma mark-mainstoryboard-
+-(UIStoryboard*)mainstoryboard
+{
+    UIStoryboard * mainStoryboard;
+    if (UI_USER_INTERFACE_IDIOM()==UIUserInterfaceIdiomPhone)
+    {
+        mainStoryboard=[UIStoryboard storyboardWithName:@"Main_iPhone" bundle:[NSBundle mainBundle]];
+    }
+    else
+    {
+        mainStoryboard=[UIStoryboard storyboardWithName:@"Main_iPad" bundle:[NSBundle mainBundle]];
+    }
+    return mainStoryboard;
+}
 
 
 #pragma mark- Delegate Method of Server Manager-

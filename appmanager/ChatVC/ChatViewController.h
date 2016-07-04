@@ -36,7 +36,8 @@
     IBOutlet UITableView *MenuTable;
 
     
-    
+    IBOutlet UIView *mapBackGroundView;
+    IBOutlet MKMapView *mapView;
 }
 @property(strong,nonatomic)NSDictionary * selectFreindInfoDict;
 @property (strong, nonatomic) JKModelData *jkmodelData;

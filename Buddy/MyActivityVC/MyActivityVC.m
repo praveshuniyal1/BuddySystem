@@ -229,6 +229,13 @@
 //                    [CollectionView reloadData];
                     [self setupScroll];
                     
+                    //api for red icon
+                    [[ServerManager getSharedInstance]showactivityHub:@"Please wait.." addWithView:self.view];
+                    NSDictionary * userinfoDict=[NSDictionary dictionaryWithDictionary:[NSUserDefaults getNSUserDefaultValueForKey:kLoginUserInfo]] ;
+                    NSString* userId=[NSString stringWithFormat:@"%@",[userinfoDict objectForKey:@"id"]];
+                    NSDictionary * params=[NSDictionary dictionaryWithObjectsAndKeys:userId,@"user_id", nil];
+                    [[ServerManager getSharedInstance]postDataOnserver:params withrequesturl:KRedIcon];
+                    
                 }
             }
                 break;
@@ -239,6 +246,13 @@
              //       [CollectionView reloadData];
                     [self setupScroll];
                     
+                    //api for red icon
+                    [[ServerManager getSharedInstance]showactivityHub:@"Please wait.." addWithView:self.view];
+                    NSDictionary * userinfoDict=[NSDictionary dictionaryWithDictionary:[NSUserDefaults getNSUserDefaultValueForKey:kLoginUserInfo]] ;
+                    NSString* userId=[NSString stringWithFormat:@"%@",[userinfoDict objectForKey:@"id"]];
+                    NSDictionary * params=[NSDictionary dictionaryWithObjectsAndKeys:userId,@"user_id", nil];
+                    [[ServerManager getSharedInstance]postDataOnserver:params withrequesturl:KRedIcon];
+                    
                 }
  
                 
@@ -247,7 +261,23 @@
                 break;
         }
         
+        
+        
     }
+    else if ([serviceurl isEqual:KRedIcon])
+    {
+        [[ServerManager getSharedInstance]hideHud];
+        if ([[responseDict valueForKey:@"message_status"] isEqualToString:@"unread"])
+        {
+            [chatBtn setImage:[UIImage imageNamed:@"chat_hover"] forState:UIControlStateNormal];
+        }
+        else{
+            [chatBtn setImage:[UIImage imageNamed:@"chat"] forState:UIControlStateNormal];
+        }
+        
+    }
+
+    
     else if ([serviceurl isEqual:ksuggestActivity])
     {
         int success=[[responseDict valueForKey:@"success"] intValue];

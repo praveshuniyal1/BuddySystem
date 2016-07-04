@@ -31,8 +31,8 @@
 -(void)initilizeMessageView
 {
     CGSize size = self.view.frame.size;
-    ToolBar.frame=CGRectMake(ToolBar.frame.origin.x, size.height-(ComINPUT_HEIGHT), size.width, ComINPUT_HEIGHT);
-    MessageText.text=@"Message.";
+    ToolBar.frame=CGRectMake(ToolBar.frame.origin.x, size.height-(ComINPUT_HEIGHT-10), size.width, ComINPUT_HEIGHT-10);
+    MessageText.text=@"Message";
     MessageText.textColor=[UIColor lightGrayColor];
     MessageText.layer.borderColor=[[UIColor lightGrayColor]CGColor];
     MessageText.layer.borderWidth=1;
@@ -127,7 +127,7 @@
         CGFloat inputViewFrameY = keyboardY - inputViewFrame.size.height;
         
         // for ipad modal form presentations
-        CGFloat messageViewFrameBottom = self.view.frame.size.height - (ComINPUT_HEIGHT);
+        CGFloat messageViewFrameBottom = self.view.frame.size.height - (ComINPUT_HEIGHT-10);
         if(inputViewFrameY > messageViewFrameBottom)
             
             inputViewFrameY = messageViewFrameBottom;
@@ -683,7 +683,7 @@
 #pragma mark-Delegate Method of TextView-
 - (BOOL)textViewShouldBeginEditing:(UITextView *)textView
 {
-    if ([MessageText.text isEqual:@"Message."])
+    if ([MessageText.text isEqual:@"Message"])
     {
         MessageText.text=@"";
         MessageText.textColor=[UIColor blackColor];
@@ -700,14 +700,18 @@
 {
     if (MessageText.text.length==0)
     {
-        MessageText.text=@"Message.";
+        MessageText.text=@"Message";
         MessageText.textColor=[UIColor lightGrayColor];
         MessageText.layer.borderColor=[[UIColor lightGrayColor]CGColor];
+        [MessageText resignFirstResponder];
+        [sendButton setTintColor:[UIColor lightGrayColor]];
+        
     }
-    else if (![MessageText.text isEqual:@"Message."])
+    else if (![MessageText.text isEqual:@"Message"])
     {
         MessageText.textColor=[UIColor blackColor];
         MessageText.layer.borderColor=[[UIColor redColor]CGColor];
+        [sendButton setTintColor:[UIColor blueColor]];
     }
 }
 
@@ -720,11 +724,11 @@
 {
     if (MessageText.text.length==0)
     {
-        MessageText.text=@"Message.";
+        MessageText.text=@"Message";
         MessageText.textColor=[UIColor lightGrayColor];
         MessageText.layer.borderColor=[[UIColor lightGrayColor]CGColor];
     }
-    else if (![MessageText.text isEqual:@"Message."])
+    else if (![MessageText.text isEqual:@"Message"])
     {
         MessageText.textColor=[UIColor blackColor];
         MessageText.layer.borderColor=[[UIColor redColor]CGColor];

@@ -71,6 +71,14 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeImage:) name:@"NewMessage" object:nil];
 
 }
+-(void)viewWillAppear:(BOOL)animated
+{
+    //api for red icon
+    NSDictionary * userinfoDict=[NSDictionary dictionaryWithDictionary:[NSUserDefaults getNSUserDefaultValueForKey:kLoginUserInfo]] ;
+    NSString* userId=[NSString stringWithFormat:@"%@",[userinfoDict objectForKey:@"id"]];
+    NSDictionary * params=[NSDictionary dictionaryWithObjectsAndKeys:userId,@"user_id", nil];
+    [[ServerManager getSharedInstance]postDataOnserver:params withrequesturl:KRedIcon];
+}
 -(void)getAllEventSAfterLoad:(NSNotification *)notification
 {
     [self getAllEvents];
@@ -285,7 +293,7 @@
 
 -(void)changeImage:(NSNotification *)notif
 {
-    [chatbtn setBackgroundImage:[UIImage imageNamed:@"chat_hover"] forState:UIControlStateNormal];
+    [chatbtn setImage:[UIImage imageNamed:@"chat_hover"] forState:UIControlStateNormal];
 }
 
 
@@ -442,6 +450,8 @@
                             }
                         }
                         
+                        
+                        
                     }
                     if (eventList.count>0)
                     {
@@ -465,6 +475,20 @@
         }
         
     }
+    
+    else if ([serviceurl isEqual:KRedIcon])
+    {
+        [[ServerManager getSharedInstance]hideHud];
+        if ([[responseDict valueForKey:@"message_status"] isEqualToString:@"unread"])
+        {
+            [chatbtn setImage:[UIImage imageNamed:@"chat_hover"] forState:UIControlStateNormal];
+        }
+        else{
+            [chatbtn setImage:[UIImage imageNamed:@"chat"] forState:UIControlStateNormal];
+        }
+    }
+
+    
     else if ([serviceurl isEqual:KaddActivity])
     {
         int success=[[responseDict valueForKey:@"success"] intValue];

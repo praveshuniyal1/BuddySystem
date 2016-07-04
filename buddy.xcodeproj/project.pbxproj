@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2896B1A21D2A343700E72BF7 /* MapView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2896B1A11D2A343700E72BF7 /* MapView.m */; };
 		55E185D11C7C25CC00C459D8 /* JSQMessagesBubblesSizeCalculator.m in Sources */ = {isa = PBXBuildFile; fileRef = 55E185D01C7C25CC00C459D8 /* JSQMessagesBubblesSizeCalculator.m */; };
 		5D8B52DC1C2894CD00AE512B /* CustomApplication.m in Sources */ = {isa = PBXBuildFile; fileRef = 5D8B52DB1C2894CD00AE512B /* CustomApplication.m */; };
 		D763F187DC6EFCFE947A137B /* libPods-BuddyTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AB2896CFD2B486C039260583 /* libPods-BuddyTests.a */; };
@@ -187,6 +188,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		2896B1A01D2A343700E72BF7 /* MapView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MapView.h; path = ../MapView.h; sourceTree = "<group>"; };
+		2896B1A11D2A343700E72BF7 /* MapView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MapView.m; path = ../MapView.m; sourceTree = "<group>"; };
 		3E26F02F0466C88E75592F0C /* Pods-Buddy.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Buddy.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Buddy/Pods-Buddy.debug.xcconfig"; sourceTree = "<group>"; };
 		55E185CE1C7C25CC00C459D8 /* JSQMessagesBubbleSizeCalculating.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSQMessagesBubbleSizeCalculating.h; sourceTree = "<group>"; };
 		55E185CF1C7C25CC00C459D8 /* JSQMessagesBubblesSizeCalculator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSQMessagesBubblesSizeCalculator.h; sourceTree = "<group>"; };
@@ -591,6 +594,8 @@
 				DA77C6851AB0263900614BBC /* D.png */,
 				DA77C6971AB0263900614BBC /* info.mov */,
 				DA77C6A41AB0263900614BBC /* Location.gpx */,
+				2896B1A01D2A343700E72BF7 /* MapView.h */,
+				2896B1A11D2A343700E72BF7 /* MapView.m */,
 				DA77C9D61AB0295500614BBC /* AppDelegate */,
 				DA77C9D51AB0292900614BBC /* FbLogin */,
 				DA77C9D41AB028FA00614BBC /* StoryBoards */,
@@ -1743,6 +1748,7 @@
 				DA77C6CA1AB0263900614BBC /* LocationSearchVC.m in Sources */,
 				DA77C99A1AB0272800614BBC /* JSQMessagesLabel.m in Sources */,
 				DA77C9A71AB0272800614BBC /* README.markdown in Sources */,
+				2896B1A21D2A343700E72BF7 /* MapView.m in Sources */,
 				DA77C9A41AB0272800614BBC /* JSQSystemSoundPlayer.m in Sources */,
 				DA77C7601AB026BB00614BBC /* MPNotificationView.m in Sources */,
 				DA77C75B1AB026BB00614BBC /* JkDateTimePicker.m in Sources */,

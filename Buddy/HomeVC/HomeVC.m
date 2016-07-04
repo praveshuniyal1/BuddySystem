@@ -53,8 +53,17 @@
         [[LocationManager locationInstance]getcurrentLocation];
     });
     
+   // [self checkRedIcon];
     [self getMineAppSFriends];
+   
     [self bgplayer];
+}
+-(void)checkRedIcon
+{
+    NSDictionary * userinfoDict=[NSDictionary dictionaryWithDictionary:[NSUserDefaults getNSUserDefaultValueForKey:kLoginUserInfo]] ;
+    NSString* userId=[NSString stringWithFormat:@"%@",[userinfoDict objectForKey:@"id"]];
+    NSDictionary * params=[NSDictionary dictionaryWithObjectsAndKeys:userId,@"user_id", nil];
+    [[ServerManager getSharedInstance]postDataOnserver:params withrequesturl:KRedIcon];
 }
 
 
@@ -139,13 +148,30 @@
     }
     else if ([serviceurl isEqual:KupdateFrindList])
     {
+         //[self checkRedIcon];
+        
+        [[ServerManager getSharedInstance]hideHud];
         if ([[responseDict valueForKey:@"message_status"] isEqualToString:@"unread"])
         {
             [chatbtn setImage:[UIImage imageNamed:@"chat_hover"] forState:UIControlStateNormal];
         }
         else{
-             [chatbtn setImage:[UIImage imageNamed:@"chat"] forState:UIControlStateNormal];
+            [chatbtn setImage:[UIImage imageNamed:@"chat"] forState:UIControlStateNormal];
         }
+
+    }
+    else if ([serviceurl isEqual:KRedIcon])
+    {
+        [[ServerManager getSharedInstance]hideHud];
+        if ([[responseDict valueForKey:@"message_status"] isEqualToString:@"unread"])
+        {
+            [chatbtn setImage:[UIImage imageNamed:@"chat_hover"] forState:UIControlStateNormal];
+        }
+        else{
+            [chatbtn setImage:[UIImage imageNamed:@"chat"] forState:UIControlStateNormal];
+        }
+        
+        
     }
 }
 -(void)failureRsponseError:(NSError *)failureError
@@ -159,7 +185,7 @@
 -(void)changeImage:(NSNotification *)notif
 {
 
-    [chatbtn setBackgroundImage:[UIImage imageNamed:@"chat_hover"] forState:UIControlStateNormal];
+    [chatbtn setImage:[UIImage imageNamed:@"chat_hover"] forState:UIControlStateNormal];
 }
 
 -(void)bgplayer
