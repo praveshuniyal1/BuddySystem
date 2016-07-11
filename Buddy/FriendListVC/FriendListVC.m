@@ -54,14 +54,14 @@
     name=[NSString stringWithFormat:@"%@",[userinfoDict objectForKey:@"name"]];
     //[self getAllUserList];
     
-    self.refreshControl = [[UIRefreshControl alloc] init];
-    self.refreshControl.backgroundColor = [UIColor colorWithWhite:72 alpha:.08];
-    self.refreshControl.tintColor = [UIColor darkGrayColor];
-    [self.refreshControl addTarget:self
-                            action:@selector(handleRefresh)
-                  forControlEvents:UIControlEventValueChanged];
-    
-    [contactTable addSubview:self.refreshControl];
+//    self.refreshControl = [[UIRefreshControl alloc] init];
+//    self.refreshControl.backgroundColor = [UIColor colorWithWhite:72 alpha:.08];
+//    self.refreshControl.tintColor = [UIColor darkGrayColor];
+//    [self.refreshControl addTarget:self
+//                            action:@selector(handleRefresh)
+//                  forControlEvents:UIControlEventValueChanged];
+//    
+//    [contactTable addSubview:self.refreshControl];
 
 }
 -(void)viewWillAppear:(BOOL)animated
@@ -230,7 +230,15 @@
         {
             didindexPath = [contactTable indexPathForSelectedRow];
             selectdict=[NSMutableDictionary dictionaryWithDictionary:[contactList objectAtIndex:didindexPath.row]];
-             [self LoadChatView:selectdict];
+            
+            if([selectdict valueForKey:@"profile_pic"])
+            {
+                [self LoadChatView:selectdict];
+            }
+            else{
+                Alert(@"Message", @"Please wait");
+            }
+            
         }
         else{
             
@@ -249,8 +257,11 @@
     chatview.friendId=[NSString stringWithFormat:@"%@",[selectdict valueForKey:@"usr_id"]];
     chatview.toUserId=usrId;
     
-    NSURL * profileurl=[NSURL URLWithString:[selectdict valueForKey:@"profile_pic"]];
-    [chatview.profilePic sd_setImageWithURL:profileurl];
+    
+        NSURL * profileurl=[NSURL URLWithString:[selectdict valueForKey:@"profile_pic"]];
+        [chatview.profilePic sd_setImageWithURL:profileurl];
+    
+   
     
     NSURL * imageUrl=[NSURL URLWithString:[selectdict valueForKey:@"profile_pic"]];
     NSString * frindId=[NSString stringWithFormat:@"%@",[selectdict valueForKey:@"usr_id"]];

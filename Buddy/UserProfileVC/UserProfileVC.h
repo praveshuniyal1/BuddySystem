@@ -27,6 +27,7 @@
 
     IBOutlet UITableView *MenuTable;
     IBOutlet UIBarButtonItem *sendButton;
+    UIAlertView *alertNew;
     
     
     

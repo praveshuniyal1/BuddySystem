@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="15B42" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none" initialViewController="bKP-t1-27R">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none" initialViewController="bKP-t1-27R">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
     </dependencies>
     <scenes>
         <!--LoginVC-->
@@ -298,11 +298,6 @@
         <scene sceneID="YPH-Qz-YXq">
             <objects>
                 <viewController storyboardIdentifier="ChatViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="lL3-Wh-NJo" customClass="ChatViewController" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="Bb1-Jb-70t">
-                        <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                    </view>
                     <navigationItem key="navigationItem" id="TrI-rL-afz">
                         <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="VvQ-v3-YFi">
                             <color key="tintColor" red="0.81960784310000001" green="0.40784313729999999" blue="0.37254901959999998" alpha="1" colorSpace="calibratedRGB"/>
@@ -313,6 +308,8 @@
                     </navigationItem>
                     <connections>
                         <outlet property="menuToolbar" destination="DO3-Zb-7Ok" id="8re-dq-m5p"/>
+                        <outlet property="profileName" destination="Nmw-1Z-S3x" id="JWk-9G-Gas"/>
+                        <outlet property="profilePic" destination="aKb-q9-d7w" id="G5S-2i-Yqs"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="KSI-El-yLh" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -327,6 +324,52 @@
                         </barButtonItem>
                     </items>
                 </toolbar>
+                <view contentMode="scaleToFill" id="DNZ-mK-rBU">
+                    <rect key="frame" x="0.0" y="0.0" width="768" height="54"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                    <subviews>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="AY5-hi-AcA">
+                            <rect key="frame" x="-7" y="0.0" width="50" height="50"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES"/>
+                            <state key="normal" image="back">
+                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                            </state>
+                            <connections>
+                                <action selector="OnCancel:" destination="lL3-Wh-NJo" eventType="touchUpInside" id="YVV-94-wSa"/>
+                            </connections>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="3iD-b6-bkR">
+                            <rect key="frame" x="684" y="12" width="32" height="31"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
+                            <state key="normal" image="mapPin">
+                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                            </state>
+                            <connections>
+                                <action selector="TappedOnMapPoint:" destination="lL3-Wh-NJo" eventType="touchUpInside" id="Mcm-TZ-nU7"/>
+                            </connections>
+                        </button>
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="user" id="aKb-q9-d7w">
+                            <rect key="frame" x="74" y="4" width="45" height="45"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        </imageView>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Nmw-1Z-S3x">
+                            <rect key="frame" x="127" y="10" width="335" height="33"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <fontDescription key="fontDescription" name="GillSans" family="Gill Sans" pointSize="16"/>
+                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="15Q-81-x0j">
+                            <rect key="frame" x="724" y="23" width="36" height="31"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
+                            <state key="normal" image="map-menu_pin"/>
+                            <connections>
+                                <action selector="TapedOnDot:" destination="lL3-Wh-NJo" eventType="touchUpInside" id="Nxe-Xn-Rtb"/>
+                            </connections>
+                        </button>
+                    </subviews>
+                    <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                </view>
             </objects>
             <point key="canvasLocation" x="-168" y="434"/>
         </scene>
@@ -433,9 +476,19 @@
                                                             <rect key="frame" x="71" y="55" width="10" height="10"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                         </imageView>
+                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="64W-6V-NbN">
+                                                            <rect key="frame" x="695" y="8" width="47" height="27"/>
+                                                            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
+                                                            <color key="backgroundColor" red="0.32549019610000002" green="0.78823529410000004" blue="0.2666666667" alpha="1" colorSpace="calibratedRGB"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                            <state key="normal" title="Unblock">
+                                                                <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                            </state>
+                                                        </button>
                                                     </subviews>
                                                 </tableViewCellContentView>
                                                 <connections>
+                                                    <outlet property="UnblockBtn" destination="64W-6V-NbN" id="YR5-cg-uPu"/>
                                                     <outlet property="btnUserimage" destination="4rs-cR-Yq0" id="bNF-6x-j5o"/>
                                                     <outlet property="lbl_description" destination="DfF-57-kcd" id="APL-cH-DV6"/>
                                                     <outlet property="lbl_title" destination="vIA-Za-c9c" id="4mI-RL-sj5"/>
@@ -527,14 +580,22 @@
                                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="b4p-7O-Jvj">
-                                        <rect key="frame" x="473" y="14" width="55" height="31"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
-                                        <state key="normal" image="map_pin">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="xWG-I6-iuT">
+                                        <rect key="frame" x="491" y="19" width="43" height="38"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
+                                        <state key="normal" image="map-menu_pin"/>
+                                        <connections>
+                                            <action selector="TapedOnDots:" destination="pOF-rl-3zi" eventType="touchUpInside" id="PCm-Sw-FWj"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="xYn-ep-Q6R">
+                                        <rect key="frame" x="442" y="3" width="51" height="44"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
+                                        <state key="normal" image="mapPin">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
-                                            <action selector="TappedOnMapPoint:" destination="pOF-rl-3zi" eventType="touchUpInside" id="r6f-Xe-iU6"/>
+                                            <action selector="TappedOnMapPoint:" destination="pOF-rl-3zi" eventType="touchUpInside" id="uwg-DT-H9m"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -573,7 +634,7 @@
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="FDs-6R-SYm">
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="FDs-6R-SYm">
                                 <rect key="frame" x="0.0" y="563" width="54" height="59"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
                                 <state key="normal" image="menubtn">
@@ -883,7 +944,7 @@
                         </searchBar>
                         <prototypes>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Cell" id="n4w-eT-QDN" customClass="CustomCell">
-                                <rect key="frame" x="0.0" y="66" width="540" height="44"/>
+                                <rect key="frame" x="0.0" y="130" width="540" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="n4w-eT-QDN" id="gP9-YI-2GQ">
                                     <rect key="frame" x="0.0" y="0.0" width="540" height="43"/>
@@ -1126,12 +1187,29 @@ be deleted in 2 hours.</string>
                                 </subviews>
                                 <color key="backgroundColor" white="0.33333333329999998" alpha="0.70000000000000007" colorSpace="calibratedWhite"/>
                             </view>
+                            <view contentMode="scaleToFill" id="Lcz-Pc-dnl">
+                                <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <subviews>
+                                    <imageView userInteractionEnabled="NO" alpha="0.80000001192092896" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="99x-Wm-r0i">
+                                        <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
+                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                    </imageView>
+                                    <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="whiteLarge" id="LHp-KZ-MIt">
+                                        <rect key="frame" x="367" y="460" width="37" height="37"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    </activityIndicatorView>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" id="PFH-Nk-kyH"/>
                     <nil key="simulatedBottomBarMetrics"/>
                     <connections>
+                        <outlet property="activityView" destination="Lcz-Pc-dnl" id="RSY-Lq-CYx"/>
                         <outlet property="catTitletext" destination="38D-s2-jUG" id="4lh-ZC-6ZR"/>
                         <outlet property="contentView" destination="AbZ-6n-zdt" id="CKS-yx-mbJ"/>
                         <outlet property="descriptiontxt" destination="XMr-wz-k5K" id="kPN-1W-hvg"/>
@@ -1863,11 +1941,57 @@ be deleted in 2 hours.</string>
             </objects>
             <point key="canvasLocation" x="2496" y="687"/>
         </scene>
+        <!--Map View-->
+        <scene sceneID="ZwI-tg-Vvp">
+            <objects>
+                <viewController storyboardIdentifier="MapView" id="cxI-t3-Wev" customClass="MapView" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="xOb-Ih-jxo">
+                        <rect key="frame" x="0.0" y="0.0" width="540" height="620"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" showsUserLocation="YES" id="rmi-TR-6yx">
+                                <rect key="frame" x="0.0" y="0.0" width="540" height="620"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <connections>
+                                    <outlet property="delegate" destination="cxI-t3-Wev" id="gbE-sk-zsz"/>
+                                </connections>
+                            </mapView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="yKR-iQ-MOM">
+                                <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES"/>
+                                <state key="normal" image="back">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="backBtn:" destination="cxI-t3-Wev" eventType="touchUpInside" id="SMf-eb-eUm"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="ucT-ya-OWc">
+                                <rect key="frame" x="470" y="550" width="50" height="50"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
+                                <state key="normal" image="blue_arrow.png"/>
+                                <connections>
+                                    <action selector="mapsDirections:" destination="cxI-t3-Wev" eventType="touchUpInside" id="QQA-ga-AVi"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <modalFormSheetSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <connections>
+                        <outlet property="mapView" destination="rmi-TR-6yx" id="Dqq-QP-BFf"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="lfs-0i-0dB" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1766" y="1341"/>
+        </scene>
     </scenes>
     <resources>
         <image name="D.png" width="649" height="362"/>
         <image name="appTitile_title_ipad" width="520" height="72"/>
         <image name="back" width="54" height="55"/>
+        <image name="blue_arrow.png" width="170" height="170"/>
         <image name="cancel" width="30" height="30"/>
         <image name="chat" width="54" height="54"/>
         <image name="chat-icon" width="30" height="27"/>
@@ -1880,7 +2004,8 @@ be deleted in 2 hours.</string>
         <image name="letdothisBtn" width="200" height="46"/>
         <image name="login-btn" width="243" height="44"/>
         <image name="map" width="32" height="32"/>
-        <image name="map_pin" width="55" height="31"/>
+        <image name="map-menu_pin" width="29" height="9"/>
+        <image name="mapPin" width="19" height="31"/>
         <image name="menubtn" width="53" height="54"/>
         <image name="red" width="30" height="30"/>
         <image name="suggest-activity_ipad" width="768" height="75"/>

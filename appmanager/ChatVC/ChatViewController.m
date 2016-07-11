@@ -682,6 +682,9 @@
         if ([mediaItem isKindOfClass:[JSQLocationMediaItem class]]) {
             JSQLocationMediaItem *locationItem = (JSQLocationMediaItem *)mediaItem;
             
+           /* NSString* url = [NSString stringWithFormat:@"http://maps.apple.com/?daddr=%f,%f&amp;ll=",locationItem.coordinate.latitude, locationItem.coordinate.longitude];
+            [[UIApplication sharedApplication] openURL: [NSURL URLWithString: url]];*/
+      
             CLLocationCoordinate2D location=locationItem.coordinate;
            // NSString *s = [NSString stringWithFormat:@"%f,%f",location.latitude,location.longitude];
             

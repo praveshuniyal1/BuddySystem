@@ -289,6 +289,8 @@
 //                        [KappDelgate dowloadStreamVideo:[categoryList objectAtIndex: current] andNext:[categoryList objectAtIndex: current+1]   fileCount:(int)current];
                         
                         [KappDelgate dowloadStreamVideo:[categoryList objectAtIndex: current] andNext:[categoryList objectAtIndex: current+1]  andfurtherNexr:[categoryList objectAtIndex: current+2] fileCount:(int)current andtotalCount:(int)categoryList.count-1];
+                        
+                        NSLog(@"fsdf");
                     }
                     else if(current<categoryList.count-1)
                     {
@@ -298,6 +300,7 @@
                     {
                         [KappDelgate dowloadStreamVideo:[categoryList objectAtIndex: current]  fileCount:(int)current andtotalCount:(int)categoryList.count-1];
                     }
+                   
 
                     
                     
@@ -305,6 +308,7 @@
                 }
 
             }
+            // [self checkForRedIcon];
 
         }
     }
@@ -548,7 +552,7 @@
                         
                     }
                     
-                    [self checkForRedIcon];
+                    //[self checkForRedIcon];
                 }
                 
             }
@@ -572,7 +576,7 @@
 
 -(void)checkForRedIcon
 {
-    [[ServerManager getSharedInstance]showactivityHub:@"Please wait.." addWithView:self.view];
+  ///  [[ServerManager getSharedInstance]showactivityHub:@"Please wait.." addWithView:self.view];
     NSDictionary * userinfoDict=[NSDictionary dictionaryWithDictionary:[NSUserDefaults getNSUserDefaultValueForKey:kLoginUserInfo]] ;
     NSString* userId=[NSString stringWithFormat:@"%@",[userinfoDict objectForKey:@"id"]];
     NSDictionary * params=[NSDictionary dictionaryWithObjectsAndKeys:userId,@"user_id", nil];

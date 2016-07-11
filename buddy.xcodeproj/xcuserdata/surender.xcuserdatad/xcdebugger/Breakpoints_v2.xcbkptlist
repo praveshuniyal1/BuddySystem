@@ -186,108 +186,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Buddy/HomeVC/HomeVC.m"
-            timestampString = "462727840.5649"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "26"
-            endingLineNumber = "26"
-            landmarkName = "-viewDidLoad"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Buddy/HomeVC/HomeVC.m"
-            timestampString = "463100463.059544"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "37"
-            endingLineNumber = "37"
-            landmarkName = "-changeImage:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Buddy/HomeVC/HomeVC.m"
-            timestampString = "463100463.059544"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "42"
-            endingLineNumber = "42"
-            landmarkName = "-bgplayer"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Buddy/HomeVC/HomeVC.m"
-            timestampString = "463100463.059544"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "48"
-            endingLineNumber = "48"
-            landmarkName = "-viewWillAppear:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Buddy/HomeVC/HomeVC.m"
-            timestampString = "463100463.059544"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "53"
-            endingLineNumber = "53"
-            landmarkName = "-TappedOnTime:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Buddy/HomeVC/HomeVC.m"
-            timestampString = "463100463.059544"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "121"
-            endingLineNumber = "121"
-            landmarkName = "-selectEventTimeTitle:SelectEventTime:expiry_param:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Buddy/HomeVC/HomeVC.m"
             timestampString = "463100463.059544"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "186"
             endingLineNumber = "186"
-            landmarkName = "-jkdatetimepicker:didselectdatetime:currentMode:"
+            landmarkName = "-changeImage:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -351,7 +255,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "449"
             endingLineNumber = "449"
-            landmarkName = "-FetchDatafromServer:withAppendString:"
+            landmarkName = "-postDatawithMediaFile:MediaFile:setMediaKey:withPostUrl:mediaType:is_multiple:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -367,7 +271,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "466"
             endingLineNumber = "466"
-            landmarkName = "-FetchDatafromServer:withAppendString:"
+            landmarkName = "-postDatawithMediaFile:MediaFile:setMediaKey:withPostUrl:mediaType:is_multiple:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -490,11 +394,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Buddy/AppDelegate.m"
-            timestampString = "464120505.253875"
+            timestampString = "489497650.285937"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "836"
-            endingLineNumber = "836">
+            startingLineNumber = "834"
+            endingLineNumber = "834"
+            landmarkName = "-dowloadStreamVideo:andNext:andfurtherNexr:fileCount:andtotalCount:"
+            landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -504,11 +410,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Buddy/AppDelegate.m"
-            timestampString = "464120505.253875"
+            timestampString = "489497650.285937"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "840"
-            endingLineNumber = "840">
+            startingLineNumber = "838"
+            endingLineNumber = "838"
+            landmarkName = "-dowloadStreamVideo:andNext:andfurtherNexr:fileCount:andtotalCount:"
+            landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -523,7 +431,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "477"
             endingLineNumber = "477"
-            landmarkName = "-FetchDatafromServer:withAppendString:"
+            landmarkName = "-postDatawithMediaFile:MediaFile:setMediaKey:withPostUrl:mediaType:is_multiple:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -573,6 +481,53 @@
             endingLineNumber = "357"
             landmarkName = "-TappedOnLetDoThis:"
             landmarkType = "5">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "__32-[CategoryVC TappedOnLetDoThis:]_block_invoke"
+                  moduleName = "Buddy"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/ketan/Desktop/Running%20Project/BuddySystem/Buddy/CategoryVC/CategoryVC.m"
+                  timestampString = "489503437.419878"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "357"
+                  endingLineNumber = "357"
+                  offsetFromSymbolStart = "2068">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "__copy_helper_block_.252"
+                  moduleName = "Buddy"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/ketan/Desktop/Running%20Project/BuddySystem/Buddy/CategoryVC/CategoryVC.m"
+                  timestampString = "489503437.42001"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "357"
+                  endingLineNumber = "357"
+                  offsetFromSymbolStart = "34">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "__destroy_helper_block_.253"
+                  moduleName = "Buddy"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/ketan/Desktop/Running%20Project/BuddySystem/Buddy/CategoryVC/CategoryVC.m"
+                  timestampString = "489503437.420136"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "357"
+                  endingLineNumber = "357"
+                  offsetFromSymbolStart = "18">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -619,7 +574,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "322"
             endingLineNumber = "322"
-            landmarkName = "-tableView:didSelectRowAtIndexPath:"
+            landmarkName = "-TappedOnMapPoint:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -635,7 +590,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "77"
             endingLineNumber = "77"
-            landmarkName = "-getAllEvents"
+            landmarkName = "-viewWillAppear:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -651,7 +606,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "26"
             endingLineNumber = "26"
-            landmarkName = "-viewDidLoad"
+            landmarkName = "-initWithNibName:bundle:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -667,7 +622,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "96"
             endingLineNumber = "96"
-            landmarkName = "-numberOfSectionsInTableView:"
+            landmarkName = "-getAllEvents"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -683,7 +638,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "102"
             endingLineNumber = "102"
-            landmarkName = "-tableView:numberOfRowsInSection:"
+            landmarkName = "-getAllEvents"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -699,7 +654,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "110"
             endingLineNumber = "110"
-            landmarkName = "-selectEventTimeTitle:SelectEventTime:expiry_param:"
+            landmarkName = "-getAllEvents"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -715,8 +670,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "193"
             endingLineNumber = "193"
-            landmarkName = "-tableView:didSelectRowAtIndexPath:"
-            landmarkType = "5">
+            landmarkName = "@implementation WhatHappendVC"
+            landmarkType = "3">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -774,12 +729,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Buddy/AppDelegate.m"
-            timestampString = "464120505.253875"
+            timestampString = "489497650.285937"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "796"
-            endingLineNumber = "796"
-            landmarkName = "-getAllCategoryId"
+            startingLineNumber = "794"
+            endingLineNumber = "794"
+            landmarkName = "-dowloadStreamVideo:andNext:andfurtherNexr:fileCount:andtotalCount:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -790,76 +745,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Buddy/AppDelegate.m"
-            timestampString = "464120505.253875"
+            timestampString = "489497650.285937"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "720"
-            endingLineNumber = "720"
-            landmarkName = "-dowloadStreamVideo:fileCount:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Buddy/AppDelegate.m"
-            timestampString = "464120505.253875"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "737"
-            endingLineNumber = "737"
-            landmarkName = "-dowloadStreamVideo:fileCount:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Buddy/AppDelegate.m"
-            timestampString = "464120505.253875"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "756"
-            endingLineNumber = "756"
-            landmarkName = "-inserCategoryDataInDb:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Buddy/AppDelegate.m"
-            timestampString = "464120505.253875"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "749"
-            endingLineNumber = "749"
-            landmarkName = "-dowloadStreamVideo:fileCount:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Buddy/AppDelegate.m"
-            timestampString = "464120505.253875"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "727"
-            endingLineNumber = "727"
-            landmarkName = "-dowloadStreamVideo:fileCount:"
+            startingLineNumber = "728"
+            endingLineNumber = "728"
+            landmarkName = "-popToCurrentViewController:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -875,7 +766,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "732"
             endingLineNumber = "732"
-            landmarkName = "-dowloadStreamVideo:fileCount:"
+            landmarkName = "-popToCurrentViewController:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -891,23 +782,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "734"
             endingLineNumber = "734"
-            landmarkName = "-dowloadStreamVideo:fileCount:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Buddy/AppDelegate.m"
-            timestampString = "464120505.253875"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "741"
-            endingLineNumber = "741"
-            landmarkName = "-dowloadStreamVideo:fileCount:"
+            landmarkName = "-popToCurrentViewController:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -934,12 +809,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Buddy/UserProfileVC/UserProfileVC.m"
-            timestampString = "462739600.354298"
+            timestampString = "489503342.177314"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "388"
-            endingLineNumber = "388"
-            landmarkName = "-serverReponse:withrequestName:"
+            startingLineNumber = "401"
+            endingLineNumber = "401"
+            landmarkName = "-tableView:numberOfRowsInSection:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -950,12 +825,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Buddy/UserProfileVC/UserProfileVC.m"
-            timestampString = "462739601.961055"
+            timestampString = "489503342.177314"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "408"
-            endingLineNumber = "408"
-            landmarkName = "-serverReponse:withrequestName:"
+            startingLineNumber = "421"
+            endingLineNumber = "421"
+            landmarkName = "-tableView:willDisplayCell:forRowAtIndexPath:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -966,12 +841,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Buddy/UserProfileVC/UserProfileVC.m"
-            timestampString = "462739603.834322"
+            timestampString = "489503342.177314"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "424"
-            endingLineNumber = "424"
-            landmarkName = "-serverReponse:withrequestName:"
+            startingLineNumber = "437"
+            endingLineNumber = "437"
+            landmarkName = "-tableView:willDisplayCell:forRowAtIndexPath:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1211,8 +1086,55 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "351"
             endingLineNumber = "351"
-            landmarkName = "-postDatawithMediaFile:MediaFile:setMediaKey:withPostUrl:mediaType:is_multiple:"
+            landmarkName = "-postDataOnserverWithAppend:withrequesturl:withPostDic:"
             landmarkType = "5">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "__71-[ServerManager postDataOnserverWithAppend:withrequesturl:withPostDic:]_block_invoke.200"
+                  moduleName = "Buddy"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/ketan/Desktop/Running%20Project/BuddySystem/AppManager/ServerManager/ServerManager.m"
+                  timestampString = "489503437.44044"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "351"
+                  endingLineNumber = "351"
+                  offsetFromSymbolStart = "132">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "__copy_helper_block_.201"
+                  moduleName = "Buddy"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/ketan/Desktop/Running%20Project/BuddySystem/AppManager/ServerManager/ServerManager.m"
+                  timestampString = "489503437.440567"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "351"
+                  endingLineNumber = "351"
+                  offsetFromSymbolStart = "34">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "__destroy_helper_block_.202"
+                  moduleName = "Buddy"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/ketan/Desktop/Running%20Project/BuddySystem/AppManager/ServerManager/ServerManager.m"
+                  timestampString = "489503437.440686"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "351"
+                  endingLineNumber = "351"
+                  offsetFromSymbolStart = "18">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -1227,7 +1149,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "361"
             endingLineNumber = "361"
-            landmarkName = "-postDatawithMediaFile:MediaFile:setMediaKey:withPostUrl:mediaType:is_multiple:"
+            landmarkName = "-postDataOnserverLocation:withrequesturl:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1243,7 +1165,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "374"
             endingLineNumber = "374"
-            landmarkName = "-postDatawithMediaFile:MediaFile:setMediaKey:withPostUrl:mediaType:is_multiple:"
+            landmarkName = "-postDataOnserverLocation:withrequesturl:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1259,23 +1181,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "384"
             endingLineNumber = "384"
-            landmarkName = "-postDatawithMediaFile:MediaFile:setMediaKey:withPostUrl:mediaType:is_multiple:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "AppManager/ServerManager/ServerManager.m"
-            timestampString = "462994212.33651"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "297"
-            endingLineNumber = "297"
-            landmarkName = "-createServerPath:"
+            landmarkName = "-postDataOnserverLocation:withrequesturl:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1515,55 +1421,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "930"
             endingLineNumber = "930"
-            landmarkName = "-jsonRepresentForm:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "AppManager/ServerManager/ServerManager.m"
-            timestampString = "463097738.260383"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "304"
-            endingLineNumber = "304"
-            landmarkName = "-postDataOnserver:withrequesturl:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "AppManager/ServerManager/ServerManager.m"
-            timestampString = "463097818.114021"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "320"
-            endingLineNumber = "320"
-            landmarkName = "-postDataOnserver:withrequesturl:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "AppManager/ServerManager/ServerManager.m"
-            timestampString = "463097819.393723"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "324"
-            endingLineNumber = "324"
-            landmarkName = "-postDataOnserver:withrequesturl:"
+            landmarkName = "-dateTimeInterval:setFormate:sinceDate:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1691,7 +1549,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "126"
             endingLineNumber = "126"
-            landmarkName = "-application:openURL:sourceApplication:annotation:"
+            landmarkName = "-application:didFinishLaunchingWithOptions:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1739,7 +1597,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "70"
             endingLineNumber = "70"
-            landmarkName = "-getAllUserList"
+            landmarkName = "-viewWillAppear:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1755,7 +1613,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "88"
             endingLineNumber = "88"
-            landmarkName = "-handleRefresh"
+            landmarkName = "-getAllUserList"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1771,7 +1629,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "377"
             endingLineNumber = "377"
-            landmarkName = "-serverReponse:withrequestName:"
+            landmarkName = "-showSearchController"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -2123,7 +1981,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "367"
             endingLineNumber = "367"
-            landmarkName = "-serverReponse:withrequestName:"
+            landmarkName = "-searchBarSearchButtonClicked:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

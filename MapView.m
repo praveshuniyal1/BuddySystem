@@ -20,6 +20,23 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
+//    locationManager = [[CLLocationManager alloc] init];
+//    locationManager.distanceFilter = kCLDistanceFilterNone;
+//    locationManager.desiredAccuracy = kCLLocationAccuracyBest;
+//    [locationManager startUpdatingLocation];
+//    
+//     latitude = locationManager.location.coordinate.latitude;
+//     longitude = locationManager.location.coordinate.longitude;
+    
+    
+    NSLog(@"%@",[[NSUserDefaults standardUserDefaults]objectForKey:@"LongitudeAs"]);
+    NSLog(@"%@",[[NSUserDefaults standardUserDefaults]objectForKey:@"LatitudeAs"]);
+
+    
+    
+    latitude = [[[NSUserDefaults standardUserDefaults]objectForKey:@"LatitudeAs"] floatValue];
+    longitude = [[[NSUserDefaults standardUserDefaults]objectForKey:@"LongitudeAs"] floatValue];
+    
     MKPointAnnotation*    annotation = [[MKPointAnnotation alloc] init];
     CLLocationCoordinate2D myCoordinate;
     myCoordinate.latitude=location.latitude;
@@ -27,10 +44,40 @@
     annotation.coordinate = myCoordinate;
     [mapView addAnnotation:annotation];
     
+    
+//    CLLocationCoordinate2D coordinateArray[2];
+//    coordinateArray[0] = CLLocationCoordinate2DMake(latitude, longitude);
+//    coordinateArray[1] = CLLocationCoordinate2DMake(location.latitude, location.longitude);
+//    
+//    routeLine = [MKPolyline polylineWithCoordinates:coordinateArray count:2];
+//    [mapView setVisibleMapRect:[routeLine boundingMapRect]]; //If you want the route to be
+//    
+//    [mapView addOverlay:routeLine];
+    
+    
     [self performSelector:@selector(zoomInToMyLocation)
                withObject:nil
                afterDelay:1];
 }
+
+//-(MKOverlayView *)mapView:(MKMapView *)mapView viewForOverlay:(id<MKOverlay>)overlay
+//{
+//    if(overlay == routeLine)
+//    {
+//        if(nil == routeLineView)
+//        {
+//            routeLineView = [[MKPolylineView alloc] initWithPolyline:routeLine];
+//            routeLineView.fillColor = [UIColor redColor];
+//            routeLineView.strokeColor = [UIColor redColor];
+//            routeLineView.lineWidth = 5;
+//            
+//        }
+//        
+//        return routeLineView;
+//    }
+//    
+//    return nil;
+//}
 
 -(void)zoomInToMyLocation
 {
@@ -64,10 +111,17 @@
     return pinView;
 }
 
+- (IBAction)mapsDirections:(id)sender {
+    NSString* url = [NSString stringWithFormat:@"http://maps.apple.com/?saddr=%f,%f&daddr=%f,%f",latitude, longitude, location.latitude, location.longitude];
+   [[UIApplication sharedApplication] openURL: [NSURL URLWithString: url]];
+}
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
+
 
 /*
 #pragma mark - Navigation

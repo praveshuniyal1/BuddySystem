@@ -10,6 +10,7 @@
 		2896B1A21D2A343700E72BF7 /* MapView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2896B1A11D2A343700E72BF7 /* MapView.m */; };
 		55E185D11C7C25CC00C459D8 /* JSQMessagesBubblesSizeCalculator.m in Sources */ = {isa = PBXBuildFile; fileRef = 55E185D01C7C25CC00C459D8 /* JSQMessagesBubblesSizeCalculator.m */; };
 		5D8B52DC1C2894CD00AE512B /* CustomApplication.m in Sources */ = {isa = PBXBuildFile; fileRef = 5D8B52DB1C2894CD00AE512B /* CustomApplication.m */; };
+		89570DCA1D2D145300395B5A /* blue_arrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 89570DC91D2D145300395B5A /* blue_arrow.png */; };
 		D763F187DC6EFCFE947A137B /* libPods-BuddyTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AB2896CFD2B486C039260583 /* libPods-BuddyTests.a */; };
 		DA1355661AD251DF005B734F /* ILGeoNamesLookup.m in Sources */ = {isa = PBXBuildFile; fileRef = DA1355651AD251DF005B734F /* ILGeoNamesLookup.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		DA1355691AD259D0005B734F /* JSONKit.m in Sources */ = {isa = PBXBuildFile; fileRef = DA1355681AD259D0005B734F /* JSONKit.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -198,6 +199,7 @@
 		5D8B52DB1C2894CD00AE512B /* CustomApplication.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomApplication.m; sourceTree = "<group>"; };
 		636FAC4724B82B6EFD3C6646 /* Pods-Buddy.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Buddy.release.xcconfig"; path = "Pods/Target Support Files/Pods-Buddy/Pods-Buddy.release.xcconfig"; sourceTree = "<group>"; };
 		7BDCDAC0869BD306A7583CE6 /* libPods-Buddy.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Buddy.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		89570DC91D2D145300395B5A /* blue_arrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = blue_arrow.png; sourceTree = "<group>"; };
 		AB2896CFD2B486C039260583 /* libPods-BuddyTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-BuddyTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		CF0152ED6E5F330C817CCA12 /* Pods-BuddyTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BuddyTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-BuddyTests/Pods-BuddyTests.debug.xcconfig"; sourceTree = "<group>"; };
 		DA1355641AD251DF005B734F /* ILGeoNamesLookup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ILGeoNamesLookup.h; sourceTree = "<group>"; };
@@ -569,6 +571,7 @@
 			children = (
 				5D8B52DA1C2894CD00AE512B /* CustomApplication.h */,
 				5D8B52DB1C2894CD00AE512B /* CustomApplication.m */,
+				89570DC91D2D145300395B5A /* blue_arrow.png */,
 				DA77C9D81AB033EB00614BBC /* 76@2x.png */,
 				DA77C9D31AB028DD00614BBC /* Frameworks */,
 				DA77C76A1AB0272700614BBC /* ExternalFrameWork */,
@@ -1547,6 +1550,7 @@
 				DA77C74C1AB026BB00614BBC /* OpenSans-Bold.ttf in Resources */,
 				DA77C9A11AB0272800614BBC /* JSQMessagesTypingIndicatorFooterView.xib in Resources */,
 				DA77C9771AB0272800614BBC /* JSQMessagesAssets.bundle in Resources */,
+				89570DCA1D2D145300395B5A /* blue_arrow.png in Resources */,
 				DAB412211B134550009B8DE0 /* 31.png in Resources */,
 				DA77C7521AB026BB00614BBC /* OpenSans-ExtraBoldItalic.ttf in Resources */,
 				DA77C6C51AB0263900614BBC /* JKMenuView.xib in Resources */,

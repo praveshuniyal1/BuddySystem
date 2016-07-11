@@ -14,11 +14,16 @@
 {
     
     IBOutlet MKMapView *mapView;
+    CLLocationManager *locationManager;
+    MKPolyline *routeLine; //your line
+     MKPolylineView *routeLineView;
+    float latitude;
+    float longitude;
 }
 
 @property (nonatomic, assign) CLLocationCoordinate2D location;
 
-
+- (IBAction)mapsDirections:(id)sender;
 - (IBAction)backBtn:(id)sender;
 
 @end

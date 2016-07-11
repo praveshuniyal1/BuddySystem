@@ -722,11 +722,11 @@
     
    
 }
+
 #pragma mark-popToCurrentViewController-
 -(void)popToCurrentViewController:(UIViewController*)viewController
 {
     //[viewController.navigationController popViewControllerAnimated:YES];
-    
     
     if ([navigation.visibleViewController isKindOfClass:[WhatHappendVC class]]||[viewController isKindOfClass:[FriendListVC class]]||[viewController isKindOfClass:[ChatViewController class]]||[viewController isKindOfClass:[UserProfileVC class]])
     {
@@ -742,8 +742,6 @@
  
     }
     [navigation popViewControllerAnimated:YES];
-    
-    
 }
 
 
@@ -772,7 +770,10 @@
 #pragma mark- dowloadStreamVideo -
 -(void)dowloadStreamVideo:(NSDictionary*)requestdict andNext:(NSDictionary*)nextDic andfurtherNexr:(NSDictionary *)secondDic fileCount:(int)jsonCount andtotalCount:(int)totalCount
 {
-    [[ServerManager getSharedInstance]showProgressBarWithView:self.window MBProgressHUDMode:HorizontalBarMode];
+   
+    
+   [[ServerManager getSharedInstance]showProgressBarWithView:self.window MBProgressHUDMode:HorizontalBarMode];
+    
     NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
     AFURLSessionManager *manager = [[AFURLSessionManager alloc] initWithSessionConfiguration:configuration];
     manager.responseSerializer = [AFHTTPResponseSerializer serializer];
@@ -855,53 +856,16 @@
                                                       
                                                       
                                                       
-                                                   /*
-                                                      
-                                                     AVURLAsset *asset=[[AVURLAsset alloc] initWithURL:fileUrl options:nil];
-                                                      AVAssetImageGenerator *generator = [[AVAssetImageGenerator alloc] initWithAsset:asset];
-                                                      generator.appliesPreferredTrackTransform=TRUE;
-                                                      
-                                                      CMTime thumbTime = CMTimeMakeWithSeconds(0,30);
-                                                      
-                                                      AVAssetImageGeneratorCompletionHandler handler = ^(CMTime requestedTime, CGImageRef im, CMTime actualTime, AVAssetImageGeneratorResult result, NSError *error){
-                                                          if (result != AVAssetImageGeneratorSucceeded) {
-                                                              NSLog(@"couldn't generate thumbnail, error:%@", error);
-                                                          }
-                                                          else
-                                                          {
-                                                              dispatch_async(dispatch_get_main_queue(), ^{
-                                                                  
-                                                                  UIImage*  thumbimage=[UIImage imageWithCGImage:im] ;
-                                                                  [self storeThumbNamilImage:thumbimage and:inserdict];//
-                                                                  [self inserCategoryDataInDb:inserdict];
-                                                                  [self dowloadStreamVideo:nextDic andFurtherNext:secondDic fileCount:jsonCount andtotalCount:(int)totalCount];
-                                                              });
-                                                          }
-
-                                                      };
-                                                      
-                                                      CGSize maxSize = CGSizeMake(640, 560);
-                                                      generator.maximumSize = maxSize;
-                                                      [generator generateCGImagesAsynchronouslyForTimes:[NSArray arrayWithObject:[NSValue valueWithCMTime:thumbTime]] completionHandler:handler];
-                                                      
-                                                     */
-                                                      
-                
-                                                      
-//                                                      [self storeThumbNamilImage:thumbnileimage and:inserdict];//
-//                                                      
-//                                                      [self inserCategoryDataInDb:inserdict];
-//                                                      
-//                                                       [self dowloadStreamVideo:nextDic andFurtherNext:secondDic fileCount:jsonCount andtotalCount:(int)totalCount];
-                                                     
                                                       
                                                   }
                                                   else
                                                   {
                                                       
                                                       NSLog(@"error=%@",error.description);
-                                                      [ServerManager showAlertView:@"Message" withmessage:error.localizedDescription];
                                                       [[ServerManager getSharedInstance]hideHud];
+                                                      [ServerManager showAlertView:@"Message" withmessage:error.localizedDescription];
+                                                      
+                                                      
                                                       
                                                   }
                                               }];
@@ -913,6 +877,7 @@
     
     [manager setDownloadTaskDidWriteDataBlock:^(NSURLSession *session, NSURLSessionDownloadTask *downloadTask, int64_t bytesWritten, int64_t totalBytesWritten, int64_t totalBytesExpectedToWrite)
      {
+         
          NSLog(@"Progress… %lld", totalBytesWritten);
          float uploadPercentge = (float)totalBytesWritten / (float)totalBytesExpectedToWrite;
          //float uploadActualPercentage = uploadPercentge * 100;
@@ -974,7 +939,6 @@
                                                       
                                                       
                                                       
-                                                      
                                                       [self inserCategoryDataInDb:inserdict];
                                                       
                                                       NSURL *fileUrl;
@@ -1016,54 +980,7 @@
                                                       }];
 
                                                       
-                                                      
-                                                 /*
-                                                      
-                                                       NSURL * fileUrl= [NSURL fileURLWithPath:[NSString stringWithFormat:@"%@",videoUrlPath]];
-                                                      AVURLAsset *asset=[[AVURLAsset alloc] initWithURL:fileUrl options:nil];
-                                                      AVAssetImageGenerator *generator = [[AVAssetImageGenerator alloc] initWithAsset:asset];
-                                                      generator.appliesPreferredTrackTransform=TRUE;
-                                                      
-                                                      CMTime thumbTime = CMTimeMakeWithSeconds(0,30);
-                                                      
-                                                      AVAssetImageGeneratorCompletionHandler handler = ^(CMTime requestedTime, CGImageRef im, CMTime actualTime, AVAssetImageGeneratorResult result, NSError *error){
-                                                          if (result != AVAssetImageGeneratorSucceeded) {
-                                                              NSLog(@"couldn't generate thumbnail, error:%@", error);
-                                                          }
-                                                          else{
-                                                              dispatch_async(dispatch_get_main_queue(), ^{
-                                                                  // code here
-                                                                  UIImage*  thumbimage=[UIImage imageWithCGImage:im] ;
-                                                                  [self storeThumbNamilImage:thumbimage and:inserdict];//
-                                                                  [self inserCategoryDataInDb:inserdict];
-                                                                  [self dowloadStreamVideo:secondDic fileCount:jsonCount andtotalCount:(int)totalCount];
-                                                              });
-                                                          }
-                                                          
-                                                          
-                                                          
-                                                          
-                                                        
-                                                          
-                                                          
-                                                      };
-                                                      
-                                                      CGSize maxSize = CGSizeMake(640, 560);
-                                                      generator.maximumSize = maxSize;
-                                                      [generator generateCGImagesAsynchronouslyForTimes:[NSArray arrayWithObject:[NSValue valueWithCMTime:thumbTime]] completionHandler:handler];
-                                                      
-                                                      
-                                                      
-                                                     */
-                                                      
-                                                      
-                                                      
-                                                      
-                                                      
-                                                      //thumb image
-//                                                      [self storeThumbNamilImage:thumbnileimage and:inserdict];//
-//                                                      [self inserCategoryDataInDb:inserdict];
-//                                                       [self dowloadStreamVideo:secondDic fileCount:jsonCount andtotalCount:(int)totalCount];
+
                                                       
                                                       
                                                       
@@ -1188,60 +1105,7 @@
                                                           // Main thread work (UI usually)
                                                       }];
 
-                                                      
-                                                      
-                                                      
-                                                      
-                                                      
-                                                /*
-                                                    
-                                                       NSURL * fileUrl= [NSURL fileURLWithPath:[NSString stringWithFormat:@"%@",videoUrlPath]];
-                                                      
-                                                    AVURLAsset *asset=[[AVURLAsset alloc] initWithURL:fileUrl options:nil];
-                                                      AVAssetImageGenerator *generator = [[AVAssetImageGenerator alloc] initWithAsset:asset];
-                                                      generator.appliesPreferredTrackTransform=TRUE;
-                                                      
-                                                      CMTime thumbTime = CMTimeMakeWithSeconds(0,30);
-                                                      
-                                                      AVAssetImageGeneratorCompletionHandler handler = ^(CMTime requestedTime, CGImageRef im, CMTime actualTime, AVAssetImageGeneratorResult result, NSError *error){
-                                                          if (result != AVAssetImageGeneratorSucceeded) {
-                                                              NSLog(@"couldn't generate thumbnail, error:%@", error);
-                                                          }
-                                                          else
-                                                          {
-                                                              if (isFromWhatHappen==YES)
-                                                              {
-                                                                  dispatch_async(dispatch_get_main_queue(), ^{
-                                                                      // code here
-                                                                      UIImage*  thumbimage=[UIImage imageWithCGImage:im] ;
-                                                                      [self storeThumbNamilImage:thumbimage and:inserdict];//
-                                                                      [self inserCategoryDataInDb:inserdict];
-                                                                  });
-                                                              }
-                                                              else
-                                                              {
-                                                                  UIImage*  thumbimage=[UIImage imageWithCGImage:im] ;
-                                                                  [self storeThumbNamilImage:thumbimage and:inserdict];//
-                                                                  [self inserCategoryDataInDb:inserdict];
-                                                                  
-                                                              }
-                                                          }
-                                                          
-                                                         
-                                                          
-                                                          
-                                                      };
-                                                      
-                                                      CGSize maxSize = CGSizeMake(640, 560);
-                                                      generator.maximumSize = maxSize;
-                                                      [generator generateCGImagesAsynchronouslyForTimes:[NSArray arrayWithObject:[NSValue valueWithCMTime:thumbTime]] completionHandler:handler];
-                                                      
-                                                    */
-                                                      
-                                                      //thumb image
-//                                                      [self storeThumbNamilImage:thumbnileimage and:inserdict];//
-//                                                      [self inserCategoryDataInDb:inserdict];
-                                                      
+          
                                                       
                                                       
                                                   }

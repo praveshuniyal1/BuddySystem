@@ -9,6 +9,9 @@
 #import "UserProfileVC.h"
 
 @interface UserProfileVC ()
+{
+    BOOL isMessageFieldEmpty;
+}
 
 @end
 #define ComINPUT_HEIGHT 60.0f
@@ -17,7 +20,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    
+    isMessageFieldEmpty=YES;
     TopBarView.clipsToBounds = NO;
     TopBarView.layer.shadowColor = [[UIColor grayColor] CGColor];
     TopBarView.layer.shadowOffset = CGSizeMake(0,2);
@@ -287,32 +290,38 @@
 
 - (IBAction)TappedOnMessage:(id)sender
 {
-    
-//    NSString *searchWordProtection = [MessageText.text stringByReplacingOccurrencesOfString:@" " withString:@""];
-    NSString *searchWordProtection = MessageText.text;
-    NSLog(@"Length: %lu",(unsigned long)searchWordProtection.length);
-    if (searchWordProtection.length != 0)
+    if (isMessageFieldEmpty==NO)
     {
-        
-        BOOL is_net=[[ServerManager getSharedInstance]checkNetwork];
-        if (is_net==YES)
+        NSString *searchWordProtection = MessageText.text;
+        NSLog(@"Length: %lu",(unsigned long)searchWordProtection.length);
+        if (searchWordProtection.length != 0)
         {
-            [[ServerManager getSharedInstance]showactivityHub:@"Please wait.." addWithView:self.view];
-            NSDictionary * userinfoDict=[NSDictionary dictionaryWithDictionary:[NSUserDefaults getNSUserDefaultValueForKey:kLoginUserInfo]] ;
-            NSString* from_usrId=[NSString stringWithFormat:@"%@",[userinfoDict objectForKey:@"id"]];
-            NSString * to_userId=[NSString stringWithFormat:@"%@",[userinfodict objectForKey:@"usr_id"]];
             
-           NSString * strDate=[[ServerManager getSharedInstance]setCustomeDateFormateWithUTCTimeZone:yyyymmddHHmmSS withtime:[NSDate date]];
-            NSDate * selectedDate=[[ServerManager getSharedInstance]setCustomeDateFormateWithUTCTimeZone:yyyymmddHHmmSS withtime:strDate];
-            NSDictionary * postDict =[NSDictionary dictionaryWithObjectsAndKeys:from_usrId,@"from_usrid",to_userId,@"to_usrid",searchWordProtection,@"msg",selectedDate,@"date",[NSNumber numberWithInt:0],@"content_type",nil];
+            BOOL is_net=[[ServerManager getSharedInstance]checkNetwork];
+            if (is_net==YES)
+            {
+                [[ServerManager getSharedInstance]showactivityHub:@"Please wait.." addWithView:self.view];
+                NSDictionary * userinfoDict=[NSDictionary dictionaryWithDictionary:[NSUserDefaults getNSUserDefaultValueForKey:kLoginUserInfo]] ;
+                NSString* from_usrId=[NSString stringWithFormat:@"%@",[userinfoDict objectForKey:@"id"]];
+                NSString * to_userId=[NSString stringWithFormat:@"%@",[userinfodict objectForKey:@"usr_id"]];
+                
+                NSString * strDate=[[ServerManager getSharedInstance]setCustomeDateFormateWithUTCTimeZone:yyyymmddHHmmSS withtime:[NSDate date]];
+                NSDate * selectedDate=[[ServerManager getSharedInstance]setCustomeDateFormateWithUTCTimeZone:yyyymmddHHmmSS withtime:strDate];
+                NSDictionary * postDict =[NSDictionary dictionaryWithObjectsAndKeys:from_usrId,@"from_usrid",to_userId,@"to_usrid",searchWordProtection,@"msg",selectedDate,@"date",[NSNumber numberWithInt:0],@"content_type",nil];
+                
+                
+                [ServerManager getSharedInstance].Delegate=self;
+                [[ServerManager getSharedInstance]postDataOnserver:postDict withrequesturl:KsendMessage];
+                [self resignInputView];
+            }
             
-            
-            [ServerManager getSharedInstance].Delegate=self;
-            [[ServerManager getSharedInstance]postDataOnserver:postDict withrequesturl:KsendMessage];
-            [self resignInputView];
         }
-       
+ 
     }
+    else{
+        
+    }
+    
     
     
     
@@ -322,6 +331,9 @@
 {
     
     UIAlertView *alert=[[UIAlertView alloc]initWithTitle:@"Message" message:@"Do you want to share your location to your friend?" delegate:self cancelButtonTitle:@"No" otherButtonTitles:@"Yes", nil];
+    alert.tag=100;
+    
+    
     [alert show];
     
     
@@ -329,12 +341,36 @@
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
-    if (buttonIndex==1)
+    if (alertView.tag==100)
     {
-        [self ClickOnToolBarButtons];
+        if (buttonIndex==1)
+        {
+            [self ClickOnToolBarButtons:userinfodict];
+        }
+        else{
+            
+        }
+        
     }
+    else
+    {
+        if (alertView == alertNew) {
+            if (buttonIndex==0)
+            {
+                MessageText.text=nil;
+                
+                [self resignInputView];
+                [self LoadChatView:userinfodict];
+                
+            }
+        }
+
+    }
+    
+    
+    
 }
--(void)ClickOnToolBarButtons
+-(void)ClickOnToolBarButtons:(NSMutableDictionary*)selectDic
 {
     CLLocationCoordinate2D  loctCoord = [[LocationManager locationInstance]getcurrentLocation];
     
@@ -350,7 +386,7 @@
         NSString *msg=@"aa";
         NSString * strDate=[[ServerManager getSharedInstance]setCustomeDateFormateWithUTCTimeZone:yyyymmddHHmmSS withtime:[NSDate date]];
         NSDate * selectedDate=[[ServerManager getSharedInstance]setCustomeDateFormateWithUTCTimeZone:yyyymmddHHmmSS withtime:strDate];
-        NSString* friendid= [JKModelData getSharedInstance].kJSQReciverId ;
+         NSString * friendid=[NSString stringWithFormat:@"%@",[selectDic valueForKey:@"usr_id"]];
         NSDictionary * params=[NSDictionary dictionaryWithObjectsAndKeys:from_usrId,@"from_usrid",friendid,@"to_usrid",selectedDate,@"date",lati,@"latitude",longi,@"longitude",[NSNumber numberWithInt:1],@"content_type",msg,@"msg" ,nil];
         [ServerManager getSharedInstance].Delegate=self;
         [[ServerManager getSharedInstance]postDataOnserver:params withrequesturl:KsendMessage];
@@ -589,9 +625,14 @@
             case 1:
             {
                 //[ServerManager showAlertView:@"Message!!" withmessage:[responseDict valueForKey:@"msg"]];
-                [ServerManager showAlertView:@"Message!!" withmessage:@"message send successfully"];
+//                [ServerManager showAlertView:@"Message!!" withmessage:@"message send successfully"];
+                
                 MessageText.text=nil;
                 [self resignInputView];
+                [self LoadChatView:userinfodict];
+                
+//       alertNew=[[UIAlertView alloc]initWithTitle:@"Message!!" message:@"Message send successfully" delegate:self cancelButtonTitle:nil otherButtonTitles:@"OKay", nil];
+//        [alertNew show];
                 
             }
                 break;
@@ -627,6 +668,62 @@
         }
 
     }
+    
+}
+
+
+
+
+-(void)LoadChatView:(NSMutableDictionary*)selectdict
+{
+    ChatViewController * chatview=[self.storyboard instantiateViewControllerWithIdentifier:@"ChatViewController"];
+    chatview.profileName.text =[NSString stringWithFormat:@"%@",[selectdict valueForKey:@"usr_name"]];
+    chatview.friendId=[NSString stringWithFormat:@"%@",[selectdict valueForKey:@"usr_id"]];
+   // chatview.toUserId=usrId;
+    chatview.toUserId = [selectdict objectForKey:@"id"];
+    NSURL * profileurl=[NSURL URLWithString:[selectdict valueForKey:@"profile_pic"]];
+    [chatview.profilePic sd_setImageWithURL:profileurl];
+    
+    NSURL * imageUrl=[NSURL URLWithString:[selectdict valueForKey:@"profile_pic"]];
+    NSString * frindId=[NSString stringWithFormat:@"%@",[selectdict valueForKey:@"usr_id"]];
+    NSString * frindname=[NSString stringWithFormat:@"%@",[selectdict valueForKey:@"usr_name"]];
+    
+    NSOperationQueue * myQueie=[[NSOperationQueue alloc]init];
+    [myQueie addOperationWithBlock:^{
+        
+        [[ServerManager getSharedInstance]getImageFromServerPath:imageUrl completed:^(UIImage *image, BOOL finished)
+         {
+             
+             if (finished==YES)
+             {
+                 
+                 
+                 if (image)
+                 {
+                     [[JKModelData getSharedInstance]setKJSQReciverId:frindId];
+                     [[JKModelData getSharedInstance]setKJSQReciverDisplayName:frindname];
+                     [[JKModelData getSharedInstance]setKJSQReciverAvatarImage:image];
+                     
+                     
+                 }
+                 
+             }
+         }];
+        [[NSOperationQueue mainQueue]addOperationWithBlock:^{
+            [[ServerManager getSharedInstance]hideHud];
+            
+            UIImage * image=[JKModelData getSharedInstance].kJSQReciverAvatarImage;
+            
+            NSDictionary * selectcontac=[NSDictionary dictionaryWithObjectsAndKeys:frindname,@"name",frindId,@"id",image,@"image", nil];
+            chatview.selectFreindInfoDict=selectcontac;
+            UINavigationController * chatnav=[[UINavigationController alloc]initWithRootViewController:chatview];
+            
+            [self presentViewController:chatnav animated:YES completion:nil];
+            
+            
+        }];
+        
+    }];
     
 }
 
@@ -685,6 +782,7 @@
 {
     if ([MessageText.text isEqual:@"Message"])
     {
+        isMessageFieldEmpty=NO;
         MessageText.text=@"";
         MessageText.textColor=[UIColor blackColor];
         MessageText.layer.borderColor=[[UIColor redColor]CGColor];
@@ -700,6 +798,7 @@
 {
     if (MessageText.text.length==0)
     {
+        isMessageFieldEmpty=YES;
         MessageText.text=@"Message";
         MessageText.textColor=[UIColor lightGrayColor];
         MessageText.layer.borderColor=[[UIColor lightGrayColor]CGColor];
@@ -709,6 +808,7 @@
     }
     else if (![MessageText.text isEqual:@"Message"])
     {
+        isMessageFieldEmpty=NO;
         MessageText.textColor=[UIColor blackColor];
         MessageText.layer.borderColor=[[UIColor redColor]CGColor];
         [sendButton setTintColor:[UIColor blueColor]];
@@ -724,12 +824,14 @@
 {
     if (MessageText.text.length==0)
     {
+        isMessageFieldEmpty=YES;
         MessageText.text=@"Message";
         MessageText.textColor=[UIColor lightGrayColor];
         MessageText.layer.borderColor=[[UIColor lightGrayColor]CGColor];
     }
     else if (![MessageText.text isEqual:@"Message"])
     {
+        isMessageFieldEmpty=NO;
         MessageText.textColor=[UIColor blackColor];
         MessageText.layer.borderColor=[[UIColor redColor]CGColor];
     }

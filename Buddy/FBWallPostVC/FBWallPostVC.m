@@ -48,9 +48,15 @@ int idx=0;
     
     userinfoDict=[NSDictionary dictionaryWithDictionary:[NSUserDefaults getNSUserDefaultValueForKey:kLoginUserInfo]] ;
     friendlist=(NSMutableArray*)[NSUserDefaults getNSUserDefaultObjectForKey:kFriendList];
-    if (friendlist.count>=10) {
-         friendlist = [friendlist subarrayWithRange:NSMakeRange(0, 10)];
+    
+    if (![friendlist isEqual:@"null"])
+    {
+        if (friendlist.count>=10) {
+            friendlist = [friendlist subarrayWithRange:NSMakeRange(0, 10)];
+        }
     }
+    
+    
     
    
     
