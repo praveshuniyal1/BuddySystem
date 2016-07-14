@@ -92,8 +92,8 @@
     NSString * description;
     if (animation==YES)
     {
-        //description=[NSString stringWithFormat:@"%@",[[dict valueForKey:@"common_activity"]componentsJoinedByString:@","]];
-        description=[NSString stringWithFormat:@"%@",[[dict valueForKey:@"common_activity"] valueForKey:@"Activity"]];
+        description=[NSString stringWithFormat:@"%@",[dict valueForKey:@"Activity"]];
+       // description=[NSString stringWithFormat:@"%@",[[dict valueForKey:@"common_activity"] valueForKey:@"Activity"]];
 
     }
     else

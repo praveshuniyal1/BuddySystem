@@ -11,6 +11,8 @@
 @interface FriendListVC ()
 {
     NSMutableArray *blockedArr;
+    NSMutableArray *main_contact_Array;
+    NSMutableArray *mainArray;
 }
 
 @end
@@ -347,9 +349,15 @@
     {
         
         // NSString * poststr=[NSString stringWithFormat:@"usr_id=%@&usr_name=%@",usrId,name];
-        [ServerManager getSharedInstance].Delegate=self;
-        NSDictionary * postDict=[NSDictionary dictionaryWithObjectsAndKeys:usrId,@"usr_id",searchText,@"username", nil];
-        [[ServerManager getSharedInstance]postDataOnserver:postDict withrequesturl:KSearch];
+//        [ServerManager getSharedInstance].Delegate=self;
+//        NSDictionary * postDict=[NSDictionary dictionaryWithObjectsAndKeys:usrId,@"usr_id",searchText,@"username", nil];
+//        [[ServerManager getSharedInstance]postDataOnserver:postDict withrequesturl:KSearch];
+        
+        
+        NSPredicate *bPredicate =[NSPredicate predicateWithFormat:@"Name contains[cd] %@",searchText];
+        searchResults = [main_contact_Array  filteredArrayUsingPredicate:bPredicate];
+        [self.searchDisplayController.searchResultsTableView reloadData];
+        NSLog(@"%@",searchResults);
         
         
     }
@@ -485,6 +493,17 @@
                               [blockedArr addObject:[[responseDict valueForKey:@"data"] objectAtIndex:i]];
                           }
                       }
+                
+                
+                main_contact_Array=[NSMutableArray new];
+                for (int i =0; i<contactList.count; i++)
+                {
+                    NSString *combined=[NSString stringWithFormat:@"%@,%@",[[contactList valueForKey:@"usr_name"]objectAtIndex:i],[[[contactList valueForKey:@"common_activity"] valueForKey:@"Activity"]objectAtIndex:i]];
+                     NSDictionary *dicitonary = [[NSDictionary alloc]initWithObjects:[NSArray arrayWithObjects:combined,[[contactList valueForKey:@"usr_name"]objectAtIndex:i],[[contactList valueForKey:@"usr_id"]objectAtIndex:i],[[[contactList valueForKey:@"common_activity"] valueForKey:@"Activity"]objectAtIndex:i],[[contactList valueForKey:@"id"]objectAtIndex:i],[[contactList valueForKey:@"message_status"]objectAtIndex:i],[[contactList valueForKey:@"online_status"]objectAtIndex:i],[[contactList valueForKey:@"profile_pic"]objectAtIndex:i], nil] forKeys:[NSArray arrayWithObjects:@"Name",@"usr_name",@"usr_id",@"Activity",@"id",@"message_status",@"online_status",@"profile_pic", nil]];
+                    
+                    [main_contact_Array addObject:dicitonary];
+                }
+
                 
               
                 

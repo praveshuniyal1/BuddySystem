@@ -16,7 +16,7 @@
     
     
     IBOutlet UISearchBar *searchtext;
-    NSMutableArray * searchResults;
+    NSArray * searchResults;
     NSIndexPath *didindexPath;
     NSMutableArray * contactList;
     NSString * usrId;

@@ -274,7 +274,7 @@
                 }
 
                 
-                NSMutableDictionary *params=[NSMutableDictionary dictionaryWithObjectsAndKeys:acitivityId,@"category_id",activityName,@"category_name",[[NSUserDefaults standardUserDefaults] valueForKey:@"my_id"],@"usr_id",[[NSUserDefaults standardUserDefaults]valueForKey:@"My_name"],@"usr_name",[[NSUserDefaults standardUserDefaults]valueForKey:@"Cityy"],@"place",create_date,@"create_date",expire_date,@"expire_date",[NSNumber numberWithInt:expiryparam],@"expiry_param",  [[NSUserDefaults standardUserDefaults]valueForKey: @"City_LAT"],@"latitude",[[NSUserDefaults standardUserDefaults]valueForKey:@"City_LONG"],@"longitude",nil];
+                NSMutableDictionary *params=[NSMutableDictionary dictionaryWithObjectsAndKeys:acitivityId,@"category_id",activityName,@"category_name",[[NSUserDefaults standardUserDefaults] valueForKey:@"my_id"],@"usr_id",[[NSUserDefaults standardUserDefaults]valueForKey:@"My_name"],@"usr_name",create_date,@"create_date",expire_date,@"expire_date",[NSNumber numberWithInt:expiryparam],@"expiry_param",  [[NSUserDefaults standardUserDefaults]valueForKey: @"City_LAT"],@"latitude",[[NSUserDefaults standardUserDefaults]valueForKey:@"City_LONG"],@"longitude",[[NSUserDefaults standardUserDefaults]valueForKey:@"Cityy"],@"place",nil];
 
                 
                 
