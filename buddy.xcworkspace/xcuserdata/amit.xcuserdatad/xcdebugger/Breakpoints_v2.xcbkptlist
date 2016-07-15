@@ -90,11 +90,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "AppManager/ChatVC/ChatViewController.m"
-            timestampString = "489474275.395574"
+            timestampString = "490258918.899448"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "737"
-            endingLineNumber = "737"
+            startingLineNumber = "741"
+            endingLineNumber = "741"
             landmarkName = "-serverReponse:withrequestName:"
             landmarkType = "5">
          </BreakpointContent>
@@ -106,11 +106,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "AppManager/ChatVC/ChatViewController.m"
-            timestampString = "489474275.395574"
+            timestampString = "490258918.899448"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "792"
-            endingLineNumber = "792"
+            startingLineNumber = "796"
+            endingLineNumber = "796"
             landmarkName = "-serverReponse:withrequestName:"
             landmarkType = "5">
          </BreakpointContent>
@@ -138,12 +138,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Buddy/UserProfileVC/UserProfileVC.m"
-            timestampString = "489908786.827681"
+            timestampString = "490261289.063608"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "375"
-            endingLineNumber = "375"
-            landmarkName = "-ClickOnToolBarButtons:"
+            startingLineNumber = "394"
+            endingLineNumber = "394"
+            landmarkName = "-sendLocationToFriend:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

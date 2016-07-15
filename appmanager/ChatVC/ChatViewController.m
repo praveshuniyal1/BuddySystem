@@ -35,6 +35,10 @@
         profilePic.layer.borderWidth=1;
    
     
+    NSArray * arr = [profileName.text componentsSeparatedByString:@" "];
+    profileName.text=[arr objectAtIndex:0];
+    NSLog(@"Array values are : %@",arr);
+    
     if (IS_IPHONE_6P)
     {
         headerView.frame=CGRectMake(0, 0, 414, 54);

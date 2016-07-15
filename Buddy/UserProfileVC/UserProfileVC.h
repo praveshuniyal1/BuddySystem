@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "JKClassManager.h"
-@interface UserProfileVC : UIViewController<ServerManagerDelegate,UIAlertViewDelegate,UIActionSheetDelegate>
+@interface UserProfileVC : UIViewController<ServerManagerDelegate,UIAlertViewDelegate,UIActionSheetDelegate,PopoverViewDelegate>
 {
     
     IBOutlet UIView *menuContentView;
@@ -24,12 +24,14 @@
     IBOutlet UILabel *lbl_relation;
     NSString * friendId;
     PopoverView *menuPopview;
+    PopoverView * attachmentPopView;
 
     IBOutlet UITableView *MenuTable;
     IBOutlet UIBarButtonItem *sendButton;
     UIAlertView *alertNew;
     
     
+    IBOutlet UIToolbar *menuToolBar;
     
 }
 @property(strong,nonatomic)NSMutableDictionary * userinfodict;
@@ -38,5 +40,9 @@
 
 - (IBAction)OpenMenuVC:(id)sender;
 - (IBAction)TappedOnMessage:(id)sender;
+
+- (IBAction)sendMap:(UIBarButtonItem *)sender;
+
+- (IBAction)sendLocationToFriend:(id)sender;
 
 @end

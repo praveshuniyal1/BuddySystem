@@ -84,7 +84,7 @@
     {
         //[[ServerManager getSharedInstance]showactivityHub:@"Loading.." addWithView:self.view];
         [ServerManager getSharedInstance].Delegate=self;
-        
+        //usrId=@"1408861696106776";
         NSDictionary * postDict=[NSDictionary dictionaryWithObjectsAndKeys:usrId,@"usr_id", nil];
         [[ServerManager getSharedInstance]postDataOnserver:postDict withrequesturl:KUserFriendlist];
         

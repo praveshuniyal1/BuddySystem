@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		286CCA481D38CD5100BC598D /* attach-icon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 286CCA471D38CD5100BC598D /* attach-icon@3x.png */; };
 		2896B1A21D2A343700E72BF7 /* MapView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2896B1A11D2A343700E72BF7 /* MapView.m */; };
 		55E185D11C7C25CC00C459D8 /* JSQMessagesBubblesSizeCalculator.m in Sources */ = {isa = PBXBuildFile; fileRef = 55E185D01C7C25CC00C459D8 /* JSQMessagesBubblesSizeCalculator.m */; };
 		5D8B52DC1C2894CD00AE512B /* CustomApplication.m in Sources */ = {isa = PBXBuildFile; fileRef = 5D8B52DB1C2894CD00AE512B /* CustomApplication.m */; };
@@ -189,6 +190,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		286CCA471D38CD5100BC598D /* attach-icon@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "attach-icon@3x.png"; sourceTree = "<group>"; };
 		2896B1A01D2A343700E72BF7 /* MapView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MapView.h; path = ../MapView.h; sourceTree = "<group>"; };
 		2896B1A11D2A343700E72BF7 /* MapView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MapView.m; path = ../MapView.m; sourceTree = "<group>"; };
 		3E26F02F0466C88E75592F0C /* Pods-Buddy.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Buddy.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Buddy/Pods-Buddy.debug.xcconfig"; sourceTree = "<group>"; };
@@ -571,6 +573,7 @@
 			children = (
 				5D8B52DA1C2894CD00AE512B /* CustomApplication.h */,
 				5D8B52DB1C2894CD00AE512B /* CustomApplication.m */,
+				286CCA471D38CD5100BC598D /* attach-icon@3x.png */,
 				89570DC91D2D145300395B5A /* blue_arrow.png */,
 				DA77C9D81AB033EB00614BBC /* 76@2x.png */,
 				DA77C9D31AB028DD00614BBC /* Frameworks */,
@@ -1562,6 +1565,7 @@
 				DA77C6BC1AB0263900614BBC /* D.png in Resources */,
 				DA77C6C31AB0263900614BBC /* info.mov in Resources */,
 				DA77C7691AB026BB00614BBC /* Videos.bundle in Resources */,
+				286CCA481D38CD5100BC598D /* attach-icon@3x.png in Resources */,
 				DA77C9D91AB033EB00614BBC /* 76@2x.png in Resources */,
 				DA77C74E1AB026BB00614BBC /* OpenSans-CondBold_0.ttf in Resources */,
 				DA77C73D1AB026BB00614BBC /* abc.mp3 in Resources */,

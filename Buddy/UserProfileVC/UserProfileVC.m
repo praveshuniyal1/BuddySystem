@@ -34,12 +34,12 @@
 -(void)initilizeMessageView
 {
     CGSize size = self.view.frame.size;
-    ToolBar.frame=CGRectMake(ToolBar.frame.origin.x, size.height-(ComINPUT_HEIGHT-10), size.width, ComINPUT_HEIGHT-10);
-    MessageText.text=@"Message";
+    ToolBar.frame=CGRectMake(ToolBar.frame.origin.x, size.height+2-(ComINPUT_HEIGHT-13), size.width, ComINPUT_HEIGHT-15);
+    MessageText.text=@"New Message";
     MessageText.textColor=[UIColor lightGrayColor];
     MessageText.layer.borderColor=[[UIColor lightGrayColor]CGColor];
     MessageText.layer.borderWidth=1;
-    MessageText.layer.cornerRadius=2.0;
+    MessageText.layer.cornerRadius=5.0;
     [self.view addSubview:ToolBar];
     
      [self getAllUserList];
@@ -130,7 +130,7 @@
         CGFloat inputViewFrameY = keyboardY - inputViewFrame.size.height;
         
         // for ipad modal form presentations
-        CGFloat messageViewFrameBottom = self.view.frame.size.height - (ComINPUT_HEIGHT-10);
+        CGFloat messageViewFrameBottom = self.view.frame.size.height - (ComINPUT_HEIGHT-15);
         if(inputViewFrameY > messageViewFrameBottom)
             
             inputViewFrameY = messageViewFrameBottom;
@@ -290,6 +290,7 @@
 
 - (IBAction)TappedOnMessage:(id)sender
 {
+    
     if (isMessageFieldEmpty==NO)
     {
         NSString *searchWordProtection = MessageText.text;
@@ -325,6 +326,24 @@
     
     
     
+}
+
+- (IBAction)sendMap:(UIButton *)sender
+{
+    UIView *bottomView=[[UIView alloc]initWithFrame:CGRectMake(0, self.view.frame.size.height-70, 64, 44)];
+    
+    [self.view addSubview:bottomView];
+    
+    CGPoint point =bottomView.center;
+    
+    attachmentPopView=[PopoverView showPopoverAtPoint:point inView:self.view
+                                      withContentView:menuToolBar delegate:self];
+}
+
+- (IBAction)sendLocationToFriend:(id)sender
+{
+    [[ServerManager getSharedInstance]showactivityHub:@"Please wait.." addWithView:self.view];
+    [self ClickOnToolBarButtons:userinfodict];
 }
 
 - (IBAction)TappedOnMapPoint:(UIButton*)menubtn
@@ -780,7 +799,7 @@
 #pragma mark-Delegate Method of TextView-
 - (BOOL)textViewShouldBeginEditing:(UITextView *)textView
 {
-    if ([MessageText.text isEqual:@"Message"])
+    if ([MessageText.text isEqual:@"New Message"])
     {
         isMessageFieldEmpty=NO;
         MessageText.text=@"";
@@ -799,14 +818,14 @@
     if (MessageText.text.length==0)
     {
         isMessageFieldEmpty=YES;
-        MessageText.text=@"Message";
+        MessageText.text=@"New Message";
         MessageText.textColor=[UIColor lightGrayColor];
         MessageText.layer.borderColor=[[UIColor lightGrayColor]CGColor];
         [MessageText resignFirstResponder];
         [sendButton setTintColor:[UIColor lightGrayColor]];
         
     }
-    else if (![MessageText.text isEqual:@"Message"])
+    else if (![MessageText.text isEqual:@"New Message"])
     {
         isMessageFieldEmpty=NO;
         MessageText.textColor=[UIColor blackColor];
@@ -825,11 +844,11 @@
     if (MessageText.text.length==0)
     {
         isMessageFieldEmpty=YES;
-        MessageText.text=@"Message";
+        MessageText.text=@"New Message";
         MessageText.textColor=[UIColor lightGrayColor];
         MessageText.layer.borderColor=[[UIColor lightGrayColor]CGColor];
     }
-    else if (![MessageText.text isEqual:@"Message"])
+    else if (![MessageText.text isEqual:@"New Message"])
     {
         isMessageFieldEmpty=NO;
         MessageText.textColor=[UIColor blackColor];
